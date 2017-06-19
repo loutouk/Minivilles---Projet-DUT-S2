@@ -1,3 +1,7 @@
+package minivilles.metier;
+
+import minivilles.metier.Carte;
+
 import java.util.*;
 
 public class Joueur {

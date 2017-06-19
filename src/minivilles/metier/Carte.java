@@ -60,6 +60,10 @@ public class Carte {
 
 		retS += "\n";
 
+		retS += "|" + String.format("%" + 18 + "s", this.cout) + "|";
+
+		retS += "\n";
+
 		retS += String.format("%0" + largeur + "d", 0).replace("0", "=");
 
 		return retS;
