@@ -15,6 +15,7 @@ public class Banque {
 
 	/**
 	 * Effectue un retrait dans le solde de la banque, du montant indiqué en paramètre.
+	 *
 	 * @param nb le montant de pièces à retirer de la banque
 	 * @return un booléen, indiquand la réussite de l'opération.
 	 */

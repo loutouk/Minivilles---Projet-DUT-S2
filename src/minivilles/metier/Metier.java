@@ -1,6 +1,8 @@
 package minivilles.metier;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import minivilles.metier.*;
 
 /**
@@ -15,20 +17,32 @@ public class Metier {
 
 
 	public Metier() {
-		pioche = new ArrayList<Carte>();
-		listeJoueur = new ArrayList<Joueur>();
+		this.pioche = new ArrayList<>();
+		this.listeJoueur = new ArrayList<>();
 	}
+
+	/**
+	 * Retourne le joueur par son numéro
+	 *
+	 * @return Le joueur en question
+	 */
+	public Joueur getJoueur(int indice) {
+		if (indice < 0 || indice >= listeJoueur.size()) return null;
+
+		return this.listeJoueur.get(indice);
+	}
+
 
 	/* Genere les cartes selon le nombre de joueur, ainsi que les joueurs, la banque */
 	public void initialiserPlateau(int nbJoueurs) {
 
 		// Creation des joueurs
-		for(int cpt=0 ; cpt<nbJoueurs ; cpt++) listeJoueur.add(new Joueur());
+		for (int cpt = 0; cpt < nbJoueurs; cpt++) listeJoueur.add(new Joueur());
 
 		// Creation de la pioche
 		// Cartes de bases
 		// Cartes des joueurs
-		switch (nbJoueurs){
+		switch (nbJoueurs) {
 			case 1:
 				break;
 			case 2:
@@ -41,21 +55,25 @@ public class Metier {
 		banque = new Banque();
 	}
 
-	/* L'id peut etre l'dientifiant ou le nom de la carte */
-	public boolean piocher(String id, Joueur joueur){
-
+	/**
+	 * Pioche la carte dont on donne l'identifiant, et la place dans la main du joueur passé en paramètre.
+	 *
+	 * @param id l'identifiant de la carte
+	 * @param joueur le joueur qui va recevoir la carte
+	 * @return un booléen indiquant la réussite de l'opération
+	 */
+	public boolean piocher(String id, Joueur joueur) {
 		Carte carte = null;
 
-		// On recupere la carte correspondant au nom
-		for(Carte c : pioche) if(c.getNom().equals(id)||c.getIdentifiant().equals(id)) carte = c;
+		// On récupère la carte correspondant au nom
+		for (Carte c : pioche) if (c.getNom().equals(id) || c.getIdentifiant().equals(id)) carte = c;
 
-		if(pioche.contains(carte)) {
+		if (pioche.contains(carte)) {
 			joueur.getMain().add(carte);
 			return pioche.remove(carte);
 		}
 
 		return false;
-
 	}
 
 	/* Affiche le plateau */

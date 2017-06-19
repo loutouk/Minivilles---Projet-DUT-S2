@@ -26,6 +26,16 @@ public class Controleur {
 		//////////////////////////////////////////*/
 	}
 
+
+	/**
+	 * Accesseur pour récupérer le métier depuis la partie Test du programme
+	 *
+	 * @return Le metier
+	 */
+	public Metier getMetier() {
+		return this.metier;
+	}
+
 	public void lancer() {
 		this.ihm.menu();
 	}

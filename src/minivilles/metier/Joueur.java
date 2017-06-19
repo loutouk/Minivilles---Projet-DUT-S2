@@ -23,6 +23,7 @@ public class Joueur {
 
 	/**
 	 * Retourne l'identifiant du joueur.
+	 *
 	 * @return l'identifiant du joueur.
 	 */
 	public int getNum() {
@@ -31,6 +32,7 @@ public class Joueur {
 
 	/**
 	 * Retourne le nombre de pièces du joueur.
+	 *
 	 * @return le nombre de pièces du joueur.
 	 */
 	public int getPieces() {
@@ -39,6 +41,7 @@ public class Joueur {
 
 	/**
 	 * Retourne la main du joueur.
+	 *
 	 * @return la main du joueur.
 	 */
 	public ArrayList<Carte> getMain() {
@@ -47,6 +50,7 @@ public class Joueur {
 
 	/**
 	 * Ajoute <i>nb</i> pièces au joueur.
+	 *
 	 * @param nb le nombre de pièces à ajouter
 	 */
 	public void addPiece(int nb) {
@@ -54,7 +58,17 @@ public class Joueur {
 	}
 
 	/**
+	 * Défini le nombre de pièces du joueur en <i>nb</i>
+	 *
+	 * @param nb Le nombre de pièces à définir
+	 */
+	public void setPiece(int nb) {
+		this.pieces = nb;
+	}
+
+	/**
 	 * Ajoute la carte <i>c</i> à la main du joueur.
+	 *
 	 * @param c la carte à ajouter
 	 */
 	public void addCarte(Carte c) {
@@ -63,6 +77,7 @@ public class Joueur {
 
 	/**
 	 * Retire <i>nb</i> pièces au joueur.
+	 *
 	 * @param nb le nombre de pièces à retirer
 	 */
 	public void retirerPiece(int nb) {
