@@ -81,6 +81,7 @@ public class Metier {
 		return "";
 	}
 
+	// push
 	/* Affiche les cartes sur l'horizontal */
 	public String afficherLigneCarte(ArrayList<Carte> cartes) {
 
