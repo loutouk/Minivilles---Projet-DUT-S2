@@ -10,7 +10,7 @@ public class Metier {
 
 	private ArrayList<Carte> pioche;
 	private ArrayList<Joueur> listeJoueur;
-	private Banque banque;
+	private static Banque banque = new Banque();
 
 
 	public Metier() {
@@ -47,9 +47,6 @@ public class Metier {
 			case 3:
 				break;
 		}
-
-		// Creation de la banque
-		banque = new Banque();
 	}
 
 	/**
