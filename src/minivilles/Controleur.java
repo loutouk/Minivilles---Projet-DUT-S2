@@ -1,7 +1,11 @@
-package minivilles.controleur;
+package minivilles;
 
-import minivilles.ihm.IHM;
-import minivilles.metier.Metier;
+/**
+ * Created by Louis on 19/06/2017.
+ */
+
+import minivilles.metier.*;
+import minivilles.ihm.*;
 
 public class Controleur {
 	private IHM ihm;

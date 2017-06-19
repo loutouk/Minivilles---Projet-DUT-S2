@@ -7,14 +7,17 @@ package minivilles.metier;
 public class Carte {
 	private String nom;
 	private String texteEffet;
+	private String couleur;
+	private String identifiant;
 
 	private int declencheur;
 	private int cout;
 
-	public Carte(String nom, String texteEffet, int declencheur, int cout) {
+	public Carte(String nom, String texteEffet, String couleur, int declencheur, int cout, String identifiant) {
 		this.nom = nom;
 		this.texteEffet = texteEffet;
-
+		this.couleur = couleur;
+		this.identifiant = identifiant;
 		this.declencheur = declencheur;
 		this.cout = cout;
 	}
@@ -35,6 +38,14 @@ public class Carte {
 		return this.cout;
 	}
 
+	public String getCouleur() {
+		return couleur;
+	}
+
+	public String getIdentifiant() {
+		return identifiant;
+	}
+
 	@Override
 	public String toString() {
 		String retS = "";
@@ -48,20 +59,12 @@ public class Carte {
 		retS += "|" + String.format("%" + -(largeur-2) + "s", this.nom) + "|";
 		retS += "\n";
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 3; i++) {
 			retS += "|" + String.format("%0" + (largeur-2) + "d", 0).replace("0", " ") + "|";
 			retS += "\n";
 		}
 
-		if (this.texteEffet.length() >= (largeur-2)) {
-			for (int i = 0; i < this.texteEffet.length() % largeur-2; i++) {
-				String s = this.texteEffet.substring(0, 0);
-
-				retS += "|" + String.format("%" + -(largeur-2) + "s", s) + "|";
-			}
-		} else {
-			retS += "|" + String.format("%" + (largeur-2) + "s", this.texteEffet) + "|";
-		}
+		retS += "|" + String.format("%" + (largeur-2) + "s", this.texteEffet) + "|";
 
 		retS += "\n";
 
@@ -75,6 +78,6 @@ public class Carte {
 	}
 
 	public static void main(String[] argv) {
-		System.out.println(new Carte("Fromagerie", "Donne du fromage qoifbsuyfsdftbsdufnsdfnisdfby_sdbf", 4, 1).toString());
+		System.out.println(new Carte("Fromagerie", "Donne du fromage", "Bleu", 4, 1, "1").toString());
 	}
 }
