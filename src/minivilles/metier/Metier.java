@@ -10,12 +10,13 @@ public class Metier {
 
 	private ArrayList<Carte> pioche;
 	private ArrayList<Joueur> listeJoueur;
-	private static Banque banque = new Banque();
+	private static Banque banque;
 
 
 	public Metier() {
 		this.pioche = new ArrayList<>();
 		this.listeJoueur = new ArrayList<>();
+		banque = new Banque();
 	}
 
 	/**
@@ -36,9 +37,11 @@ public class Metier {
 		// Creation des joueurs
 		for (int cpt = 0; cpt < nbJoueurs; cpt++) listeJoueur.add(new Joueur());
 
-		// Creation de la pioche
-		// Cartes de bases
-		// Cartes des joueurs
+		// Creation de la pioche de 108 cartes
+		// Etablissements de departs, 2 sortes pour 8 cartes
+		pioche.add(new Carte("1", "Champ de blé", "bleu", 1));
+
+		// Cartes des joueurs,
 		switch (nbJoueurs) {
 			case 1:
 				break;
@@ -47,6 +50,7 @@ public class Metier {
 			case 3:
 				break;
 		}
+
 	}
 
 	/**
@@ -75,7 +79,6 @@ public class Metier {
 		return "";
 	}
 
-	// push
 	/* Affiche les cartes sur l'horizontal */
 	public String afficherLigneCarte(ArrayList<Carte> cartes) {
 
