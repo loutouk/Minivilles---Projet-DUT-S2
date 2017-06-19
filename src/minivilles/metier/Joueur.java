@@ -18,7 +18,7 @@ public class Joueur {
 	 */
 	public Joueur() {
 		this.num = autoInc++;
-		this.pieces = 3;
+		this.pieces = 20;
 	}
 
 	/**
