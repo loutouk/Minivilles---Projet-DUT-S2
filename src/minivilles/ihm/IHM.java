@@ -143,8 +143,6 @@ public class IHM {
 			affichage+="\n";
 		}
 
-
-
 		return affichage;
 	}
 
