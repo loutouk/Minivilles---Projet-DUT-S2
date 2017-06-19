@@ -20,14 +20,9 @@ public class Controleur
 		this.ihm.menu();
 	}
 
-	public List<Carte> getlCarte()
+	public String afficherPlateau()
 	{
-		return this.metier.getlCarte();
-	}
-
-	public List<Joueur> getlJoueur()
-	{
-		return this.metier.getlJoueur();
+		return this.metier.toString();
 	}
 
 	public static void main(String[] a)

@@ -9,22 +9,25 @@ import java.util.List;
 
 public class Metier
 {
-	private ArrayList<Carte> lCarte;
-	private ArrayList<Joueur> lJoueur;
+	private ArrayList<Carte> pioche;
+	private ArrayList<Joueur> listeJoueur;
 
 	public Metier()
 	{
-
-		lCarte = new ArrayList<Carte>();
-		lJoueur = new ArrayList<Joueur>();
-
+		pioche = new ArrayList<Carte>();
+		listeJoueur = new ArrayList<Joueur>();
 	}
 
 	public ArrayList<Carte> getlCarte() {
-		return lCarte;
+		return pioche;
 	}
 
 	public ArrayList<Joueur> getlJoueur() {
-		return lJoueur;
+		return listeJoueur;
+	}
+
+	/* Affiche le plateau */
+	public String toString(){
+		return "";
 	}
 }

@@ -26,22 +26,18 @@ public class IHM
 		String choix;
 		while(!quitter)
 		{
-			System.out.println("1.\tLister joueur");
-			System.out.println("2.\tLister carte");
-			System.out.println("3.\tJouer");
-			System.out.println("4.\tQuitter");
+			System.out.println("1.\tAfficher plateau");
+			System.out.println("2.\tQuitter");
 
 			choix = sc.nextLine();
 
 			switch (choix)
 			{
 				case "1":
-					this.listerJoueur();
+					this.afficherPlateau();
 					break;
 				case "2":
-					this.listerCarte();
-					break;
-				case "3":
+					quitter = true;
 					break;
 				default:
 					System.out.println("Choix invalide");
@@ -52,18 +48,9 @@ public class IHM
 		return 0;
 	}
 
-	public void listerJoueur()
+	public void afficherPlateau()
 	{
-		System.out.println ( "\nListe joueur\n" );
-		for(Joueur j : this.ctrl.getlJoueur()) System.out.print(j);
-		System.out.print( "\n" );
-	}
-
-	public void listerCarte()
-	{
-		System.out.println ( "\nListe carte\n" );
-		for(Carte c : this.ctrl.getlCarte()) System.out.print(c);
-		System.out.print( "\n" );
+		System.out.println(this.ctrl.afficherPlateau());
 	}
 
 }
