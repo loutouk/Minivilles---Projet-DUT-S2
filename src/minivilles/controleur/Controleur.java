@@ -1,6 +1,6 @@
 package minivilles.controleur;
 import minivilles.ihm.IHM;
-import minivilles.metier.Metier;
+import minivilles.metier.*;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class Controleur
 
 	public List<Joueur> getlJoueur()
 	{
-		return this.metier.getlJoueur();x
+		return this.metier.getlJoueur();
 	}
 
 	public static void main(String[] a)

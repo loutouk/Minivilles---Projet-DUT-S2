@@ -1,7 +1,6 @@
 package minivilles.ihm;
-import minivilles.controleur.Controleur;
-import minivilles.metier.Joueur;
-import minivilles.metier.Carte;
+import minivilles.controleur.*;
+import minivilles.metier.*;
 
 /**
  * Created by richard on 6/19/17.
