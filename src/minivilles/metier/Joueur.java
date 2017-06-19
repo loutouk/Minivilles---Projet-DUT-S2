@@ -1,4 +1,6 @@
+package minivilles.metier;
 import java.util.*;
+
 
 public class Joueur {
 	private static int autoInc = 0;

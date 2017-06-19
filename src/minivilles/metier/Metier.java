@@ -12,7 +12,7 @@ public class Metier
 	private ArrayList<Carte> lCarte;
 	private ArrayList<Joueur> lJoueur;
 
-	public Reseau()
+	public Metier()
 	{
 
 		lCarte = new ArrayList<Carte>();

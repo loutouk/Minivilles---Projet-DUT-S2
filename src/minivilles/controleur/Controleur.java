@@ -1,4 +1,6 @@
 package minivilles.controleur;
+import minivilles.ihm.IHM;
+import minivilles.metier.Metier;
 
 import java.util.List;
 

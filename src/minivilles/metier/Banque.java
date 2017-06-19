@@ -1,3 +1,5 @@
+package minivilles.metier;
+
 public class Banque {
 
 	private int solde;
