@@ -62,4 +62,48 @@ public class Metier {
 	public String toString() {
 		return "";
 	}
+
+	/* Affiche les cartes sur l'horizontal */
+	public String afficherLigneCarte(ArrayList<Carte> cartes) {
+
+		String affichage = "";
+		String bord = "--------------------------------";
+
+		for(Carte c : cartes) affichage += bord + " ";
+		affichage+="\n";
+
+
+		for(Carte c : cartes)  affichage += "|" + String.format("%-30s", "Declencheur : "
+				+ c.getDeclencheur() + " " + (c.getDeclencheur2() == -1 ? " " : c.getDeclencheur2()))  + "|"  + " ";
+		affichage+="\n";
+
+		for(Carte c : cartes) affichage +=  String.format("%-30s", bord) + " ";
+		affichage+="\n";
+
+		for(Carte c : cartes)  affichage += "|" + String.format("%-30s", "Nom : " + c.getNom())+ "|"  + " ";
+		affichage+="\n";
+
+		for(Carte c : cartes) affichage +=  String.format("%-30s", bord) + " ";
+		affichage+="\n";
+
+		for(Carte c : cartes)  affichage += "|" + String.format("%-30s", "Effet : " + c.getTexteEffet().substring(0,21)) + "|" + " ";
+		affichage+="\n";
+
+		for(Carte c : cartes)  affichage += "|" + String.format("%-30s", c.getTexteEffet().substring(21,50)) + "|" + " ";
+		affichage+="\n";
+
+		for(Carte c : cartes)  affichage += "|" + String.format("%-30s", c.getTexteEffet().substring(50,70)) + "|" + " ";
+		affichage+="\n";
+
+		for(Carte c : cartes) affichage +=  String.format("%-30s", bord) + " ";
+		affichage+="\n";
+
+		for(Carte c : cartes) affichage += "|" + String.format("%-30s", "Cout de construction : " + c.getCout()) + "|" + " ";
+		affichage+="\n";
+
+		for(Carte c : cartes) affichage +=  String.format("%-30s", bord) + " ";
+		affichage+="\n";
+
+		return affichage;
+	}
 }

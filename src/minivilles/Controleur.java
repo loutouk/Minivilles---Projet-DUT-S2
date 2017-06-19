@@ -7,6 +7,8 @@ package minivilles;
 import minivilles.metier.*;
 import minivilles.ihm.*;
 
+import java.util.ArrayList;
+
 public class Controleur {
 	private IHM ihm;
 	private Metier metier;
@@ -14,6 +16,14 @@ public class Controleur {
 	public Controleur() {
 		this.metier = new Metier();
 		this.ihm = new IHM(this);
+
+
+		/*//DEBUG////////////////////////////////////
+		ArrayList<Carte> cartes = new ArrayList<>();
+		cartes.add(new Carte("Fromagerie", "Bleu", 4, 1, "1"));
+		cartes.add(new Carte("Fromagerie", "Bleu", 5,6, 1, "2"));
+		System.out.println(this.metier.afficherLigneCarte(cartes));
+		//////////////////////////////////////////*/
 	}
 
 	public void lancer() {
