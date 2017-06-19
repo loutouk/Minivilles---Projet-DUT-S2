@@ -1,4 +1,6 @@
-package minivilles.metier.cartes;
+package minivilles.metier.cartes.monuments;
+
+import minivilles.metier.cartes.Carte;
 
 /**
  * Created by richard on 6/19/17.
