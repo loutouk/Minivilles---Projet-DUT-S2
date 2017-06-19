@@ -33,10 +33,9 @@ public class TestFichier {
 				if (ligne.isEmpty()) continue;
 
 				// Nouveau joueur dans le fichier
-				if (ligne.charAt(0) == '#') {
+				if (ligne.charAt(0) == '#')
 					if (ligne.matches(JOUEUR_REGEX))
 						nbJ++;
-				}
 
 				Joueur joueur = this.ctrl.getMetier().getJoueur(nbJ);
 				if (joueur == null) continue;
