@@ -53,7 +53,7 @@ public class TestFichier {
 
 				// On ajoute les pièces au joueur
 				if (ligne.startsWith("pieces:")) {
-					joueur.setPiece(Integer.valueOf(ligne.split(":")[1].trim()));
+					joueur.addPiece(Integer.valueOf(ligne.split(":")[1].trim()));
 					continue;
 				}
 
@@ -64,7 +64,7 @@ public class TestFichier {
 					String[] mSplit = ligne.split(":")[1].trim().split(",");
 
 					for (String monument : mSplit)
-						joueur.addCarte(new Carte("M" + monument, "test", 2, 1));
+						joueur.addCarte(new Carte("Carte de test", "test", "", 2, 1, "M" + monument));
 
 					continue;
 				}
