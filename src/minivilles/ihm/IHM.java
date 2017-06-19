@@ -1,6 +1,5 @@
 package minivilles.ihm;
 
-import minivilles.metier.*;
 import minivilles.*;
 
 import java.util.Scanner;

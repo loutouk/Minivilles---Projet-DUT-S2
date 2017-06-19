@@ -1,9 +1,6 @@
 package minivilles.metier;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import minivilles.metier.*;
 
 /**
  * Created by bl160661 on 09/06/17.
@@ -58,7 +55,7 @@ public class Metier {
 	/**
 	 * Pioche la carte dont on donne l'identifiant, et la place dans la main du joueur passé en paramètre.
 	 *
-	 * @param id l'identifiant de la carte
+	 * @param id     l'identifiant de la carte
 	 * @param joueur le joueur qui va recevoir la carte
 	 * @return un booléen indiquant la réussite de l'opération
 	 */
