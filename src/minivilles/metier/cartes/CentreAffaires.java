@@ -3,7 +3,7 @@ import minivilles.metier.Metier;
 
 public class CentreAffaires extends Carte {
 
-	public CentreAffaires (String identifiant, String nom, String couleur, int declencheur, int cout) {
+	public CentreAffaires () {
 		super("6:3", "Centre d'affaires", "Violet", 6, 7);
 	}
 

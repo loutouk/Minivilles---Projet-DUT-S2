@@ -4,7 +4,7 @@ import minivilles.metier.Metier;
 
 public class Ferme extends Carte {
 
-	public Ferme (String identifiant, String nom, String couleur, int declencheur, int cout) {
+	public Ferme () {
 		super("2", "Ferme", "Bleu", 2, 1);
 	}
 
