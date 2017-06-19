@@ -111,10 +111,7 @@ public class Metier {
 		return false;
 	}
 
-	/* Affiche le plateau */
-	public String toString() {
-		return "";
-	}
+
 
 	/* Affiche les cartes sur l'horizontal */
 	public String afficherLigneCarte(ArrayList<Carte> cartes) {

@@ -38,10 +38,6 @@ public class Controleur {
 		this.ihm.menu();
 	}
 
-	public String afficherPlateau() {
-		return this.metier.toString();
-	}
-
 	public void initialiserPlateau(int nbJoueurs) {
 		this.metier.initialiserPlateau(nbJoueurs);
 	}
