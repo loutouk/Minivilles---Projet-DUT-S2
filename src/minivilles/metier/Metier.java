@@ -1,6 +1,8 @@
 package minivilles.metier;
 
-import minivilles.metier.cartes.Carte;
+import minivilles.metier.cartes.*;
+
+import minivilles.metier.cartes.monuments.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +53,32 @@ public class Metier {
 		// Creation de la pioche de 108 cartes
 
 		// Etablissements de departs, 2 sortes pour 8 cartes
+		for(int i=0 ; i<4 ; i++) pioche.add(new ChampsDeBle());
+		for(int i=0 ; i<4 ; i++) pioche.add(new Boulangerie());
+
+		// 4 sortes de monuments, pour 16 au total
+		for(int i=0 ; i<4 ; i++) pioche.add(new Gare());
+		for(int i=0 ; i<4 ; i++) pioche.add(new CentreCommercial());
+		for(int i=0 ; i<4 ; i++) pioche.add(new ParcDattractions());
+		for(int i=0 ; i<4 ; i++) pioche.add(new TourRadio());
+
+		// 3 sortes d'établissements spéciaux, pour 12 au total
+		for(int i=0 ; i<4 ; i++) pioche.add(new Stade());
+		for(int i=0 ; i<4 ; i++) pioche.add(new ChaineDeTelevision());
+		for(int i=0 ; i<4 ; i++) pioche.add(new CentreAffaires());
+
+		// 10 sortes d'établissements de base, pour 60 au total
+		for(int i=0 ; i<6 ; i++) pioche.add(new Ferme());
+		for(int i=0 ; i<6 ; i++) pioche.add(new Cafe());
+		for(int i=0 ; i<6 ; i++) pioche.add(new Superette());
+		for(int i=0 ; i<6 ; i++) pioche.add(new Foret());
+		for(int i=0 ; i<6 ; i++) pioche.add(new Fromagerie());
+		for(int i=0 ; i<6 ; i++) pioche.add(new FabriqueMeuble());
+		for(int i=0 ; i<6 ; i++) pioche.add(new Mine());
+		for(int i=0 ; i<6 ; i++) pioche.add(new Restaurant());
+		for(int i=0 ; i<6 ; i++) pioche.add(new Verger());
+		for(int i=0 ; i<6 ; i++) pioche.add(new MarcheDeFruitsEtLegumes());
+
 
 
 	}
