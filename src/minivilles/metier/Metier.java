@@ -1,33 +1,30 @@
 package minivilles.metier;
 
+import java.util.ArrayList;
+
 /**
  * Created by bl160661 on 09/06/17.
  */
 
-import java.util.ArrayList;
-import java.util.List;
+public class Metier {
 
-public class Metier
-{
 	private ArrayList<Carte> pioche;
 	private ArrayList<Joueur> listeJoueur;
+	private Banque banque;
 
-	public Metier()
-	{
+
+	public Metier() {
 		pioche = new ArrayList<Carte>();
 		listeJoueur = new ArrayList<Joueur>();
 	}
 
-	public ArrayList<Carte> getlCarte() {
-		return pioche;
-	}
+	/* Genere les cartes selon le nombre de joueur, ainsi que les joueurs, la banque */
+	public void initialiserPlateau(int nbJoueurs) {
 
-	public ArrayList<Joueur> getlJoueur() {
-		return listeJoueur;
 	}
 
 	/* Affiche le plateau */
-	public String toString(){
+	public String toString() {
 		return "";
 	}
 }

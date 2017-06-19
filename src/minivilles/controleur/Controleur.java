@@ -1,32 +1,30 @@
 package minivilles.controleur;
+
 import minivilles.ihm.IHM;
-import minivilles.metier.*;
+import minivilles.metier.Metier;
 
-import java.util.List;
-
-public class Controleur
-{
+public class Controleur {
 	private IHM ihm;
 	private Metier metier;
 
-	public Controleur()
-	{
+	public Controleur() {
 		this.metier = new Metier();
 		this.ihm = new IHM(this);
 	}
 
-	public void lancer()
-	{
+	public void lancer() {
 		this.ihm.menu();
 	}
 
-	public String afficherPlateau()
-	{
+	public String afficherPlateau() {
 		return this.metier.toString();
 	}
 
-	public static void main(String[] a)
-	{
+	public void initialiserPlateau(int nbJoueurs) {
+		this.metier.initialiserPlateau(nbJoueurs);
+	}
+
+	public static void main(String[] a) {
 		new Controleur().lancer();
 	}
 }

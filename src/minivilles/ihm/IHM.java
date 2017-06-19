@@ -1,44 +1,47 @@
 package minivilles.ihm;
-import minivilles.controleur.*;
-import minivilles.metier.*;
+
+import minivilles.controleur.Controleur;
+
+import java.util.Scanner;
 
 /**
  * Created by richard on 6/19/17.
  */
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Scanner;
 
-public class IHM
-{
+public class IHM {
 	private Controleur ctrl;
 
-	public IHM ( Controleur ctrl )
-	{
+	public IHM(Controleur ctrl) {
 		this.ctrl = ctrl;
 	}
 
-	public int menu()
-	{
+	public int menu() {
 		Scanner sc = new Scanner(System.in);
 		boolean quitter = false;
 		String choix;
-		while(!quitter)
-		{
-			System.out.println("1.\tAfficher plateau");
+		int nbJoueurs;
+		while (!quitter) {
+			System.out.println("1.\tJouer");
 			System.out.println("2.\tQuitter");
 
 			choix = sc.nextLine();
 
-			switch (choix)
-			{
+			switch (choix) {
 				case "1":
-					this.afficherPlateau();
+					System.out.println("Choisissez un nombre de joueurs entre 2 et 4");
+					try {
+						nbJoueurs = sc.nextInt();
+						if (nbJoueurs >= 2 && nbJoueurs <= 4) this.initialiserPlateau(nbJoueurs);
+					} catch (Exception e) {
+						System.out.println("Veuillez entrez un nombre valide");
+					}
 					break;
+
 				case "2":
 					quitter = true;
 					break;
+
 				default:
 					System.out.println("Choix invalide");
 					break;
@@ -48,8 +51,12 @@ public class IHM
 		return 0;
 	}
 
-	public void afficherPlateau()
-	{
+
+	public void initialiserPlateau(int nbJoueurs) {
+		this.ctrl.initialiserPlateau(nbJoueurs);
+	}
+
+	public void afficherPlateau() {
 		System.out.println(this.ctrl.afficherPlateau());
 	}
 
