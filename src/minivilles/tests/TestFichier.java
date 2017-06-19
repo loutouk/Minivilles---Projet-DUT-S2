@@ -68,7 +68,7 @@ public class TestFichier {
 			}
 
 			for (Joueur joueur : this.ctrl.getMetier().getJoueurs())
-				System.out.println(this.ctrl.getMetier().afficherLigneCarte(joueur.getMain()));
+				System.out.println(this.ctrl.getIhm().afficherLigneCarte(joueur.getMain()));
 
 			sc.close();
 		} catch (IOException ex) {

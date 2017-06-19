@@ -12,7 +12,7 @@ public class Joueur {
 	private static int autoInc = 0;
 	private int num;
 	private int pieces;
-	private ArrayList<Carte> main = new ArrayList<>();
+	private ArrayList main;
 
 	/**
 	 * On initialise le joueur avec son identifiant unique,
@@ -21,6 +21,7 @@ public class Joueur {
 	public Joueur() {
 		this.num = autoInc++;
 		this.pieces = 20;
+		main = new ArrayList<>();
 	}
 
 	/**
@@ -46,7 +47,7 @@ public class Joueur {
 	 *
 	 * @return la main du joueur.
 	 */
-	public ArrayList<Carte> getMain() {
+	public ArrayList getMain() {
 		return this.main;
 	}
 

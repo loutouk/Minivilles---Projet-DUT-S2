@@ -5,6 +5,7 @@ import minivilles.metier.cartes.*;
 import minivilles.metier.cartes.monuments.*;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class Metier {
 
-	private ArrayList<Carte> pioche;
+	private ArrayList pioche;
 	private ArrayList<Joueur> listeJoueur;
 	private static Banque banque;
 
@@ -101,7 +102,10 @@ public class Metier {
 		Carte carte = null;
 
 		// On récupère la carte correspondant au nom
-		for (Carte c : pioche) if (c.getNom().equals(id) || c.getIdentifiant().equals(id)) carte = c;
+		Iterator<Carte> it = pioche.iterator();
+
+		while (it.hasNext()) if (it.next().getNom().equals(id) || it.next().getIdentifiant().equals(id)) carte = it.next();
+
 
 		if (pioche.contains(carte)) {
 			joueur.getMain().add(carte);
@@ -113,47 +117,4 @@ public class Metier {
 
 
 
-	/* Affiche les cartes sur l'horizontal */
-	public String afficherLigneCarte(ArrayList<Carte> cartes) {
-
-		String affichage = "";
-		String bord = "--------------------------------";
-
-		for(Carte ignored : cartes) affichage += bord + " ";
-		affichage+="\n";
-
-
-		for(Carte c : cartes)  affichage += "|" + String.format("%-30s", "Declencheur : "
-				+ c.getDeclencheur() + " " + (c.getDeclencheur2() == -1 ? " " : c.getDeclencheur2()))  + "|"  + " ";
-		affichage+="\n";
-
-		for(Carte ignored : cartes) affichage +=  String.format("%-30s", bord) + " ";
-		affichage+="\n";
-
-		for(Carte c : cartes)  affichage += "|" + String.format("%-30s", "Nom : " + c.getNom())+ "|"  + " ";
-		affichage+="\n";
-
-		for(Carte ignored : cartes) affichage +=  String.format("%-30s", bord) + " ";
-		affichage+="\n";
-
-		for(Carte c : cartes)  affichage += "|" + String.format("%-30s", "Effet : " + c.getTexteEffet().substring(0,21)) + "|" + " ";
-		affichage+="\n";
-
-		for(Carte c : cartes)  affichage += "|" + String.format("%-30s", c.getTexteEffet().substring(21,50)) + "|" + " ";
-		affichage+="\n";
-
-		for(Carte c : cartes)  affichage += "|" + String.format("%-30s", c.getTexteEffet().substring(50,70)) + "|" + " ";
-		affichage+="\n";
-
-		for(Carte ignored : cartes) affichage +=  String.format("%-30s", bord) + " ";
-		affichage+="\n";
-
-		for(Carte c : cartes) affichage += "|" + String.format("%-30s", "Cout de construction : " + c.getCout()) + "|" + " ";
-		affichage+="\n";
-
-		for(Carte ignored : cartes) affichage +=  String.format("%-30s", bord) + " ";
-		affichage+="\n";
-
-		return affichage;
-	}
 }

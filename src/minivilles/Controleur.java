@@ -14,14 +14,7 @@ public class Controleur {
 	public Controleur() {
 		this.metier = new Metier();
 		this.ihm = new IHM(this);
-
-
-		/*//DEBUG////////////////////////////////////
-		ArrayList<Carte> cartes = new ArrayList<>();
-		cartes.add(new Carte("Fromagerie", "Bleu", 4, 1, "1"));
-		cartes.add(new Carte("Fromagerie", "Bleu", 5,6, 1, "2"));
-		System.out.println(this.metier.afficherLigneCarte(cartes));
-		//////////////////////////////////////////*/
+		System.out.println(this.ihm.afficherPlateau());
 	}
 
 
@@ -32,6 +25,10 @@ public class Controleur {
 	 */
 	public Metier getMetier() {
 		return this.metier;
+	}
+
+	public IHM getIhm() {
+		return ihm;
 	}
 
 	public void lancer() {
