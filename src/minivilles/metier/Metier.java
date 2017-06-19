@@ -50,7 +50,7 @@ public class Metier {
 		for(Carte c : pioche) if(c.getNom().equals(id)||c.getIdentifiant().equals(id)) carte = c;
 
 		if(pioche.contains(carte)) {
-			joueur.getArCartes().add(carte);
+			joueur.getMain().add(carte);
 			return pioche.remove(carte);
 		}
 
