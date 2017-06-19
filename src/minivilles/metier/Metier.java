@@ -48,7 +48,9 @@ public class Metier {
 		// On recupere la carte correspondant au nom
 		for(Carte c : pioche) if(c.getNom().equals(nomCarte)) carte = c;
 
-		if(pioche.contains())
+		//if(pioche.contains())
+
+		return true;
 
 	}
 
