@@ -1,8 +1,7 @@
 package minivilles.metier;
 
-import minivilles.metier.Carte;
-
 import java.util.*;
+import minivilles.metier.*;
 
 public class Joueur {
 	private static int autoInc = 0;

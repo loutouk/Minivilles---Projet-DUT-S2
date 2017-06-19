@@ -3,6 +3,7 @@ package minivilles.metier;
 /**
  * Created by richard on 6/19/17.
  */
+
 public class Carte {
 	private String nom;
 	private String texteEffet;
