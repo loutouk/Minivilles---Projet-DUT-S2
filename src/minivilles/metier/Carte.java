@@ -38,29 +38,33 @@ public class Carte {
 	public String toString() {
 		String retS = "";
 
-		int largeur = 20;
+		int largeur = 30;
 
 		retS += String.format("%0" + largeur + "d", 0).replace("0", "=");
 		retS += "\n";
-		retS += "|" + String.format("%" + 18 + "s", this.declencheur) + "|";
+		retS += "|" + String.format("%" + (largeur-2) + "s", this.declencheur) + "|";
 		retS += "\n";
-		retS += "|" + String.format("%" + -18 + "s", this.nom) + "|";
+		retS += "|" + String.format("%" + -(largeur-2) + "s", this.nom) + "|";
 		retS += "\n";
 
 		for (int i = 0; i < 5; i++) {
-			retS += "|" + String.format("%0" + 18 + "d", 0).replace("0", " ") + "|";
+			retS += "|" + String.format("%0" + (largeur-2) + "d", 0).replace("0", " ") + "|";
 			retS += "\n";
 		}
 
-		if (this.texteEffet.length() >= 18) {
+		if (this.texteEffet.length() >= (largeur-2)) {
+			for (int i = 0; i < this.texteEffet.length() % largeur-2; i++) {
+				String s = this.texteEffet.substring(0, 0);
 
+				retS += "|" + String.format("%" + -(largeur-2) + "s", s) + "|";
+			}
 		} else {
-			retS += "|" + String.format("%" + 18 + "s", this.texteEffet) + "|";
+			retS += "|" + String.format("%" + (largeur-2) + "s", this.texteEffet) + "|";
 		}
 
 		retS += "\n";
 
-		retS += "|" + String.format("%" + 18 + "s", this.cout) + "|";
+		retS += "|" + String.format("%" + (largeur-2) + "s", "Coût de construction : " + this.cout) + "|";
 
 		retS += "\n";
 
@@ -70,6 +74,6 @@ public class Carte {
 	}
 
 	public static void main(String[] argv) {
-		System.out.println(new Carte("Fromagerie", "Donne du fromage", 4, 1).toString());
+		System.out.println(new Carte("Fromagerie", "Donne du fromage qoifbsuyfsdftbsdufnsdfnisdfby_sdbf", 4, 1).toString());
 	}
 }
