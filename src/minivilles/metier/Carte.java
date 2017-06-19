@@ -4,7 +4,10 @@ package minivilles.metier;
  * Created by richard on 6/19/17.
  */
 public class Carte {
+
+	private String identifiant;
 	private String nom;
+
 	private String texteEffet;
 	private String couleur;
 	private String couleurEffet;
@@ -13,18 +16,26 @@ public class Carte {
 	private int declencheur2;
 	private int cout;
 
-	public Carte(String nom, String couleur, int declencheur, int cout) {
-		this(nom, couleur, declencheur, -1, cout);
+	public Carte(String identifiant, String nom, String couleur, int declencheur, int cout) {
+		this(identifiant, nom, couleur, declencheur, -1, cout);
 	}
 
-	public Carte(String nom, String couleur, int declencheur, int declencheur2, int cout) {
+	public Carte(String identifiant, String nom, String couleur, int declencheur, int declencheur2, int cout) {
+		this.identifiant = identifiant;
+
 		this.nom = nom;
 		initTexteEffet();
+
 		this.couleur = couleur.toUpperCase();
 		initCouleurEffet();
+
 		this.declencheur = declencheur;
 		this.declencheur2 = declencheur2;
 		this.cout = cout;
+	}
+
+	public String getIdentifiant() {
+		return this.identifiant;
 	}
 
 	public String getNom() {
@@ -144,15 +155,4 @@ public class Carte {
 
 		return retS;
 	}
-
-	public static void main(String[] a) {
-		Carte c = new Carte("Ferme", "bleu", 2, 1);
-		System.out.println(c);
-		Carte c1 = new Carte("Ferme", "bleu", 2, 1);
-		System.out.println(c1);
-		Carte c2 = new Carte("Marché de fruits et légumes", "vert", 2, 1);
-		System.out.println(c2);
-
-	}
-
 }
