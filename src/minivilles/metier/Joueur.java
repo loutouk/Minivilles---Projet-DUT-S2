@@ -19,10 +19,20 @@ public class Joueur {
 	public ArrayList<Carte>  getArCartes() { return this.arCarte; }
 	public void addPiece(int piece)        { this.piece += piece; }
 	public void addCarte(Carte c)          { this.arCarte.add(c); }
-	
+
+	public void setPiece(int nb) { this.piece = nb; }
 	public void retirerPiece(int nb) { 
 		if (this.piece < nb) this.piece -= nb; 
 		else this.piece = 0;
 	}
-	
+
+	@Override
+	public String toString() {
+		StringBuilder str = new StringBuilder("Joueur (pieces=" + this.piece + ")\n");
+
+		for (Carte carte : this.arCarte)
+			str.append(carte.toString()).append("\n");
+
+		return str.toString();
+	}
 }
