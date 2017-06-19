@@ -66,23 +66,23 @@ public class IHM {
 		ArrayList ligne1 = new ArrayList<Carte>();
 		ligne1.add(new ChampsDeBle());
 		ligne1.add(new Ferme());
-		/*ligne1.add(new Boulangerie());
+		ligne1.add(new Boulangerie());
 		ligne1.add(new Cafe());
-		ligne1.add(new Superette());*/
+		ligne1.add(new Superette());
 
 		ArrayList ligne2 = new ArrayList<Carte>();
 		ligne2.add(new Foret());
 		ligne2.add(new Stade());
-		/*ligne2.add(new CentreAffaires());
+		ligne2.add(new CentreAffaires());
 		ligne2.add(new ChaineDeTelevision());
-		ligne2.add(new Fromagerie());*/
+		ligne2.add(new Fromagerie());
 
 		ArrayList ligne3 = new ArrayList<Carte>();
 		ligne3.add(new FabriqueMeuble());
 		ligne3.add(new Mine());
-		/*ligne3.add(new Restaurant());
+		ligne3.add(new Restaurant());
 		ligne3.add(new Verger());
-		ligne3.add(new MarcheDeFruitsEtLegumes());*/
+		ligne3.add(new MarcheDeFruitsEtLegumes());
 
 		affichage += afficherLigneCarte(ligne1);
 		affichage += afficherLigneCarte(ligne2);
@@ -101,40 +101,49 @@ public class IHM {
 	}
 
 
-	/* Affiche les cartes sur l'horizontal */
-	public String afficherLigneCarte(ArrayList<Carte> cartes) {
+	/* Affiche les cartes sur l'horizontal, 2 par 2 pour rentrer dans la console */
+	public String afficherLigneCarte(ArrayList<Carte> listeCartes) {
 
 		String affichage = "";
 		String bord = "--------------------------------";
 
-		for(Carte ignored : cartes) affichage += bord + " ";
-		affichage+="\n";
+		for(int i=0 ; i<listeCartes.size()/2 ; i++){
+
+			ArrayList<Carte> deuxCartes = new ArrayList<>();
+			deuxCartes.add(listeCartes.get(i*2));
+			deuxCartes.add(listeCartes.get(i*2+1));
+
+			for(Carte ignored : deuxCartes) affichage += bord + " ";
+			affichage+="\n";
 
 
-		for(Carte c : cartes)  affichage += "|" + String.format("%-30s", "Declencheur : "
-				+ c.getDeclencheur() + " " + (c.getDeclencheur2() == -1 ? " " : c.getDeclencheur2()))  + "|"  + " ";
-		affichage+="\n";
+			for(Carte c : deuxCartes)  affichage += "|" + String.format("%-30s", "Declencheur : "
+					+ c.getDeclencheur() + " " + (c.getDeclencheur2() == -1 ? " " : c.getDeclencheur2()))  + "|"  + " ";
+			affichage+="\n";
 
-		for(Carte ignored : cartes) affichage +=  String.format("%-30s", bord) + " ";
-		affichage+="\n";
+			for(Carte ignored : deuxCartes) affichage +=  String.format("%-30s", bord) + " ";
+			affichage+="\n";
 
-		for(Carte c : cartes)  affichage += "|" + String.format("%-30s", "Nom : " + c.getNom())+ "|"  + " ";
-		affichage+="\n";
+			for(Carte c : deuxCartes)  affichage += "|" + String.format("%-30s", "Nom : " + c.getNom())+ "|"  + " ";
+			affichage+="\n";
 
-		for(Carte ignored : cartes) affichage +=  String.format("%-30s", bord) + " ";
-		affichage+="\n";
+			for(Carte ignored : deuxCartes) affichage +=  String.format("%-30s", bord) + " ";
+			affichage+="\n";
 
-		for(Carte c : cartes)  affichage += "|" + String.format("%-30s", "Effet : " + c.getTexteEffet().substring(0,21)) + "|" + " ";
-		affichage+="\n";
+			for(Carte c : deuxCartes)  affichage += "|" + String.format("%-30s", "Effet : " + c.getTexteEffet().substring(0,21)) + "|" + " ";
+			affichage+="\n";
 
-		for(Carte ignored : cartes) affichage +=  String.format("%-30s", bord) + " ";
-		affichage+="\n";
+			for(Carte ignored : deuxCartes) affichage +=  String.format("%-30s", bord) + " ";
+			affichage+="\n";
 
-		for(Carte c : cartes) affichage += "|" + String.format("%-30s", "Cout de construction : " + c.getCout()) + "|" + " ";
-		affichage+="\n";
+			for(Carte c : deuxCartes) affichage += "|" + String.format("%-30s", "Cout de construction : " + c.getCout()) + "|" + " ";
+			affichage+="\n";
 
-		for(Carte ignored : cartes) affichage +=  String.format("%-30s", bord) + " ";
-		affichage+="\n";
+			for(Carte ignored : deuxCartes) affichage +=  String.format("%-30s", bord) + " ";
+			affichage+="\n";
+		}
+
+
 
 		return affichage;
 	}
