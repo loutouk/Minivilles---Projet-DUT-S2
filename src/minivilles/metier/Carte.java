@@ -64,17 +64,7 @@ public class Carte {
 			retS += "\n";
 		}
 
-		if (this.texteEffet.length() >= (largeur-2)) {
-			int decoupages = this.texteEffet.length() / largeur-2;
-
-			for (int i = 0; i < this.texteEffet.length() % largeur-2; i++) {
-				String s = this.texteEffet.substring(i/decoupages, i+1/decoupages);
-
-				retS += "|" + String.format("%" + -(largeur-2) + "s", s) + "|";
-			}
-		} else {
-			retS += "|" + String.format("%" + (largeur-2) + "s", this.texteEffet) + "|";
-		}
+		retS += "|" + String.format("%" + (largeur-2) + "s", this.texteEffet) + "|";
 
 		retS += "\n";
 
@@ -88,6 +78,6 @@ public class Carte {
 	}
 
 	public static void main(String[] argv) {
-		//System.out.println(new Carte("Fromagerie", "Donne du fromage qoifbsuyfsdftbsdufnsdfnisdfby_sdbf", 4, 1).toString());
+		System.out.println(new Carte("Fromagerie", "Donne du fromage", "Bleu", 4, 1).toString());
 	}
 }
