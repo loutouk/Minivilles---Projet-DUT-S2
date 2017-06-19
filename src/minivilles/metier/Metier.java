@@ -33,8 +33,11 @@ public class Metier {
 	}
 
 
-	/* Genere les cartes selon le nombre de joueur, ainsi que les joueurs, la banque
-	* Les declencheurs servent d'identifiants de Carte */
+	/** Genere les cartes selon le nombre de joueur, ainsi que les joueurs, la banque
+	 * Les declencheurs servent d'identifiants de Carte
+	 * @param nbJoueurs     le nombre de joueur de la partie
+	 * @return void
+	 * */
 	public void initialiserPlateau(int nbJoueurs) {
 
 		// Creation des joueurs
