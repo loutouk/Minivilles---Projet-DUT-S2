@@ -79,6 +79,6 @@ public class Carte {
 	}
 
 	public static void main(String[] argv) {
-		System.out.println(new Carte("Fromagerie", "Donne du fromage qoifbsuyfsdftbsdufnsdfnisdfby_sdbf", 4, 1).toString());
+		//System.out.println(new Carte("Fromagerie", "Donne du fromage qoifbsuyfsdftbsdufnsdfnisdfby_sdbf", 4, 1).toString());
 	}
 }

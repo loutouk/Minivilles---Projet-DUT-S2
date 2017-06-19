@@ -1,6 +1,7 @@
 package minivilles.ihm;
 
-import minivilles.controleur.Controleur;
+import minivilles.metier.*;
+import minivilles.*;
 
 import java.util.Scanner;
 
@@ -32,6 +33,8 @@ public class IHM {
 					System.out.println("Choisissez un nombre de joueurs entre 2 et 4");
 					try {
 						nbJoueurs = sc.nextInt();
+						// On scan dans le vide comme on a change de type
+						sc.nextLine();
 						if (nbJoueurs >= 2 && nbJoueurs <= 4) this.initialiserPlateau(nbJoueurs);
 					} catch (Exception e) {
 						System.out.println("Veuillez entrez un nombre valide");
