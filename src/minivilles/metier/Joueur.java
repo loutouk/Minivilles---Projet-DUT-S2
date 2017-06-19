@@ -21,10 +21,18 @@ public class Joueur {
 		this.pieces = 3;
 	}
 
+	/**
+	 * Retourne l'identifiant du joueur.
+	 * @return l'identifiant du joueur.
+	 */
 	public int getNum() {
 		return this.num;
 	}
 
+	/**
+	 * Retourne le nombre de pièces du joueur.
+	 * @return le nombre de pièces du joueur.
+	 */
 	public int getPieces() {
 		return this.pieces;
 	}
