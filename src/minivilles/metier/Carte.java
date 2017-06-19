@@ -16,6 +16,10 @@ public class Carte {
 	private int declencheur2;
 	private int cout;
 
+	public Carte(String identifiant, String nom, String couleur, int declencheur) {
+		this(identifiant, nom, couleur, declencheur, -1, 0);
+	}
+
 	public Carte(String identifiant, String nom, String couleur, int declencheur, int cout) {
 		this(identifiant, nom, couleur, declencheur, -1, cout);
 	}
