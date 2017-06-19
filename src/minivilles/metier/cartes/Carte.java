@@ -1,5 +1,7 @@
 package minivilles.metier.cartes;
 
+import minivilles.metier.Metier;
+
 /**
  * Created by richard on 6/19/17.
  */
@@ -134,17 +136,14 @@ public abstract class Carte {
 			this.texteEffet = "Si votre jet de dés est un double, rejouez un tour après celui-ci.";
 	}
 
-	public boolean lancerEffet(int resultatDe1) {
-		if (resultatDe1 == this.declencheur || resultatDe1 == this.declencheur2)
-			return true;
+	public abstract void lancerEffet(Metier metier);
 
-		return false;
-	}
-
-	public boolean lancerEffet(int resultatDe1, int resultatDe2) {
+	public boolean testEffet(Metier metier, int resultatDe1, int resultatDe2) {
 		if (resultatDe1 == this.declencheur || resultatDe1 == this.declencheur2
-				|| resultatDe2 == this.declencheur || resultatDe2 == this.declencheur2)
+				|| resultatDe2 == this.declencheur || resultatDe2 == this.declencheur2) {
+			this.lancerEffet(metier);
 			return true;
+		}
 
 		return false;
 	}
