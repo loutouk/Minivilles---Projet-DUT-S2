@@ -1,6 +1,8 @@
 package minivilles.metier;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import minivilles.metier.*;
 
 /**
@@ -9,15 +11,26 @@ import minivilles.metier.*;
 
 public class Metier {
 
-	private ArrayList<Carte> pioche;
+	private ArrayList<Carte>  pioche;
 	private ArrayList<Joueur> listeJoueur;
-	private Banque banque;
+	private Banque            banque;
 
 
 	public Metier() {
-		pioche = new ArrayList<Carte>();
-		listeJoueur = new ArrayList<Joueur>();
+		this.pioche      = new ArrayList<>();
+		this.listeJoueur = new ArrayList<>();
 	}
+
+	/**
+	 * Retourne le joueur par son numéro
+	 * @return Le joueur en question
+	 */
+	public Joueur getJoueur(int indice) {
+		if (indice < 0 || indice >= listeJoueur.size()) return null;
+
+		return this.listeJoueur.get(indice);
+	}
+
 
 	/* Genere les cartes selon le nombre de joueur, ainsi que les joueurs, la banque */
 	public void initialiserPlateau(int nbJoueurs) {
@@ -42,8 +55,7 @@ public class Metier {
 	}
 
 	/* L'id peut etre l'dientifiant ou le nom de la carte */
-	public boolean piocher(String id, Joueur joueur){
-
+	public boolean piocher(String id, Joueur joueur) {
 		Carte carte = null;
 
 		// On recupere la carte correspondant au nom
@@ -55,7 +67,6 @@ public class Metier {
 		}
 
 		return false;
-
 	}
 
 	/* Affiche le plateau */

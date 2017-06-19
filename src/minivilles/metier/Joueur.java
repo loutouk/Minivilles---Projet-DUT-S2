@@ -54,6 +54,14 @@ public class Joueur {
 	}
 
 	/**
+	 * Défini le nombre de pièces du joueur en <i>nb</i>
+	 * @param nb Le nombre de pièces à définir
+	 */
+	public void setPiece(int nb) {
+		this.pieces = nb;
+	}
+
+	/**
 	 * Ajoute la carte <i>c</i> à la main du joueur.
 	 * @param c la carte à ajouter
 	 */

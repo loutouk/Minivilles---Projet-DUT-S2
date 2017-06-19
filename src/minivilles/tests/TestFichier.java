@@ -1,24 +1,100 @@
 package minivilles.tests;
 
-import minivilles.metier.Carte;
+import minivilles.Controleur;
 import minivilles.metier.Joueur;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class TestFichier {
 
-	private static List<Joueur> joueurs;
+	private static final String JOUEUR_REGEX = "^#J[0-9]#$";
+
+	private Controleur ctrl;
+
+
+	public TestFichier() {
+		this.ctrl = new Controleur();
+	}
+
+
+	private void analyserFichier(File f) {
+		// On initialise tout d'abord le plateau (nb de joueurs)
+		this.ctrl.initialiserPlateau(this.getNbJoueurs(f));
+
+		try {
+			Scanner sc  = new Scanner(new FileReader(f));
+			int     nbJ = 0;
+
+			while (sc.hasNextLine()) {
+				String ligne = sc.nextLine();
+				if (ligne.isEmpty()) continue;
+
+				// Nouveau joueur dans le fichier
+				if (ligne.charAt(0) == '#') {
+					if (ligne.matches(JOUEUR_REGEX))
+						nbJ++;
+				}
+
+				Joueur joueur = this.ctrl.getMetier().getJoueur(nbJ);
+				if (joueur == null) continue;
+
+				// On ajoute les pièces au joueur
+				if (ligne.startsWith("pieces:")) {
+					joueur.setPiece(Integer.valueOf(ligne.split(":")[1].trim()));
+					continue;
+				}
+
+
+				if (ligne.startsWith("cartes:")) continue;
+
+				if (ligne.startsWith("monuments:")) {
+					String[] mSplit = ligne.split(":")[1].trim().split(",");
+
+					for (String monument : mSplit) {
+						// TODO
+					}
+
+					continue;
+				}
+
+				// On ajoute la carte correspondante au dernier joueur enregistré
+				String[] parts  = ligne.trim().replaceFirst("-", "").replaceAll(" +", "").split(":");
+
+				// TODO
+			}
+
+			System.out.println(this.ctrl.getMetier());
+
+			sc.close();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	private int getNbJoueurs(File f) {
+		int nb = 0;
+
+		try {
+			Scanner sc = new Scanner(new FileReader(f));
+
+			while(sc.hasNextLine())
+				if (sc.nextLine().matches(JOUEUR_REGEX))
+					nb++;
+
+			sc.close();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+
+		return nb;
+	}
+
 
 
 	public static void main(String[] args) {
-		joueurs = new ArrayList<>();
-
 		// Un chemin de fichier doit être passé en paramètre
 		if (args.length == 0) {
 			System.out.println("Utilisation: TestFichier <fichier à analyser>");
@@ -33,53 +109,7 @@ public class TestFichier {
 			return;
 		}
 
-		try {
-			Scanner sc = new Scanner(new FileReader(f));
-
-			while (sc.hasNextLine()) {
-				String ligne = sc.nextLine();
-				if (ligne.isEmpty()) continue;
-
-				// Nouveau joueur dans le fichier
-				if (ligne.charAt(0) == '#') {
-					if (ligne.matches("^#J[0-9]#$"))
-						joueurs.add(new Joueur());
-
-					continue;
-				}
-
-
-				Joueur joueur = joueurs.get(joueurs.size() - 1);
-
-				// On ajoute les pièces au joueur
-				if (ligne.startsWith("pieces:")) {
-					joueur.addPiece(Integer.valueOf(ligne.split(":")[1].trim()));
-					continue;
-				}
-
-
-				if (ligne.startsWith("cartes:")) continue;
-
-				if (ligne.startsWith("monuments:")) {
-					String[] mSplit = ligne.split(":")[1].trim().split(",");
-
-					for (String monument : mSplit)
-						joueur.addCarte(new Carte("Carte de test", "test", "", 2, 1, "M" + monument));
-
-					continue;
-				}
-
-				// On ajoute la carte correspondante au dernier joueur enregistré
-				String[] parts  = ligne.trim().replaceFirst("-", "").replaceAll(" +", "").split(":");
-				System.out.println(Arrays.toString(parts));
-			}
-
-			System.out.println(Arrays.deepToString(joueurs.toArray(new Joueur[0])));
-
-			sc.close();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
+		new TestFichier().analyserFichier(f);
 	}
 
 }
