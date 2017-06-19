@@ -6,13 +6,15 @@ package minivilles.metier;
 public class Carte {
 	private String nom;
 	private String texteEffet;
+	private String couleur;
 
 	private int declencheur;
 	private int cout;
 
-	public Carte(String nom, String texteEffet, int declencheur, int cout) {
+	public Carte(String nom, String texteEffet, String couleur, int declencheur, int cout) {
 		this.nom = nom;
 		this.texteEffet = texteEffet;
+		this.couleur = couleur;
 
 		this.declencheur = declencheur;
 		this.cout = cout;
@@ -47,14 +49,16 @@ public class Carte {
 		retS += "|" + String.format("%" + -(largeur-2) + "s", this.nom) + "|";
 		retS += "\n";
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 3; i++) {
 			retS += "|" + String.format("%0" + (largeur-2) + "d", 0).replace("0", " ") + "|";
 			retS += "\n";
 		}
 
 		if (this.texteEffet.length() >= (largeur-2)) {
+			int decoupages = this.texteEffet.length() / largeur-2;
+
 			for (int i = 0; i < this.texteEffet.length() % largeur-2; i++) {
-				String s = this.texteEffet.substring(0, 0);
+				String s = this.texteEffet.substring(i/decoupages, i+1/decoupages);
 
 				retS += "|" + String.format("%" + -(largeur-2) + "s", s) + "|";
 			}
