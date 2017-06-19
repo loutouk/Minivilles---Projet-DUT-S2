@@ -8,15 +8,16 @@ public class Carte {
 	private String nom;
 	private String texteEffet;
 	private String couleur;
+	private String identifiant;
 
 	private int declencheur;
 	private int cout;
 
-	public Carte(String nom, String texteEffet, String couleur, int declencheur, int cout) {
+	public Carte(String nom, String texteEffet, String couleur, int declencheur, int cout, String identifiant) {
 		this.nom = nom;
 		this.texteEffet = texteEffet;
 		this.couleur = couleur;
-
+		this.identifiant = identifiant;
 		this.declencheur = declencheur;
 		this.cout = cout;
 	}
@@ -35,6 +36,14 @@ public class Carte {
 
 	public int getCout() {
 		return this.cout;
+	}
+
+	public String getCouleur() {
+		return couleur;
+	}
+
+	public String getIdentifiant() {
+		return identifiant;
 	}
 
 	@Override

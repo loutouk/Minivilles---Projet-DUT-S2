@@ -41,6 +41,17 @@ public class Metier {
 		banque = new Banque();
 	}
 
+	public boolean piocher(String nomCarte, Joueur joueur){
+
+		Carte carte;
+
+		// On recupere la carte correspondant au nom
+		for(Carte c : pioche) if(c.getNom().equals(nomCarte)) carte = c;
+
+		if(pioche.contains())
+
+	}
+
 	/* Affiche le plateau */
 	public String toString() {
 		return "";
