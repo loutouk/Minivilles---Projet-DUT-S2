@@ -104,8 +104,5 @@ public class IHM {
 		this.ctrl.initialiserPlateau(nbJoueurs);
 	}
 
-	public void afficherPlateau() {
-		System.out.println(this.ctrl.afficherPlateau());
-	}
 
 }
