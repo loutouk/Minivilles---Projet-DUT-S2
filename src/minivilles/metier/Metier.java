@@ -80,6 +80,13 @@ public class Metier {
 		for(int i=0 ; i<6 ; i++) pioche.add(new MarcheDeFruitsEtLegumes());
 
 
+		// Attributions des cartes
+		for(Joueur joueur : listeJoueur){
+			piocher("1", joueur);
+			piocher("2-3", joueur);
+		}
+
+
 
 	}
 
