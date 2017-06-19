@@ -1,5 +1,7 @@
 package minivilles.metier;
 
+import minivilles.metier.cartes.Carte;
+
 import java.util.ArrayList;
 
 /**

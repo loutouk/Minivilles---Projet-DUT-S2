@@ -1,9 +1,9 @@
-package minivilles.metier;
+package minivilles.metier.cartes;
 
 /**
  * Created by richard on 6/19/17.
  */
-public class Carte {
+public abstract class Carte {
 
 	private String identifiant;
 	private String nom;
@@ -133,6 +133,8 @@ public class Carte {
 		if (this.nom.equals("Parc d'attractions"))
 			this.texteEffet = "Si votre jet de dés est un double, rejouez un tour après celui-ci.";
 	}
+
+	public abstract boolean lancerEffet();
 
 	@Override
 	public String toString() {
