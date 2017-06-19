@@ -25,8 +25,8 @@ public class TestFichier {
 		this.ctrl.initialiserPlateau(this.getNbJoueurs(f));
 
 		try {
-			Scanner sc  = new Scanner(new FileReader(f));
-			int     nbJ = 0;
+			Scanner sc = new Scanner(new FileReader(f));
+			int nbJ = 0;
 
 			while (sc.hasNextLine()) {
 				String ligne = sc.nextLine();
@@ -61,7 +61,7 @@ public class TestFichier {
 				}
 
 				// On ajoute la carte correspondante au dernier joueur enregistré
-				String[] parts  = ligne.trim().replaceFirst("-", "").replaceAll(" +", "").split(":");
+				String[] parts = ligne.trim().replaceFirst("-", "").replaceAll(" +", "").split(":");
 
 				// TODO
 			}
@@ -80,7 +80,7 @@ public class TestFichier {
 		try {
 			Scanner sc = new Scanner(new FileReader(f));
 
-			while(sc.hasNextLine())
+			while (sc.hasNextLine())
 				if (sc.nextLine().matches(JOUEUR_REGEX))
 					nb++;
 
@@ -91,7 +91,6 @@ public class TestFichier {
 
 		return nb;
 	}
-
 
 
 	public static void main(String[] args) {
