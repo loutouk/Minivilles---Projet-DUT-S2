@@ -41,16 +41,20 @@ public class Metier {
 		banque = new Banque();
 	}
 
-	public boolean piocher(String nomCarte, Joueur joueur){
+	/* L'id peut etre l'dientifiant ou le nom de la carte */
+	public boolean piocher(String id, Joueur joueur){
 
-		Carte carte;
+		Carte carte = null;
 
 		// On recupere la carte correspondant au nom
-		for(Carte c : pioche) if(c.getNom().equals(nomCarte)) carte = c;
+		for(Carte c : pioche) if(c.getNom().equals(id)||c.getIdentifiant().equals(id)) carte = c;
 
-		//if(pioche.contains())
+		if(pioche.contains(carte)) {
+			joueur.getArCartes().add(carte);
+			return pioche.remove(carte);
+		}
 
-		return true;
+		return false;
 
 	}
 
