@@ -116,6 +116,18 @@ public class Carte {
 
 		if (this.nom.equals("Marché de fruits et légumes"))
 			this.texteEffet = "Recevez 2 pièces de la banque pour chaque établissement de type (verger/champs de blé) que vous possédez.";
+
+		if (this.nom.equals("Gare"))
+			this.texteEffet = "Vous pouvez lancer deux dés.";
+
+		if (this.nom.equals("Centre commercial"))
+			this.texteEffet = "Vos établissements de type (café, restaurant, boulangerie et supérette) rapportent une pièce de plus.";
+
+		if (this.nom.equals("Tour radio"))
+			this.texteEffet = "Une fois par tour, vous pouvez choisir de relancer vos dés.";
+
+		if (this.nom.equals("Parc d'attractions"))
+			this.texteEffet = "Si votre jet de dés est un double, rejouez un tour après celui-ci.";
 	}
 
 	@Override
