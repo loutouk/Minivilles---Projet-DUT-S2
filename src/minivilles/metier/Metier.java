@@ -33,25 +33,17 @@ public class Metier {
 	}
 
 
-	/* Genere les cartes selon le nombre de joueur, ainsi que les joueurs, la banque */
+	/* Genere les cartes selon le nombre de joueur, ainsi que les joueurs, la banque
+	* Les declencheurs servent d'identifiants de Carte */
 	public void initialiserPlateau(int nbJoueurs) {
 
 		// Creation des joueurs
 		for (int cpt = 0; cpt < nbJoueurs; cpt++) listeJoueur.add(new Joueur());
 
 		// Creation de la pioche de 108 cartes
-		// Etablissements de departs, 2 sortes pour 8 cartes
-		pioche.add(new Carte("1", "Champ de blé", "bleu", 1));
 
-		// Cartes des joueurs,
-		switch (nbJoueurs) {
-			case 1:
-				break;
-			case 2:
-				break;
-			case 3:
-				break;
-		}
+		// Etablissements de departs, 2 sortes pour 8 cartes
+
 
 	}
 

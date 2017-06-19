@@ -1,5 +1,7 @@
 package minivilles.metier.cartes;
 
+import minivilles.metier.Metier;
+
 public class Cafe extends Carte {
 
 	public Cafe (String identifiant, String nom, String couleur, int declencheur, int cout) {

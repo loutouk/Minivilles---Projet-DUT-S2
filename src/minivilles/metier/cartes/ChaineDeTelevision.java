@@ -1,5 +1,7 @@
 package minivilles.metier.cartes;
 
+import minivilles.metier.Metier;
+
 public class ChaineDeTelevision extends Carte {
 
 	public ChaineDeTelevision() {
@@ -10,7 +12,7 @@ public class ChaineDeTelevision extends Carte {
 	}
 
 	@Override
-	public boolean lancerEffet() {
-		return false;
+	public void lancerEffet(Metier metier) {
+
 	}
 }
