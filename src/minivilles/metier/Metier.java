@@ -1,6 +1,7 @@
 package minivilles.metier;
 
 import java.util.ArrayList;
+import minivilles.metier.*;
 
 /**
  * Created by bl160661 on 09/06/17.
