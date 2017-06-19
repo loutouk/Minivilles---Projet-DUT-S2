@@ -1,11 +1,9 @@
-package minivilles.metier;
-
-import minivilles.metier.cartes.Carte;
+package minivilles.metier.cartes;
 
 /**
  * Created by richard on 6/19/17.
  */
-public class Monument extends Carte {
+public abstract class Monument extends Carte {
 	boolean estVisible = false;
 
 	public Monument(String identifiant, String nom, String couleur, int declencheur, int cout) {
@@ -15,4 +13,6 @@ public class Monument extends Carte {
 	public boolean estVisible() {
 		return this.estVisible;
 	}
+
+	public abstract boolean lancerEffet();
 }
