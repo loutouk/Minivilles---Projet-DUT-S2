@@ -134,7 +134,20 @@ public abstract class Carte {
 			this.texteEffet = "Si votre jet de dés est un double, rejouez un tour après celui-ci.";
 	}
 
-	public abstract boolean lancerEffet();
+	public boolean lancerEffet(int resultatDe1) {
+		if (resultatDe1 == this.declencheur || resultatDe1 == this.declencheur2)
+			return true;
+
+		return false;
+	}
+
+	public boolean lancerEffet(int resultatDe1, int resultatDe2) {
+		if (resultatDe1 == this.declencheur || resultatDe1 == this.declencheur2
+				|| resultatDe2 == this.declencheur || resultatDe2 == this.declencheur2)
+			return true;
+
+		return false;
+	}
 
 	@Override
 	public String toString() {

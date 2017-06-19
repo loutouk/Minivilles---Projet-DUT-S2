@@ -13,6 +13,4 @@ public abstract class Monument extends Carte {
 	public boolean estVisible() {
 		return this.estVisible;
 	}
-
-	public abstract boolean lancerEffet();
 }
