@@ -5,7 +5,7 @@ import minivilles.metier.Metier;
 public class Foret extends Carte {
 
 	public Foret() {
-		super("5", "Champs de blé", "bleu", 5, 3);
+		super("5", "Forêt", "bleu", 5, 3);
 	}
 
 	@Override

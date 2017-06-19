@@ -104,14 +104,18 @@ public class IHM {
 	/* Affiche les cartes sur l'horizontal, 2 par 2 pour rentrer dans la console */
 	public String afficherLigneCarte(ArrayList<Carte> listeCartes) {
 
+		int nbCarteParLigne = 2;
+
 		String affichage = "";
 		String bord = "--------------------------------";
 
-		for(int i=0 ; i<listeCartes.size()/2 ; i++){
+		for(int i=0 ; i<=listeCartes.size()/nbCarteParLigne ; i++){
 
 			ArrayList<Carte> deuxCartes = new ArrayList<>();
-			deuxCartes.add(listeCartes.get(i*2));
-			deuxCartes.add(listeCartes.get(i*2+1));
+			for(int j=0 ; j<nbCarteParLigne ; j++){
+				if(listeCartes.size() > i*nbCarteParLigne+j) deuxCartes.add(listeCartes.get(i*nbCarteParLigne+j));
+			}
+
 
 			for(Carte ignored : deuxCartes) affichage += bord + " ";
 			affichage+="\n";
