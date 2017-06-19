@@ -3,6 +3,7 @@ package minivilles.metier;
 import minivilles.metier.cartes.Carte;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by bl160661 on 09/06/17.
@@ -30,6 +31,10 @@ public class Metier {
 		if (indice < 0 || indice >= listeJoueur.size()) return null;
 
 		return this.listeJoueur.get(indice);
+	}
+
+	public List<Joueur> getJoueurs() {
+		return new ArrayList<>(this.listeJoueur);
 	}
 
 

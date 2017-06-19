@@ -33,11 +33,14 @@ public class TestFichier {
 				if (ligne.isEmpty()) continue;
 
 				// Nouveau joueur dans le fichier
-				if (ligne.charAt(0) == '#')
+				if (ligne.charAt(0) == '#') {
 					if (ligne.matches(JOUEUR_REGEX))
 						nbJ++;
 
-				Joueur joueur = this.ctrl.getMetier().getJoueur(nbJ);
+					continue;
+				}
+
+				Joueur joueur = this.ctrl.getMetier().getJoueur(nbJ - 1);
 				if (joueur == null) continue;
 
 				// On ajoute les pièces au joueur
@@ -46,15 +49,13 @@ public class TestFichier {
 					continue;
 				}
 
-
 				if (ligne.startsWith("cartes:")) continue;
 
 				if (ligne.startsWith("monuments:")) {
 					String[] mSplit = ligne.split(":")[1].trim().split(",");
 
-					for (String monument : mSplit) {
-						// TODO
-					}
+					for (String monument : mSplit)
+						this.ctrl.getMetier().piocher("M" + monument, joueur);
 
 					continue;
 				}
@@ -62,10 +63,12 @@ public class TestFichier {
 				// On ajoute la carte correspondante au dernier joueur enregistré
 				String[] parts = ligne.trim().replaceFirst("-", "").replaceAll(" +", "").split(":");
 
-				// TODO
+				for (int cpt = 0; cpt < Integer.parseInt(parts[1]); cpt++)
+					this.ctrl.getMetier().piocher(parts[0], joueur);
 			}
 
-			System.out.println(this.ctrl.getMetier());
+			for (Joueur joueur : this.ctrl.getMetier().getJoueurs())
+				System.out.println(this.ctrl.getMetier().afficherLigneCarte(joueur.getMain()));
 
 			sc.close();
 		} catch (IOException ex) {

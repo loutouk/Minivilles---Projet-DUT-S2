@@ -4,10 +4,8 @@ package minivilles;
  * Created by Louis on 19/06/2017.
  */
 
-import minivilles.metier.*;
-import minivilles.ihm.*;
-
-import java.util.ArrayList;
+import minivilles.ihm.IHM;
+import minivilles.metier.Metier;
 
 public class Controleur {
 	private IHM ihm;
