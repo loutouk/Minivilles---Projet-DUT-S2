@@ -17,14 +17,27 @@ public class Metier {
 	private ArrayList<Carte> pioche;
 	private ArrayList<Joueur> listeJoueur;
 	private Banque banque;
+	private Joueur joueurCourant;
 
 
 	public Metier() {
 		this.pioche = new ArrayList<>();
 		this.listeJoueur = new ArrayList<>();
 		this.banque = new Banque();
+		joueurCourant = null;
 	}
 
+	public Joueur getJoueurCourant() {
+		return joueurCourant;
+	}
+
+	public ArrayList<Carte> getPioche() {
+		return pioche;
+	}
+
+	public ArrayList<Joueur> getListeJoueur() {
+		return listeJoueur;
+	}
 
 	/**
 	 * Retourne la banque du jeu
@@ -60,6 +73,7 @@ public class Metier {
 
 		// Creation des joueurs
 		for (int cpt = 0; cpt < nbJoueurs; cpt++) listeJoueur.add(new Joueur());
+		joueurCourant = listeJoueur.get(0);
 
 		// Creation de la pioche de 108 cartes
 
