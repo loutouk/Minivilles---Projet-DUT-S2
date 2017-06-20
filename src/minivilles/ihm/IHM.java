@@ -66,6 +66,7 @@ public class IHM {
 
 		// Affichage des joueurs 2 par 2 à l'horizontal
 
+
 		return affichage;
 	}
 
