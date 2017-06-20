@@ -117,10 +117,21 @@ public class Metier {
 
 			// On donne les monuments au joueurs
             // 4 sortes de monuments, pour 16 au total
-            joueur.getMain().add(new Gare());
-            joueur.getMain().add(new CentreCommercial());
-            joueur.getMain().add(new ParcDattractions());
-            joueur.getMain().add(new TourRadio());
+            Carte monument = new Gare();
+            monument.setJoueur(joueur);
+            joueur.getMain().add(monument);
+
+            monument = new CentreCommercial();
+            monument.setJoueur(joueur);
+            joueur.getMain().add(monument);
+
+            monument = new ParcDattractions();
+            monument.setJoueur(joueur);
+            joueur.getMain().add(monument);
+
+            monument = new TourRadio();
+            monument.setJoueur(joueur);
+            joueur.getMain().add(monument);
 		}
 
 	}
@@ -141,6 +152,7 @@ public class Metier {
 				carte = c;
 
 		if (pioche.contains(carte)) {
+            carte.setJoueur(joueur);
 			joueur.getMain().add(carte);
 			return pioche.remove(carte);
 		}
