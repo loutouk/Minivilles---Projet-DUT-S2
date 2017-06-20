@@ -87,4 +87,17 @@ public class Joueur {
 		if (this.pieces < nb) this.pieces -= nb;
 		else this.pieces = 0;
 	}
+
+	/**
+	 * Prend la carte d'un joueur pour la donner à un autre
+	 *
+	 * @param carte     la carte à échanger
+	 * @param receveur le joueur qui va recevoir la carte
+	 * @return un booléen indiquant la réussite de l'opération
+	 */
+	public boolean echangerCarte(Carte carte, Joueur receveur) {
+		carte.setJoueur(receveur);
+		this.main.remove(carte);
+		return receveur.main.add(carte);
+	}
 }
