@@ -105,7 +105,7 @@ public class Joueur {
 	 * Recherche une carte dans la main du joueur
 	 *
 	 * @param id     l'identifiant de la carte
-	 * @return Lacarte trouvée, u null
+	 * @return La carte trouvée, ou null
 	 */
 	public Carte rechercherCarte(String id) {
 		Carte recherche = null;
