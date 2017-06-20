@@ -94,12 +94,6 @@ public class Metier {
 		for(int i=0 ; i<4 ; i++) pioche.add(new ChampsDeBle());
 		for(int i=0 ; i<4 ; i++) pioche.add(new Boulangerie());
 
-		// 4 sortes de monuments, pour 16 au total
-		for(int i=0 ; i<4 ; i++) pioche.add(new Gare());
-		for(int i=0 ; i<4 ; i++) pioche.add(new CentreCommercial());
-		for(int i=0 ; i<4 ; i++) pioche.add(new ParcDattractions());
-		for(int i=0 ; i<4 ; i++) pioche.add(new TourRadio());
-
 		// 3 sortes d'établissements spéciaux, pour 12 au total
 		for(int i=0 ; i<4 ; i++) pioche.add(new Stade());
 		for(int i=0 ; i<4 ; i++) pioche.add(new ChaineDeTelevision());
@@ -122,6 +116,12 @@ public class Metier {
 		for(Joueur joueur : listeJoueur){
 			piocher("1", joueur);
 			piocher("2-3", joueur);
+			// On donne les monuments au joueurs
+            // 4 sortes de monuments, pour 16 au total
+            joueur.getMain().add(new Gare());
+            joueur.getMain().add(new CentreCommercial());
+            joueur.getMain().add(new ParcDattractions());
+            joueur.getMain().add(new TourRadio());
 		}
 
 	}

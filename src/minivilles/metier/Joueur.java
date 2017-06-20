@@ -10,7 +10,6 @@ import java.util.*;
  */
 public class Joueur {
 	private static int autoInc = 0;
-
 	private int num;
 	private int pieces;
 	private ArrayList<Carte> main;
