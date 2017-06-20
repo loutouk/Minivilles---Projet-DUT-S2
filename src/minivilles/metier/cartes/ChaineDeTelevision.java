@@ -13,6 +13,6 @@ public class ChaineDeTelevision extends Carte {
 
 	@Override
 	public void lancerEffet(Metier metier) {
-
+		
 	}
 }

@@ -61,7 +61,6 @@ public class Controleur {
 					System.out.println("Choix invalide");
 					break;
 			}
-
 		}
 	}
 

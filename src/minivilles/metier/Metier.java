@@ -59,6 +59,12 @@ public class Metier {
 		return this.listeJoueur.get(indice);
 	}
 
+	/**
+	 * Retourne une copie de l'<i>ArrayList</i> qui contient les joueurs,
+	 * afin de ne pas modifier les objets <i>Joueur</i>.
+	 *
+	 * @return une <i>List</i> des joueurs
+	 */
 	public List<Joueur> getJoueurs() {
 		return new ArrayList<>(this.listeJoueur);
 	}
@@ -76,9 +82,11 @@ public class Metier {
 		return indiceJoueurCourant;
 	}
 
-	/** Genere les cartes selon le nombre de joueur, ainsi que les joueurs, la banque
+	/**
+	 * Genere les cartes selon le nombre de joueur, ainsi que les joueurs, la banque
 	 * Les declencheurs servent d'identifiants de Carte
-	 * @param nbJoueurs     le nombre de joueur de la partie
+	 *
+	 * @param nbJoueurs le nombre de joueur de la partie
 	 */
 	public void initialiserPlateau(int nbJoueurs) {
 
@@ -88,50 +96,50 @@ public class Metier {
 
 		// Creation de la pioche de 108 cartes
 
-        // Etablissements de departs, 2 sortes pour 8 cartes
-		for(int i=0 ; i<4 ; i++) pioche.add(new ChampsDeBle());
-		for(int i=0 ; i<4 ; i++) pioche.add(new Boulangerie());
+		// Etablissements de departs, 2 sortes pour 8 cartes
+		for (int i = 0; i < 4; i++) pioche.add(new ChampsDeBle());
+		for (int i = 0; i < 4; i++) pioche.add(new Boulangerie());
 
 		// 3 sortes d'établissements spéciaux, pour 12 au total
-		for(int i=0 ; i<4 ; i++) pioche.add(new Stade());
-		for(int i=0 ; i<4 ; i++) pioche.add(new ChaineDeTelevision());
-		for(int i=0 ; i<4 ; i++) pioche.add(new CentreAffaires());
+		for (int i = 0; i < 4; i++) pioche.add(new Stade());
+		for (int i = 0; i < 4; i++) pioche.add(new ChaineDeTelevision());
+		for (int i = 0; i < 4; i++) pioche.add(new CentreAffaires());
 
 		// 10 sortes d'établissements de base, pour 60 au total
-		for(int i=0 ; i<6 ; i++) pioche.add(new Ferme());
-		for(int i=0 ; i<6 ; i++) pioche.add(new Cafe());
-		for(int i=0 ; i<6 ; i++) pioche.add(new Superette());
-		for(int i=0 ; i<6 ; i++) pioche.add(new Foret());
-		for(int i=0 ; i<6 ; i++) pioche.add(new Fromagerie());
-		for(int i=0 ; i<6 ; i++) pioche.add(new FabriqueMeuble());
-		for(int i=0 ; i<6 ; i++) pioche.add(new Mine());
-		for(int i=0 ; i<6 ; i++) pioche.add(new Restaurant());
-		for(int i=0 ; i<6 ; i++) pioche.add(new Verger());
-		for(int i=0 ; i<6 ; i++) pioche.add(new MarcheDeFruitsEtLegumes());
+		for (int i = 0; i < 6; i++) pioche.add(new Ferme());
+		for (int i = 0; i < 6; i++) pioche.add(new Cafe());
+		for (int i = 0; i < 6; i++) pioche.add(new Superette());
+		for (int i = 0; i < 6; i++) pioche.add(new Foret());
+		for (int i = 0; i < 6; i++) pioche.add(new Fromagerie());
+		for (int i = 0; i < 6; i++) pioche.add(new FabriqueMeuble());
+		for (int i = 0; i < 6; i++) pioche.add(new Mine());
+		for (int i = 0; i < 6; i++) pioche.add(new Restaurant());
+		for (int i = 0; i < 6; i++) pioche.add(new Verger());
+		for (int i = 0; i < 6; i++) pioche.add(new MarcheDeFruitsEtLegumes());
 
 
 		// Attributions des cartes
-		for(Joueur joueur : listeJoueur){
+		for (Joueur joueur : listeJoueur) {
 			piocher("1", joueur);
 			piocher("2-3", joueur);
 
 			// On donne les monuments au joueurs
-            // 4 sortes de monuments, pour 16 au total
-            Carte monument = new Gare();
-            monument.setJoueur(joueur);
-            joueur.getMain().add(monument);
+			// 4 sortes de monuments, pour 16 au total
+			Carte monument = new Gare();
+			monument.setJoueur(joueur);
+			joueur.getMain().add(monument);
 
-            monument = new CentreCommercial();
-            monument.setJoueur(joueur);
-            joueur.getMain().add(monument);
+			monument = new CentreCommercial();
+			monument.setJoueur(joueur);
+			joueur.getMain().add(monument);
 
-            monument = new ParcDattractions();
-            monument.setJoueur(joueur);
-            joueur.getMain().add(monument);
+			monument = new ParcDattractions();
+			monument.setJoueur(joueur);
+			joueur.getMain().add(monument);
 
-            monument = new TourRadio();
-            monument.setJoueur(joueur);
-            joueur.getMain().add(monument);
+			monument = new TourRadio();
+			monument.setJoueur(joueur);
+			joueur.getMain().add(monument);
 		}
 
 	}
@@ -158,7 +166,7 @@ public class Metier {
 				carte = c;
 
 		if (pioche.contains(carte)) {
-            carte.setJoueur(joueur);
+			carte.setJoueur(joueur);
 			joueur.getMain().add(carte);
 			return pioche.remove(carte);
 		}
