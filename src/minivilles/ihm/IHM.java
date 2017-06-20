@@ -22,7 +22,7 @@ public class IHM {
 	}
 
 	/**
-	 * Retourne le choix de l'utilisateur.
+	 * Retourne le choix de l'utilisateur pour le menu principal.
 	 * Si la saisie est incorrecte (<i>NumberFormatException</i> est levée),
 	 * la fonction se rappelle elle-même.
 	 *
@@ -47,11 +47,26 @@ public class IHM {
 		return menu;
 	}
 
+	/**
+	 * Retourne le choix de l'utilisateur concernant le nombre de joueurs.
+	 * Si la saisie est incorrecte (<i>NumberFormatException</i> est levée),
+	 * la fonction se rappelle elle-même.
+	 *
+	 * @return le choix de l'utilisateur
+	 */
 	public int choixNbJoueurs() {
 		System.out.print("\nNombre de joueurs : ");
 
 		Scanner sc = new Scanner(System.in);
-		int nbJ = sc.nextInt();
+
+		int nbJ = -1;
+
+		try {
+			nbJ = sc.nextInt();
+		} catch (NumberFormatException nfe) {
+			System.out.println("Veuillez entrer un nombre valide.");
+			this.choixMenu();
+		}
 
 		// On scan dans le vide comme on a change de type
 		sc.nextLine();
@@ -59,7 +74,12 @@ public class IHM {
 	}
 
 
-	/* Affiche le plateau */
+	/**
+	 * Créé une représentation textuelle du plateau.
+	 * On affiche la réserve la banque et les villes des joueurs.
+	 *
+	 * @return une représentation textuelle du plateau.
+	 */
 	public String afficherPlateau() {
 		String affichage = "";
 
@@ -102,7 +122,12 @@ public class IHM {
 	}
 
 
-	/* Affiche les cartes sur l'horizontal, 2 par 2 pour rentrer dans la console */
+	/**
+	 * Affiche les cartes ligne par ligne.
+	 *
+	 * @param listeCartes l'<i>ArrayList</i> de <i>Carte</i> à afficher.
+	 * @return l'affichage des cartes ligne par ligne.
+	 */
 	public String afficherLigneCarte(ArrayList<Carte> listeCartes) {
 		int nbCarteParLigne = 5;
 
