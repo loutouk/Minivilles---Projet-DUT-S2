@@ -7,7 +7,7 @@ import minivilles.metier.Metier;
  */
 public class ParcDattractions extends Monument {
 	public ParcDattractions() {
-		super("M4", "Parc d'attractions", "Marron", -1, 16);
+		super("M3", "Parc d'attractions", "Marron", -1, 16);
 	}
 
 	public boolean estVisible() {

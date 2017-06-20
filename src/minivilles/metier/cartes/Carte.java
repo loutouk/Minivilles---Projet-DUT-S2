@@ -136,8 +136,6 @@ public abstract class Carte {
 			this.texteEffet = "Si votre jet de dés est un double, rejouez un tour après celui-ci.";
 	}
 
-	public abstract void lancerEffet(Metier metier);
-
 	public boolean testEffet(Metier metier, int resultatDe1, int resultatDe2) {
 		if (resultatDe1 == this.declencheur || resultatDe1 == this.declencheur2
 				|| resultatDe2 == this.declencheur || resultatDe2 == this.declencheur2) {
@@ -146,6 +144,12 @@ public abstract class Carte {
 		}
 
 		return false;
+	}
+
+	public abstract void lancerEffet(Metier metier);
+
+	public boolean equals(Carte autre) {
+		return this.getIdentifiant().equals(autre.getIdentifiant());
 	}
 
 	@Override

@@ -3,16 +3,11 @@ package minivilles.ihm;
 import minivilles.*;
 import minivilles.metier.cartes.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by richard on 6/19/17.
  */
-
-
 public class IHM {
 	private Controleur ctrl;
 
@@ -103,23 +98,37 @@ public class IHM {
 
 	/* Affiche les cartes sur l'horizontal, 2 par 2 pour rentrer dans la console */
 	public String afficherLigneCarte(ArrayList<Carte> listeCartes) {
-		int nbCarteParLigne = 3;
+		int nbCarteParLigne = 5;
 
 		String affichage = "";
 		String bord = "-----------------------";
 		int nbT = bord.length() - 2;
 
-		for (int i = 0 ; i <= listeCartes.size() / nbCarteParLigne ; i++){
+
+		Map<String, List<Carte>> cartes = new HashMap<>();
+
+		// Tout d'abord, on regroupe les mêmes cartes
+		for (Carte c : listeCartes) {
+			String iden = c.getIdentifiant();
+
+			if (!cartes.containsKey(iden))
+				cartes.put(iden, new ArrayList<>());
+
+			cartes.get(iden).add(c);
+		}
+
+
+		for (int i = 0 ; i <= cartes.size() / nbCarteParLigne ; i++){
 
 			ArrayList<Carte>        deuxCartes = new ArrayList<>();
 			ArrayList<List<String>> effets     = new ArrayList<>();
 
 
 			for (int j = 0 ; j < nbCarteParLigne ; j++)
-				if (listeCartes.size() > i * nbCarteParLigne + j)
-					deuxCartes.add(listeCartes.get(i * nbCarteParLigne + j));
-
-			if (deuxCartes.size() == 0) continue;
+				if (cartes.size() > i * nbCarteParLigne + j)
+					deuxCartes.add(
+							((ArrayList<Carte>) cartes.values().toArray()[i * nbCarteParLigne + j]).get(0)
+					);
 
 
 			for(Carte c : deuxCartes) {
@@ -137,7 +146,7 @@ public class IHM {
 
 			for(Carte c : deuxCartes) {
 				affichage += "|" + IHM.centrerText(
-						c.getDeclencheur() + (c.getDeclencheur2() == -1 ? "" : "-" + c.getDeclencheur2()),
+						c.getIdentifiant(),
 						nbT
 				) + "| ";
 			}
@@ -157,7 +166,7 @@ public class IHM {
 
 
 
-			for (int l = 0; l < 7; l++) {
+			for (int l = 0; l < 5; l++) {
 				int k = 0;
 				for(Carte ignored : deuxCartes) {
 					if (effets.get(k).size() <= l)
@@ -174,10 +183,13 @@ public class IHM {
 			for(Carte ignored : deuxCartes) affichage += "|" + String.format("%" + nbT + "s", " ") + "| ";
 			affichage += "\n";
 
-			for(Carte c : deuxCartes) affichage += "|" + String.format("%-" + nbT + "s", " " + c.getCout()) + "|" + " ";
+			for(Carte c : deuxCartes) affichage += "|" + String.format("%-" + nbT + "s", " " + c.getCout()) + "| ";
 			affichage += "\n";
 
 			for(Carte ignored : deuxCartes) affichage += bord + " ";
+			affichage += "\n";
+
+			for(Carte c : deuxCartes) affichage += "  x" + String.format("%-" + nbT + "s", cartes.get(c.getIdentifiant()).size());
 			affichage += "\n\n";
 		}
 

@@ -7,7 +7,7 @@ import minivilles.metier.Metier;
  */
 public class TourRadio extends Monument {
 	public TourRadio() {
-		super("M3", "Tour radio", "Marron", -1, 22);
+		super("M4", "Tour radio", "Marron", -1, 22);
 	}
 
 	public boolean estVisible() {

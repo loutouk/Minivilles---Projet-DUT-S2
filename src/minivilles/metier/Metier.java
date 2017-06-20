@@ -110,10 +110,9 @@ public class Metier {
 		Carte carte = null;
 
 		// On récupère la carte correspondant au nom
-		Iterator<Carte> it = pioche.iterator();
-
-		while (it.hasNext()) if (it.next().getNom().equals(id) || it.next().getIdentifiant().equals(id)) carte = it.next();
-
+		for (Carte c : this.pioche)
+			if (c.getNom().equals(id) || c.getIdentifiant().equals(id))
+				carte = c;
 
 		if (pioche.contains(carte)) {
 			joueur.getMain().add(carte);
