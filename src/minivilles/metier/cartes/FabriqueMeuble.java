@@ -1,7 +1,7 @@
 package minivilles.metier.cartes;
 
 import minivilles.metier.Metier;
-
+import java.util.ArrayList;
 public class FabriqueMeuble extends Carte {
 
 	public FabriqueMeuble() {
@@ -10,6 +10,7 @@ public class FabriqueMeuble extends Carte {
 
 	@Override
 	public void lancerEffet(Metier metier) {
+		ArrayList<Carte> arCartes = metier.getJoueurCourant().getMain();
 		int gain = 3;
 		for (Carte c : arCartes) {
 			if(c.getNom().equals("Forêt") || c.getNom().equals("Mine")) cpt++;
