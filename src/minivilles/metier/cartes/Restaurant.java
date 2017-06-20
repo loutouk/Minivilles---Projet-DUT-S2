@@ -13,6 +13,14 @@ public class Restaurant extends Carte {
 
 	@Override
 	public void lancerEffet(Metier metier) {
-
+		int don = 2;
+		for(Joueur j : metier.getListeJoueur()) {
+			for (Carte c : j.getMain()) {
+				if(c.getNom().equals("Restaurant")) {
+					metier.getJoueurCourant().retirerPiece(don);
+					j.addPiece(don);
+				}
+			}
+		}
 	}
 }

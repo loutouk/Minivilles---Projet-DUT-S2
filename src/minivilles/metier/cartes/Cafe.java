@@ -8,7 +8,15 @@ public class Cafe extends Carte {
 		super("3", "Café", "Bleu", 3, 2);
 	}
 	
-	public void lancerEffet(Metier m) {
-		
+	public void lancerEffet(Metier metier) {
+		int don = 1;
+		for(Joueur j : metier.getListeJoueur()) {
+			for (Carte c : j.getMain()) {
+				if(c.getNom().equals("Café")) {
+					metier.getJoueurCourant().retirerPiece(don);
+					j.addPiece(don);
+				}
+			}
+		}
 	}
 }
