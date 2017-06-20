@@ -11,8 +11,16 @@ public class Boulangerie extends Carte {
 		);
 	}
 
+	/**
+	 * Déclenche l'effet de la boulangerie :
+	 * le joueur reçoit une pièce que l'on retire de la banque.
+	 *
+	 * @param metier instance de la classe Metier qui permet d'avoir
+	 *               accès à la banque, la pioche, les joueurs courants ...
+	 */
 	@Override
 	public void lancerEffet(Metier metier) {
-
+		metier.getJoueurCourant().addPiece(1);
+		metier.getBanque().retrait(1);
 	}
 }

@@ -137,8 +137,16 @@ public abstract class Carte {
 	}
 
 	public boolean testEffet(Metier metier, int resultatDe1, int resultatDe2) {
+
 		if (resultatDe1 == this.declencheur || resultatDe1 == this.declencheur2
 				|| resultatDe2 == this.declencheur || resultatDe2 == this.declencheur2) {
+			if ((this.couleur.equals("VERT") || this.couleur.equals("VIOLET"))) {
+				if (metier.getJoueurCourant().getMain().contains(this)) {
+					this.lancerEffet(metier);
+					return true;
+				} else return false;
+			}
+
 			this.lancerEffet(metier);
 			return true;
 		}
