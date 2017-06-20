@@ -46,7 +46,6 @@ public class Metier {
 	 * Les declencheurs servent d'identifiants de Carte
 	 *
 	 * @param nbJoueurs le nombre de joueur de la partie
-	 * @return void
 	 */
 	public void initialiserPlateau(int nbJoueurs) {
 

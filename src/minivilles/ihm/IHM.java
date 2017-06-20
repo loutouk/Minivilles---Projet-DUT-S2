@@ -56,7 +56,7 @@ public class IHM {
 	}
 
 	/* Affiche le plateau */
-	public String afficherPlateau(){
+	public String afficherPlateau() {
 		String affichage = "";
 
 		// Affichage de la réserve de carte, 5 par 3 à l'horizontal
@@ -86,11 +86,10 @@ public class IHM {
 
 		affichage += afficherLigneCarte(ligne1);
 		affichage += afficherLigneCarte(ligne2);
-		affichage +=  afficherLigneCarte(ligne3);
+		affichage += afficherLigneCarte(ligne3);
 
 
 		// Affichage de la banque
-
 
 
 		// Affichage des joueurs 2 par 2 à l'horizontal
@@ -109,42 +108,46 @@ public class IHM {
 		String affichage = "";
 		String bord = "--------------------------------";
 
-		for(int i=0 ; i<=listeCartes.size()/nbCarteParLigne ; i++){
+		for (int i = 0; i <= listeCartes.size() / nbCarteParLigne; i++) {
 
 			ArrayList<Carte> deuxCartes = new ArrayList<>();
-			for(int j=0 ; j<nbCarteParLigne ; j++){
-				if(listeCartes.size() > i*nbCarteParLigne+j) deuxCartes.add(listeCartes.get(i*nbCarteParLigne+j));
+			for (int j = 0; j < nbCarteParLigne; j++) {
+				if (listeCartes.size() > i * nbCarteParLigne + j)
+					deuxCartes.add(listeCartes.get(i * nbCarteParLigne + j));
 			}
 
 
-			for(Carte ignored : deuxCartes) affichage += bord + " ";
-			affichage+="\n";
+			for (Carte ignored : deuxCartes) affichage += bord + " ";
+			affichage += "\n";
 
 
-			for(Carte c : deuxCartes)  affichage += "|" + String.format("%-30s", "Declencheur : "
-					+ c.getDeclencheur() + " " + (c.getDeclencheur2() == -1 ? " " : c.getDeclencheur2()))  + "|"  + " ";
-			affichage+="\n";
+			for (Carte c : deuxCartes)
+				affichage += "|" + String.format("%-30s", "Declencheur : "
+						+ c.getDeclencheur() + " " + (c.getDeclencheur2() == -1 ? " " : c.getDeclencheur2())) + "|" + " ";
+			affichage += "\n";
 
-			for(Carte ignored : deuxCartes) affichage +=  String.format("%-30s", bord) + " ";
-			affichage+="\n";
+			for (Carte ignored : deuxCartes) affichage += String.format("%-30s", bord) + " ";
+			affichage += "\n";
 
-			for(Carte c : deuxCartes)  affichage += "|" + String.format("%-30s", "Nom : " + c.getNom())+ "|"  + " ";
-			affichage+="\n";
+			for (Carte c : deuxCartes) affichage += "|" + String.format("%-30s", "Nom : " + c.getNom()) + "|" + " ";
+			affichage += "\n";
 
-			for(Carte ignored : deuxCartes) affichage +=  String.format("%-30s", bord) + " ";
-			affichage+="\n";
+			for (Carte ignored : deuxCartes) affichage += String.format("%-30s", bord) + " ";
+			affichage += "\n";
 
-			for(Carte c : deuxCartes)  affichage += "|" + String.format("%-30s", "Effet : " + c.getTexteEffet().substring(0,21)) + "|" + " ";
-			affichage+="\n";
+			for (Carte c : deuxCartes)
+				affichage += "|" + String.format("%-30s", "Effet : " + c.getTexteEffet().substring(0, 21)) + "|" + " ";
+			affichage += "\n";
 
-			for(Carte ignored : deuxCartes) affichage +=  String.format("%-30s", bord) + " ";
-			affichage+="\n";
+			for (Carte ignored : deuxCartes) affichage += String.format("%-30s", bord) + " ";
+			affichage += "\n";
 
-			for(Carte c : deuxCartes) affichage += "|" + String.format("%-30s", "Cout de construction : " + c.getCout()) + "|" + " ";
-			affichage+="\n";
+			for (Carte c : deuxCartes)
+				affichage += "|" + String.format("%-30s", "Cout de construction : " + c.getCout()) + "|" + " ";
+			affichage += "\n";
 
-			for(Carte ignored : deuxCartes) affichage +=  String.format("%-30s", bord) + " ";
-			affichage+="\n";
+			for (Carte ignored : deuxCartes) affichage += String.format("%-30s", bord) + " ";
+			affichage += "\n";
 		}
 
 		return affichage;
