@@ -98,7 +98,7 @@ public class Controleur {
 					de1 = de;
 				}else if(de2 == 0){
 					de2 = de;
-					rejouer = (de1 == de2 && ! ((Monument)(joueur.rechercherCarte("M3"))).estEnConstruction());
+					if(!rejouer) rejouer = (de1 == de2 && ! ((Monument)(joueur.rechercherCarte("M3"))).estEnConstruction());
 				}
 
 
