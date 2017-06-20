@@ -21,20 +21,25 @@ public class IHM {
 	public void afficherMenuPrincipal() {
 		this.clearConsole();
 
-		this.afficherMenu(
+		this.afficherBoite(
 				"menu principal",
 				"jouer", "quitter"
 		);
 	}
 
 	public void afficherMenuAchat() {
-		this.afficherMenu(
+		this.afficherBoite(
 				"menu de construction",
 				"Acheter une carte de la réserve",
 				"Construire un monument",
 				"Passer mon tour"
 		);
 	}
+
+	public void afficherMenuRejouer(){
+		this.afficherBoite("Voulez-vous rejouer ?", "Oui", "Non");
+	}
+
 
 	/**
 	 * Retourne le choix de l'utilisateur pour le menu principal.
@@ -146,7 +151,6 @@ public class IHM {
 			System.out.println("Pièces : " + j.getPieces());
         }
 	}
-
 
 	/**
 	 * Affiche les cartes ligne par ligne.
@@ -264,11 +268,22 @@ public class IHM {
 		System.out.println(affichage);
 	}
 
+	public void afficherValeurDes(int de1, int de2) {
+		String label;
 
-	private void   afficherMenu(String titre, String... items) {
+		if (de2 < 0)
+			label = "Valeurs du dé : " + de1;
+		else
+			label = "Valeurs des dés : " + de1 + " et " + de2;
+
+		this.afficherBoite(label);
+	}
+
+
+	private void afficherBoite(String titre, String... sousItems) {
 		int largeur = titre.length();
 
-		for (String item : items)
+		for (String item : sousItems)
 			if (item.length() > largeur)
 				largeur = item.length();
 
@@ -276,19 +291,18 @@ public class IHM {
 
 		System.out.println("/" + bord + "\\");
 		System.out.println("|  " + String.format("%-" + (largeur + 4) + "s", titre.toUpperCase()) + "  |");
-		System.out.println("|" + bord + "|");
 
-		for (int cpt = 0; cpt < items.length; cpt++)
-			System.out.println("| " + String.format("%2d", cpt+1) + ".  " + String.format("%-" + largeur + "s", IHM.ucfirst(items[cpt])) + "  |");
+		if (sousItems.length > 0) {
+			System.out.println("|" + bord + "|");
+
+			for (int cpt = 0; cpt < sousItems.length; cpt++)
+				System.out.println("| " + String.format("%2d", cpt + 1) + ".  " + String.format("%-" + largeur + "s", IHM.ucfirst(sousItems[cpt])) + "  |");
+		}
 
 		System.out.println("\\" + bord + "/");
 	}
 
-	public void afficherMenuRejouer(){
-	    this.afficherMenu("Voulez-vous rejouer ?", "Oui", "Non");
-    }
-
-	public  void   clearConsole() {
+	public  void clearConsole() {
 		// Clean de la console en fonction du système d'exploitation
 		try {
 			if (System.getProperty("os.name").contains("Windows"))

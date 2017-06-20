@@ -74,6 +74,9 @@ public class TestFichier {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
+
+
+		this.ctrl.lancer();
 	}
 
 	private int getNbJoueurs(File f) {

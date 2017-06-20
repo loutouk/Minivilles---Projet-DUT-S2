@@ -1,5 +1,6 @@
 package minivilles.metier.cartes;
 
+import minivilles.metier.Joueur;
 import minivilles.metier.Metier;
 import java.util.ArrayList;
 
@@ -12,6 +13,7 @@ public class Stade extends Carte {
 	@Override
 	public void lancerEffet(Metier metier) {
 		int don = 2;
+
 		for(Joueur j : metier.getListeJoueur()) {
 			if(j.getPieces() >= don) {
 				j.retirerPiece(don);
