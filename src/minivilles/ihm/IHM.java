@@ -38,6 +38,7 @@ public class IHM {
 		Scanner sc = new Scanner(System.in);
 		int nbJ = sc.nextInt();
 
+		// On scan dans le vide comme on a change de type
 		sc.nextLine();
 		return nbJ;
 	}
