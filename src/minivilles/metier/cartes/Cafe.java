@@ -10,13 +10,13 @@ public class Cafe extends Carte {
 	
 	public void lancerEffet(Metier metier) {
 		int don = 1;
-		for(Joueur j : metier.getListeJoueur()) {
-			for (Carte c : j.getMain()) {
-				if(c.getNom().equals("Café")) {
-					metier.getJoueurCourant().retirerPiece(don);
-					j.addPiece(don);
-				}
-			}
+		if(this.getJoueur().getPieces() >= don) {
+			metier.getJoueurCourant().retirerPiece(don);
+			this.getJoueur().addPiece(don);
+		}
+		else {
+			metier.getJoueurCourant().retirerPiece(metier.getJoueurCourant().getPieces());
+			this.getJoueur().addPiece(metier.getJoueurCourant().getPieces());
 		}
 	}
 }
