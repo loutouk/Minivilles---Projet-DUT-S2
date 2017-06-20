@@ -21,7 +21,7 @@ public class Joueur {
 	 */
 	public Joueur() {
 		this.num = ++autoInc;
-		this.pieces = 20;
+		this.pieces = 1000;
 		main = new ArrayList<>();
 	}
 

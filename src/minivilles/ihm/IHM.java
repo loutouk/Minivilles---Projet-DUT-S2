@@ -284,6 +284,10 @@ public class IHM {
 		System.out.println("\\" + bord + "/");
 	}
 
+	public void afficherMenuRejouer(){
+	    this.afficherMenu("Voulez-vous rejouer ?", "Oui", "Non");
+    }
+
 	public  void   clearConsole() {
 		// Clean de la console en fonction du système d'exploitation
 		try {
