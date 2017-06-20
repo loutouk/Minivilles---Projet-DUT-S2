@@ -37,7 +37,7 @@ public class IHM {
 						// On scan dans le vide comme on a change de type
 						sc.nextLine();
 						if (nbJoueurs >= 2 && nbJoueurs <= 4) this.initialiserPlateau(nbJoueurs);
-					} catch (Exception e) {
+					} catch (NumberFormatException nfe) {
 						System.out.println("Veuillez entrez un nombre valide");
 					}
 					break;
