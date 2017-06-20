@@ -14,13 +14,15 @@ public class Restaurant extends Carte {
 	@Override
 	public void lancerEffet(Metier metier) {
 		int don = 2;
-		if(this.getJoueur().getPieces() >= don) {
+
+		if(metier.getJoueurCourant().getPieces() >= don) {
 			metier.getJoueurCourant().retirerPiece(don);
 			this.getJoueur().addPiece(don);
 		}
 		else {
-			metier.getJoueurCourant().retirerPiece(metier.getJoueurCourant().getPieces());
-			this.getJoueur().addPiece(metier.getJoueurCourant().getPieces());
+			int argentRetire = metier.getJoueurCourant().getPieces();
+			metier.getJoueurCourant().retirerPiece(argentRetire);
+			this.getJoueur().addPiece(argentRetire);
 		}
 	}
 }

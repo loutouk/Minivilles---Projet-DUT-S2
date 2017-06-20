@@ -10,13 +10,10 @@ public class Cafe extends Carte {
 	
 	public void lancerEffet(Metier metier) {
 		int don = 1;
-		if(this.getJoueur().getPieces() >= don) {
+
+		if(metier.getJoueurCourant().getPieces() >= don) {
 			metier.getJoueurCourant().retirerPiece(don);
 			this.getJoueur().addPiece(don);
-		}
-		else {
-			metier.getJoueurCourant().retirerPiece(metier.getJoueurCourant().getPieces());
-			this.getJoueur().addPiece(metier.getJoueurCourant().getPieces());
 		}
 	}
 }

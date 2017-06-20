@@ -59,6 +59,12 @@ public class Metier {
 		return this.listeJoueur.get(indice);
 	}
 
+	/**
+	 * Retourne une copie de l'<i>ArrayList</i> qui contient les joueurs,
+	 * afin de ne pas modifier les objets <i>Joueur</i>.
+	 *
+	 * @return une <i>List</i> des joueurs
+	 */
 	public List<Joueur> getJoueurs() {
 		return new ArrayList<>(this.listeJoueur);
 	}
