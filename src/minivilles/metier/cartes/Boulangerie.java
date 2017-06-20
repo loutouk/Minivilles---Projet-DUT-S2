@@ -20,7 +20,8 @@ public class Boulangerie extends Carte {
 	 */
 	@Override
 	public void lancerEffet(Metier metier) {
-		metier.getJoueurCourant().addPiece(1);
-		metier.getBanque().retrait(1);
+		int gain = 1;
+		metier.getJoueurCourant().addPiece(gain);
+		metier.getBanque().retrait(gain);
 	}
 }

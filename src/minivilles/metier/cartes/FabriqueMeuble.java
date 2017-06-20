@@ -10,6 +10,11 @@ public class FabriqueMeuble extends Carte {
 
 	@Override
 	public void lancerEffet(Metier metier) {
-
+		int gain = 3;
+		for (Carte c : arCartes) {
+			if(c.getNom().equals("Forêt") || c.getNom().equals("Mine")) cpt++;
+		}
+		metier.getJoueurCourant().addPiece(cpt*gain);
+		metier.getBanque().retrait(cpt*gain);
 	}
 }

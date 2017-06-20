@@ -13,6 +13,8 @@ public class Superette extends Carte {
 
 	@Override
 	public void lancerEffet(Metier metier) {
-
+		int gain = 3;
+		metier.getJoueurCourant().addPiece(gain);
+		metier.getBanque().retrait(gain);
 	}
 }

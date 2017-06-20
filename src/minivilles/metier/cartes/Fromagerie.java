@@ -13,6 +13,13 @@ public class Fromagerie extends Carte {
 
 	@Override
 	public void lancerEffet(Metier metier) {
-
+		ArrayList<Carte> arCartes = metier.getJoueurCourant().getMain();
+		int cpt = 0;
+		int gain = 3;
+		for (Carte c : arCartes) {
+			if(c.getNom().equals("Ferme")) cpt++;
+		}
+		metier.getJoueurCourant().addPiece(cpt*gain);
+		metier.getBanque().retrait(cpt*gain);
 	}
 }
