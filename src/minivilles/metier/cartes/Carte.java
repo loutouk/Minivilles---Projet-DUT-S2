@@ -163,7 +163,7 @@ public abstract class Carte {
 	@Override
 	public String toString() {
 		String retS = "";
-		int largeur = 30;
+		int largeur;
 		if (this.couleurEffet.length() < this.texteEffet.length()) {
 			largeur = this.texteEffet.length() + 5;
 		} else {

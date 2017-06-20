@@ -5,7 +5,6 @@ import minivilles.metier.cartes.*;
 import minivilles.metier.cartes.monuments.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -80,8 +79,7 @@ public class Metier {
 	/** Genere les cartes selon le nombre de joueur, ainsi que les joueurs, la banque
 	 * Les declencheurs servent d'identifiants de Carte
 	 * @param nbJoueurs     le nombre de joueur de la partie
-	 * @return void
-	 * */
+	 */
 	public void initialiserPlateau(int nbJoueurs) {
 
 		// Creation des joueurs
