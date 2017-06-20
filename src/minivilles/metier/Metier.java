@@ -14,15 +14,25 @@ import java.util.List;
 
 public class Metier {
 
-	private ArrayList pioche;
+	private ArrayList<Carte> pioche;
 	private ArrayList<Joueur> listeJoueur;
-	private static Banque banque;
+	private Banque banque;
 
 
 	public Metier() {
 		this.pioche = new ArrayList<>();
 		this.listeJoueur = new ArrayList<>();
-		banque = new Banque();
+		this.banque = new Banque();
+	}
+
+
+	/**
+	 * Retourne la banque du jeu
+	 *
+	 * @return La banque
+	 */
+	public Banque getBanque() {
+		return this.banque;
 	}
 
 	/**
@@ -86,8 +96,6 @@ public class Metier {
 			piocher("1", joueur);
 			piocher("2-3", joueur);
 		}
-
-
 
 	}
 

@@ -10,9 +10,10 @@ import java.util.*;
  */
 public class Joueur {
 	private static int autoInc = 0;
+
 	private int num;
 	private int pieces;
-	private ArrayList main;
+	private ArrayList<Carte> main;
 
 	/**
 	 * On initialise le joueur avec son identifiant unique,
@@ -47,7 +48,7 @@ public class Joueur {
 	 *
 	 * @return la main du joueur.
 	 */
-	public ArrayList getMain() {
+	public ArrayList<Carte> getMain() {
 		return this.main;
 	}
 
