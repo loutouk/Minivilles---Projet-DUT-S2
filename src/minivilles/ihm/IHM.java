@@ -15,42 +15,33 @@ public class IHM {
 		this.ctrl = ctrl;
 	}
 
-	public int menu() {
-		Scanner sc = new Scanner(System.in);
-		boolean quitter = false;
-		String choix;
-		int nbJoueurs;
-		while (!quitter) {
-			System.out.println("1.\tJouer");
-			System.out.println("2.\tQuitter");
 
-			choix = sc.nextLine();
-
-			switch (choix) {
-				case "1":
-					System.out.println("Choisissez un nombre de joueurs entre 2 et 4");
-					try {
-						nbJoueurs = sc.nextInt();
-						// On scan dans le vide comme on a change de type
-						sc.nextLine();
-						if (nbJoueurs >= 2 && nbJoueurs <= 4) this.initialiserPlateau(nbJoueurs);
-					} catch (Exception e) {
-						System.out.println("Veuillez entrez un nombre valide");
-					}
-					break;
-
-				case "2":
-					quitter = true;
-					break;
-
-				default:
-					System.out.println("Choix invalide");
-					break;
-			}
-
-		}
-		return 0;
+	public void afficherMenu() {
+		System.out.println("1.\tJouer");
+		System.out.println("2.\tQuitter");
 	}
+
+	public int choixMenu() {
+		System.out.print("\nVotre choix : ");
+
+		Scanner sc = new Scanner(System.in);
+		int menu = sc.nextInt();
+
+		// On scan dans le vide comme on a change de type
+		sc.nextLine();
+		return menu;
+	}
+
+	public int choixNbJoueurs() {
+		System.out.print("\nNombre de joueurs : ");
+
+		Scanner sc = new Scanner(System.in);
+		int nbJ = sc.nextInt();
+
+		sc.nextLine();
+		return nbJ;
+	}
+
 
 	/* Affiche le plateau */
 	public String afficherPlateau() {
