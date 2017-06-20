@@ -27,4 +27,8 @@ public class Banque {
 
 		return false;
 	}
+
+	public int getSolde() {
+		return solde;
+	}
 }
