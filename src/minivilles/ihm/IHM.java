@@ -19,8 +19,10 @@ public class IHM {
 
 
 	public void afficherMenu() {
-		System.out.println("1.\tJouer");
-		System.out.println("2.\tQuitter");
+		this.afficherMenu(
+				"menu principal",
+				"jouer", "quitter"
+		);
 	}
 
 	/**
@@ -31,7 +33,7 @@ public class IHM {
 	 * @return le choix de l'utilisateur.
 	 */
 	public int choixMenu() {
-		System.out.print("\nVotre choix : ");
+		System.out.print("\n   choix : ");
 
 		Scanner sc = new Scanner(System.in);
 
@@ -73,6 +75,17 @@ public class IHM {
 		// On scan dans le vide comme on a change de type
 		sc.nextLine();
 		return nbJ;
+	}
+
+	public int getDe() {
+		System.out.print("\nEntrez un nombre pour le dé : ");
+
+		Scanner sc = new Scanner(System.in);
+		int menu = sc.nextInt();
+
+		// On scan dans le vide comme on a change de type
+		sc.nextLine();
+		return menu;
 	}
 
 
@@ -231,6 +244,27 @@ public class IHM {
 		return affichage;
 	}
 
+
+	private void   afficherMenu(String titre, String... items) {
+		int largeur = titre.length();
+
+		for (String item : items)
+			if (item.length() > largeur)
+				largeur = item.length();
+
+		String bord = String.format("%" + (largeur + 8) + "s", " ").replaceAll(" ", "-");
+
+		System.out.println("/" + bord + "\\");
+		System.out.println("|  " + String.format("%-" + (largeur + 4) + "s", titre.toUpperCase()) + "  |");
+		System.out.println("|" + bord + "|");
+
+		for (int cpt = 0; cpt < items.length; cpt++)
+			System.out.println("| " + String.format("%2d", cpt+1) + ".  " + String.format("%-" + largeur + "s", IHM.ucfirst(items[cpt])) + "  |");
+
+		System.out.println("\\" + bord + "/");
+	}
+
+
 	private static String centrerText(String text, int len) {
 		String out = String.format("%" + len + "s%s%" + len + "s", "", text, "");
 		float mid = (out.length() / 2);
@@ -240,5 +274,8 @@ public class IHM {
 		return out.substring((int) start, (int) end);
 	}
 
+	private static String ucfirst(String chaine){
+		return chaine.substring(0, 1).toUpperCase()+ chaine.substring(1).toLowerCase();
+	}
 
 }

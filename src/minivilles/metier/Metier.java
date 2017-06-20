@@ -136,6 +136,12 @@ public class Metier {
 
 	}
 
+	public void lancerEffets(int res1, int res2) {
+		for (Joueur joueur : this.listeJoueur)
+			for (Carte c : joueur.getMain())
+				c.testEffet(this, res1, res2);
+	}
+
 	/**
 	 * Pioche la carte dont on donne l'identifiant, et la place dans la main du joueur passé en paramètre.
 	 *

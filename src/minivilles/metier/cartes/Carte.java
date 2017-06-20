@@ -2,6 +2,7 @@ package minivilles.metier.cartes;
 
 import minivilles.metier.Joueur;
 import minivilles.metier.Metier;
+import minivilles.metier.cartes.monuments.Monument;
 
 /**
  * Created by richard on 6/19/17.
@@ -151,13 +152,20 @@ public abstract class Carte {
 
 		if (resultatDe1 == this.declencheur || resultatDe1 == this.declencheur2
 				|| resultatDe2 == this.declencheur || resultatDe2 == this.declencheur2) {
+
+			// Le monument doit être construit pour lancer l'effet
+			if (this instanceof Monument && ((Monument) this).estEnConstruction())
+				return false;
+
 			if ((this.couleur.equals("VERT") || this.couleur.equals("VIOLET"))) {
 				if (metier.getJoueurCourant().getMain().contains(this)) {
+					System.out.println("[D] On lance l'effet de la carte " + this.nom + "...");
 					this.lancerEffet(metier);
 					return true;
 				} else return false;
 			}
 
+			System.out.println("[D] On lance l'effet de la carte " + this.nom + "...");
 			this.lancerEffet(metier);
 			return true;
 		}
@@ -173,6 +181,7 @@ public abstract class Carte {
 
 	@Override
 	public String toString() {
+		/*
 		String retS = "";
 		int largeur;
 		if (this.couleurEffet.length() < this.texteEffet.length()) {
@@ -207,5 +216,7 @@ public abstract class Carte {
 		retS += String.format("%0" + largeur + "d", 0).replace("0", "=");
 
 		return retS;
+		*/
+		return this.getIdentifiant() + " - " + this.getNom();
 	}
 }
