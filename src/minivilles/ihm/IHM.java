@@ -21,11 +21,26 @@ public class IHM {
 		System.out.println("2.\tQuitter");
 	}
 
+	/**
+	 * Retourne le choix de l'utilisateur.
+	 * Si la saisie est incorrecte (<i>NumberFormatException</i> est levée),
+	 * la fonction se rappelle elle-même.
+	 *
+	 * @return le choix de l'utilisateur.
+	 */
 	public int choixMenu() {
 		System.out.print("\nVotre choix : ");
 
 		Scanner sc = new Scanner(System.in);
-		int menu = sc.nextInt();
+
+		int menu = -1;
+
+		try {
+			menu = sc.nextInt();
+		} catch (NumberFormatException nfe) {
+			System.out.println("Veuillez entrer un nombre valide.");
+			this.choixMenu();
+		}
 
 		// On scan dans le vide comme on a change de type
 		sc.nextLine();
