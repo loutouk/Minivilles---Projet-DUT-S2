@@ -1,6 +1,7 @@
 package minivilles.ihm;
 
 import minivilles.*;
+import minivilles.metier.Joueur;
 import minivilles.metier.cartes.*;
 
 import java.util.*;
@@ -80,7 +81,14 @@ public class IHM {
         affichage += "---------------------------\n";
 
 		// Affichage des joueurs 2 par 2 à l'horizontal
-
+        for(Joueur j : ctrl.getMetier().getListeJoueur()){
+            affichage += "\nJoueur " + j.getNum() + "\n";
+            // Monument
+            // Carte
+            affichage += afficherLigneCarte(j.getMain());
+            // Argent
+            affichage += "Pièces : " + j.getPieces() + "\n";
+        }
 
 		return affichage;
 	}
