@@ -13,6 +13,6 @@ public class TourRadio extends Monument {
 
 
 	public void lancerEffet(Metier metier) {
-
+		// Une fois par tour vous pouvez choisir de relancer vos dés
 	}
 }

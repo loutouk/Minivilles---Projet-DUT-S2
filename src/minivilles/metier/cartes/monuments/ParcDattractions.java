@@ -13,6 +13,6 @@ public class ParcDattractions extends Monument {
 
 
 	public void lancerEffet(Metier metier) {
-
+		// Vous rejouer si votre jet de dés est un double
 	}
 }

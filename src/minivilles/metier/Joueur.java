@@ -100,4 +100,16 @@ public class Joueur {
 		this.main.remove(carte);
 		return receveur.main.add(carte);
 	}
+
+	/**
+	 * Recherche une carte dans la main du joueur
+	 *
+	 * @param id     l'identifiant de la carte
+	 * @return Lacarte trouvée, u null
+	 */
+	public Carte rechercherCarte(String id) {
+		Carte recherche = null;
+		for(Carte c : main) if(c.getIdentifiant().equals(id)) recherche = c;
+		return recherche;
+	}
 }

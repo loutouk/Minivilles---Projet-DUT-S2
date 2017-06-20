@@ -13,6 +13,6 @@ public class Gare extends Monument {
 
 
 	public void lancerEffet(Metier metier) {
-
+		// Vous pouvez lancer deux dés
 	}
 }

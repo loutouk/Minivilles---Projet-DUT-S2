@@ -13,6 +13,6 @@ public class CentreCommercial extends Monument {
 
 
 	public void lancerEffet(Metier metier) {
-
+		// Les cafés, restaurants et supérettes, boulangeries rapportent une pièce de plus
 	}
 }
