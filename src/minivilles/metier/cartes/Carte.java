@@ -1,5 +1,6 @@
 package minivilles.metier.cartes;
 
+import minivilles.metier.Joueur;
 import minivilles.metier.Metier;
 
 /**
@@ -13,6 +14,8 @@ public abstract class Carte {
 	private String texteEffet;
 	private String couleur;
 	private String couleurEffet;
+
+	private Joueur joueur;
 
 	private int declencheur;
 	private int declencheur2;
@@ -56,6 +59,10 @@ public abstract class Carte {
 		return this.couleur;
 	}
 
+	public Joueur getJoueur() {
+		return this.joueur;
+	}
+
 	public int getDeclencheur2() {
 		return this.declencheur2;
 	}
@@ -70,6 +77,10 @@ public abstract class Carte {
 
 	public int getCout() {
 		return this.cout;
+	}
+
+	public void setJoueur(Joueur joueur) {
+		this.joueur = joueur;
 	}
 
 	public void initCouleurEffet() {

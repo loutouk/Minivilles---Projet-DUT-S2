@@ -12,7 +12,7 @@ public class Mine extends Carte {
 	public void lancerEffet(Metier metier) {
 		int gain = 5;
 		this.getJoueur().addPiece(gain);
-		metier.banque.retrait(gain);
+		metier.getBanque().retrait(gain);
 	}
 
 

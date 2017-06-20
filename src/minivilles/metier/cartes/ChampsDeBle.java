@@ -12,6 +12,6 @@ public class ChampsDeBle extends Carte {
 	public void lancerEffet(Metier metier) {
 		int gain = 1;
 		this.getJoueur().addPiece(gain);
-		metier.banque.retrait(gain);
+		metier.getBanque().retrait(gain);
 	}
 }
