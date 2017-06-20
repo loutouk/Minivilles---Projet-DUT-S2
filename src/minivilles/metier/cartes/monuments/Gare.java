@@ -11,11 +11,11 @@ public class Gare extends Monument {
 	}
 
 	public boolean estVisible() {
-		return this.estVisible;
+		return this.enConstruction;
 	}
 
 	public void setVisible(boolean visibilite) {
-		this.estVisible = visibilite;
+		this.enConstruction = visibilite;
 	}
 
 	public void lancerEffet(Metier metier) {
