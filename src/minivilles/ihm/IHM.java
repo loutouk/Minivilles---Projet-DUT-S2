@@ -83,11 +83,10 @@ public class IHM {
 
 		affichage += afficherLigneCarte(ligne1);
 		affichage += afficherLigneCarte(ligne2);
-		affichage +=  afficherLigneCarte(ligne3);
+		affichage += afficherLigneCarte(ligne3);
 
 
 		// Affichage de la banque
-
 
 
 		// Affichage des joueurs 2 par 2 à l'horizontal
@@ -118,13 +117,13 @@ public class IHM {
 		}
 
 
-		for (int i = 0 ; i <= cartes.size() / nbCarteParLigne ; i++){
+		for (int i = 0; i <= cartes.size() / nbCarteParLigne; i++) {
 
-			ArrayList<Carte>        deuxCartes = new ArrayList<>();
-			ArrayList<List<String>> effets     = new ArrayList<>();
+			ArrayList<Carte> deuxCartes = new ArrayList<>();
+			ArrayList<List<String>> effets = new ArrayList<>();
 
 
-			for (int j = 0 ; j < nbCarteParLigne ; j++)
+			for (int j = 0; j < nbCarteParLigne; j++)
 				if (cartes.size() > i * nbCarteParLigne + j)
 					deuxCartes.add(
 							((ArrayList<Carte>) cartes.values().toArray()[i * nbCarteParLigne + j]).get(0)
@@ -133,7 +132,7 @@ public class IHM {
 			if (deuxCartes.size() == 0) continue;
 
 
-			for(Carte c : deuxCartes) {
+			for (Carte c : deuxCartes) {
 				StringBuilder sb = new StringBuilder(c.getTexteEffet());
 
 				int j = 0;
@@ -143,34 +142,33 @@ public class IHM {
 				effets.add(Arrays.asList(sb.toString().split("\n")));
 			}
 
-			for(Carte ignored : deuxCartes) affichage += bord + " ";
+			for (Carte ignored : deuxCartes) affichage += bord + " ";
 			affichage += "\n";
 
-			for(Carte c : deuxCartes) {
+			for (Carte c : deuxCartes) {
 				affichage += "|" + IHM.centrerText(
 						c.getIdentifiant(),
 						nbT
 				) + "| ";
 			}
-			affichage+="\n";
+			affichage += "\n";
 
-			for(Carte c : deuxCartes) {
+			for (Carte c : deuxCartes) {
 				affichage += "|" + IHM.centrerText(
 						c.getNom(),
 						nbT
 				) + "| ";
 			}
-			affichage+="\n";
+			affichage += "\n";
 
 
-			for(Carte ignored : deuxCartes) affichage += bord + " ";
-			affichage+="\n";
-
+			for (Carte ignored : deuxCartes) affichage += bord + " ";
+			affichage += "\n";
 
 
 			for (int l = 0; l < 5; l++) {
 				int k = 0;
-				for(Carte ignored : deuxCartes) {
+				for (Carte ignored : deuxCartes) {
 					if (effets.get(k).size() <= l)
 						affichage += "|" + String.format("%" + nbT + "s", " ") + "| ";
 					else
@@ -182,16 +180,17 @@ public class IHM {
 			}
 
 
-			for(Carte ignored : deuxCartes) affichage += "|" + String.format("%" + nbT + "s", " ") + "| ";
+			for (Carte ignored : deuxCartes) affichage += "|" + String.format("%" + nbT + "s", " ") + "| ";
 			affichage += "\n";
 
-			for(Carte c : deuxCartes) affichage += "|" + String.format("%-" + nbT + "s", " " + c.getCout()) + "| ";
+			for (Carte c : deuxCartes) affichage += "|" + String.format("%-" + nbT + "s", " " + c.getCout()) + "| ";
 			affichage += "\n";
 
-			for(Carte ignored : deuxCartes) affichage += bord + " ";
+			for (Carte ignored : deuxCartes) affichage += bord + " ";
 			affichage += "\n";
 
-			for(Carte c : deuxCartes) affichage += "  x" + String.format("%-" + nbT + "s", cartes.get(c.getIdentifiant()).size());
+			for (Carte c : deuxCartes)
+				affichage += "  x" + String.format("%-" + nbT + "s", cartes.get(c.getIdentifiant()).size());
 			affichage += "\n\n";
 		}
 
@@ -203,14 +202,13 @@ public class IHM {
 	}
 
 
-
-	private static String centrerText(String text, int len){
-		String out = String.format("%"+len+"s%s%"+len+"s", "",text,"");
+	private static String centrerText(String text, int len) {
+		String out = String.format("%" + len + "s%s%" + len + "s", "", text, "");
 		float mid = (out.length() / 2);
 		float start = mid - (len / 2);
 		float end = start + len;
 
-		return out.substring((int)start, (int)end);
+		return out.substring((int) start, (int) end);
 	}
 
 
