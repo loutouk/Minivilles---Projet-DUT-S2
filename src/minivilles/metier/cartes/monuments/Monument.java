@@ -16,7 +16,7 @@ public abstract class Monument extends Carte {
 		return this.enConstruction;
 	}
 
-	public void setEnConstruction(boolean enConstruction) {
-		this.enConstruction = enConstruction;
+	public void setEnConstruction() {
+		this.enConstruction = false
 	}
 }
