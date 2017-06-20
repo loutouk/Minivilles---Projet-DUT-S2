@@ -50,36 +50,19 @@ public class IHM {
 
 		// Affichage de la réserve de carte, 5 par 3 à l'horizontal
 		// Pour les 15 piles, on affiche la carte supérieure si il en reste au moins une dans la pile
-
-		// debug, il faudra vérfier la présence de cartes dans la pile avant de l'afficher
-		ArrayList<Carte> ligne1 = new ArrayList<>();
-		ligne1.add(new ChampsDeBle());
-		ligne1.add(new Ferme());
-		ligne1.add(new Boulangerie());
-		ligne1.add(new Cafe());
-		ligne1.add(new Superette());
-
-		ArrayList<Carte> ligne2 = new ArrayList<>();
-		ligne2.add(new Foret());
-		ligne2.add(new Stade());
-		ligne2.add(new CentreAffaires());
-		ligne2.add(new ChaineDeTelevision());
-		ligne2.add(new Fromagerie());
-
-		ArrayList<Carte> ligne3 = new ArrayList<>();
-		ligne3.add(new FabriqueMeuble());
-		ligne3.add(new Mine());
-		ligne3.add(new Restaurant());
-		ligne3.add(new Verger());
-		ligne3.add(new MarcheDeFruitsEtLegumes());
-
-		affichage += afficherLigneCarte(ligne1);
-		affichage += afficherLigneCarte(ligne2);
-		affichage += afficherLigneCarte(ligne3);
-
+		ArrayList<Carte> reserve = new ArrayList<>();
+	    for(Carte c : ctrl.getMetier().getPioche()){
+	        if( ! c.getIdentifiant().equals("M1") &&
+                ! c.getIdentifiant().equals("M2") &&
+                ! c.getIdentifiant().equals("M3") &&
+                ! c.getIdentifiant().equals("M4")   ) reserve.add(c);
+        }
+		affichage += afficherLigneCarte(reserve);
 
 		// Affichage de la banque
-
+        affichage += "---------------------------\n";
+        affichage += "| Solde en banque : " + String.format("%5d",ctrl.getMetier().getBanque().getSolde()) + " |\n";
+        affichage += "---------------------------\n";
 
 		// Affichage des joueurs 2 par 2 à l'horizontal
 
