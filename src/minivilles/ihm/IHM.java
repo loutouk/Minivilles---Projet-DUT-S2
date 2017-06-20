@@ -89,7 +89,7 @@ public class IHM {
 		return nbJ;
 	}
 
-	public String choixIdentifiantCartePioche() {
+	public String choixIdentifiantCarte() {
 		System.out.println("\n-- Choisissez la carte à acheter");
 		System.out.println("   (tapez -1 pour annuler)");
 		System.out.print("   > son identifiant : ");

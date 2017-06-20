@@ -1,6 +1,7 @@
 package minivilles.metier;
 
 import minivilles.metier.cartes.Carte;
+import minivilles.metier.cartes.monuments.Monument;
 
 import java.util.*;
 
@@ -49,6 +50,16 @@ public class Joueur {
 	 */
 	public ArrayList<Carte> getMain() {
 		return this.main;
+	}
+
+	public ArrayList<Carte> getMonuments() {
+		ArrayList<Carte> monuments = new ArrayList<>();
+
+		for (Carte c : this.main)
+			if (c instanceof Monument)
+				monuments.add(c);
+
+		return monuments;
 	}
 
 	/**

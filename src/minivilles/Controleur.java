@@ -5,8 +5,12 @@ package minivilles;
  */
 
 import minivilles.ihm.IHM;
+import minivilles.metier.Joueur;
 import minivilles.metier.Metier;
 import minivilles.metier.cartes.Carte;
+import minivilles.metier.cartes.monuments.Monument;
+
+import java.util.ArrayList;
 
 public class Controleur {
 	private IHM ihm;
@@ -70,6 +74,8 @@ public class Controleur {
 
 	private void lancerPartie() {
 		while (true) {
+			Joueur joueur = this.metier.getJoueurCourant();
+
 			this.ihm.afficherPlateau();
 
 			System.out.println("Joueur #" + this.metier.getJoueurCourant().getNum());
@@ -84,30 +90,36 @@ public class Controleur {
 			this.ihm.afficherMenuAchat();
 			int choix = this.ihm.choixMenu();
 
-			switch (choix) {
-				case 1:
-					this.ihm.clearConsole();
-					this.ihm.afficherLigneCarte(this.metier.getPioche());
+			if (choix == 1 || choix == 2) {
+				ArrayList<Carte> cartes = (choix == 1) ? this.metier.getPioche() : joueur.getMonuments();
 
-					Carte carte;
-					String choixIden;
-					boolean achatTermine = false;
+				this.ihm.clearConsole();
+				this.ihm.afficherLigneCarte(cartes);
 
-					do {
-						choixIden = this.ihm.choixIdentifiantCartePioche();
-						carte = this.metier.rechercherCartePioche(choixIden);
+				Carte carte;
+				String choixIden;
+				boolean achatTermine = false;
 
-						if (choixIden.equals("-1"))
+				do {
+					choixIden = this.ihm.choixIdentifiantCarte();
+					carte = (choix == 1) ? this.metier.rechercherCartePioche(choixIden) : joueur.rechercherCarte(choixIden);
+
+					if (choixIden.equals("-1"))
+						achatTermine = true;
+					else {
+						if (choix == 1 && carte != null && this.metier.acheter(choixIden, this.metier.getJoueurCourant()))
 							achatTermine = true;
-						else {
-							if (carte != null && this.metier.acheter(choixIden, this.metier.getJoueurCourant()))
+
+						if (choix == 2 && carte instanceof Monument) {
+							Monument monument = (Monument) carte;
+
+							if (this.metier.construireMonument(monument, joueur))
 								achatTermine = true;
 						}
+
 					}
-					while (!achatTermine);
-
-
-					break;
+				}
+				while (!achatTermine);
 			}
 
 			this.metier.changerJoueurCourant();

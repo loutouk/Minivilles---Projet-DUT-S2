@@ -187,6 +187,19 @@ public class Metier {
 		return false;
 	}
 
+	public boolean construireMonument(Monument monument, Joueur joueur) {
+		if (monument == null) return false;
+
+		if (joueur.getPieces() >= monument.getCout()) {
+			joueur.retirerPiece(monument.getCout());
+			monument.construire();
+
+			return true;
+		}
+
+		return false;
+	}
+
 	public Carte rechercherCartePioche(String id) {
 		Carte recherche = null;
 		for(Carte c : this.pioche) if(c.getIdentifiant().equals(id)) recherche = c;
