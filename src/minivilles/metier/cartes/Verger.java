@@ -10,6 +10,8 @@ public class Verger extends Carte {
 
 	@Override
 	public void lancerEffet(Metier metier) {
-
+		int gain = 3;
+		this.getJoueur().addPiece(gain);
+		metier.banque.retrait(gain);
 	}
 }
