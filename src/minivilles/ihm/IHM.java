@@ -130,6 +130,8 @@ public class IHM {
 							((ArrayList<Carte>) cartes.values().toArray()[i * nbCarteParLigne + j]).get(0)
 					);
 
+			if (deuxCartes.size() == 0) continue;
+
 
 			for(Carte c : deuxCartes) {
 				StringBuilder sb = new StringBuilder(c.getTexteEffet());
