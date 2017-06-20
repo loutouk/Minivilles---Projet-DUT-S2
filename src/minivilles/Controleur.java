@@ -32,7 +32,37 @@ public class Controleur {
 	}
 
 	public void lancer() {
-		this.ihm.menu();
+		boolean quitter = false;
+		int choix;
+		int nbJoueurs;
+
+		while (!quitter) {
+			this.ihm.afficherMenu();
+
+			choix = this.ihm.choixMenu();
+
+			switch (choix) {
+				case 1:
+					System.out.println("Choisissez un nombre de joueurs entre 2 et 4");
+					nbJoueurs = this.ihm.choixNbJoueurs();
+
+					if (nbJoueurs >= 2 && nbJoueurs <= 4)
+						this.initialiserPlateau(nbJoueurs);
+					else
+						System.out.println("Veuillez entrez un nombre valide");
+
+					break;
+
+				case 2:
+					quitter = true;
+					break;
+
+				default:
+					System.out.println("Choix invalide");
+					break;
+			}
+
+		}
 	}
 
 	public void initialiserPlateau(int nbJoueurs) {
