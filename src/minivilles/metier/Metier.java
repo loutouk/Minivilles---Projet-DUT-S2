@@ -63,6 +63,18 @@ public class Metier {
 		return new ArrayList<>(this.listeJoueur);
 	}
 
+	/**
+	 * Termine le tour du joueur courant et passe au joueur suivant.
+	 *
+	 * @return l'indice du joueur courant.
+	 */
+	public int changerJoueurCourant() {
+		int indiceJoueurCourant = (this.listeJoueur.indexOf(this.joueurCourant) + 1) % this.listeJoueur.size();
+
+		this.joueurCourant = this.listeJoueur.get(indiceJoueurCourant);
+
+		return indiceJoueurCourant;
+	}
 
 	/**
 	 * Genere les cartes selon le nombre de joueur, ainsi que les joueurs, la banque
