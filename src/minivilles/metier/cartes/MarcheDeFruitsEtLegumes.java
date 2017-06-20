@@ -1,7 +1,7 @@
 package minivilles.metier.cartes;
 
 import minivilles.metier.Metier;
-
+import java.util.ArrayList;
 public class MarcheDeFruitsEtLegumes extends Carte {
 
 	public MarcheDeFruitsEtLegumes() {
