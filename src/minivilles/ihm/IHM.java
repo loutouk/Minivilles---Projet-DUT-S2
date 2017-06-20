@@ -1,8 +1,8 @@
 package minivilles.ihm;
 
-import minivilles.*;
+import minivilles.Controleur;
 import minivilles.metier.Joueur;
-import minivilles.metier.cartes.*;
+import minivilles.metier.cartes.Carte;
 import minivilles.metier.cartes.monuments.Monument;
 
 import java.util.*;
@@ -18,10 +18,21 @@ public class IHM {
 	}
 
 
-	public void afficherMenu() {
+	public void afficherMenuPrincipal() {
+		this.clearConsole();
+
 		this.afficherMenu(
 				"menu principal",
 				"jouer", "quitter"
+		);
+	}
+
+	public void afficherMenuAchat() {
+		this.afficherMenu(
+				"menu de construction",
+				"Acheter une carte de la réserve",
+				"Construire un monument",
+				"Passer mon tour"
 		);
 	}
 
@@ -59,7 +70,8 @@ public class IHM {
 	 * @return le choix de l'utilisateur
 	 */
 	public int choixNbJoueurs() {
-		System.out.print("\nNombre de joueurs : ");
+		System.out.println("\n-- Choisissez un nombre de joueurs");
+		System.out.print("   > joueurs (entre 2 et 4) : ");
 
 		Scanner sc = new Scanner(System.in);
 
@@ -75,6 +87,16 @@ public class IHM {
 		// On scan dans le vide comme on a change de type
 		sc.nextLine();
 		return nbJ;
+	}
+
+	public String choixIdentifiantCartePioche() {
+		System.out.println("\n-- Choisissez la carte à acheter");
+		System.out.println("   (tapez -1 pour annuler)");
+		System.out.print("   > son identifiant : ");
+
+		Scanner sc = new Scanner(System.in);
+
+		return sc.nextLine();
 	}
 
 	public int getDe() {
@@ -95,8 +117,8 @@ public class IHM {
 	 *
 	 * @return une représentation textuelle du plateau.
 	 */
-	public String afficherPlateau() {
-		String affichage = "";
+	public void afficherPlateau() {
+		this.clearConsole();
 
 		// Affichage de la réserve de carte, 5 par 3 à l'horizontal
 		// Pour les 15 piles, on affiche la carte supérieure si il en reste au moins une dans la pile
@@ -107,24 +129,22 @@ public class IHM {
                 ! c.getIdentifiant().equals("M3") &&
                 ! c.getIdentifiant().equals("M4")   ) reserve.add(c);
         }
-		affichage += afficherLigneCarte(reserve);
+		this.afficherLigneCarte(reserve);
 
 		// Affichage de la banque
-        affichage += "---------------------------\n";
-        affichage += "| Solde en banque : " + String.format("%5d",ctrl.getMetier().getBanque().getSolde()) + " |\n";
-        affichage += "---------------------------\n";
+		System.out.println("---------------------------");
+		System.out.println("| Solde en banque : " + String.format("%5d",ctrl.getMetier().getBanque().getSolde()) + " |");
+		System.out.println("---------------------------");
 
 		// Affichage des joueurs 2 par 2 à l'horizontal
         for(Joueur j : ctrl.getMetier().getListeJoueur()){
-            affichage += "\nJoueur " + j.getNum() + "\n";
+			System.out.println("\nJoueur " + j.getNum());
             // Monument
             // Carte
-            affichage += afficherLigneCarte(j.getMain());
+			this.afficherLigneCarte(j.getMain());
             // Argent
-            affichage += "Pièces : " + j.getPieces() + "\n";
+			System.out.println("Pièces : " + j.getPieces());
         }
-
-		return affichage;
 	}
 
 
@@ -134,7 +154,7 @@ public class IHM {
 	 * @param listeCartes l'<i>ArrayList</i> de <i>Carte</i> à afficher.
 	 * @return l'affichage des cartes ligne par ligne.
 	 */
-	public String afficherLigneCarte(ArrayList<Carte> listeCartes) {
+	public void afficherLigneCarte(ArrayList<Carte> listeCartes) {
 		int nbCarteParLigne = 5;
 
 		String affichage = "";
@@ -241,7 +261,7 @@ public class IHM {
 			affichage += "\n\n";
 		}
 
-		return affichage;
+		System.out.println(affichage);
 	}
 
 
@@ -262,6 +282,19 @@ public class IHM {
 			System.out.println("| " + String.format("%2d", cpt+1) + ".  " + String.format("%-" + largeur + "s", IHM.ucfirst(items[cpt])) + "  |");
 
 		System.out.println("\\" + bord + "/");
+	}
+
+	public  void   clearConsole() {
+		// Clean de la console en fonction du système d'exploitation
+		try {
+			if (System.getProperty("os.name").contains("Windows"))
+				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+			else {
+				System.out.print("\033[H\033[2J");
+				System.out.flush();
+			}
+		}
+		catch (final Exception ignored){}
 	}
 
 

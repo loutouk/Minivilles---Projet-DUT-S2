@@ -24,7 +24,6 @@ public class Metier {
 		this.listeJoueur = new ArrayList<>();
 		this.banque = new Banque();
 		joueurCourant = null;
-		this.initialiserPlateau(2);
 	}
 
 	public Joueur getJoueurCourant() {
@@ -172,6 +171,26 @@ public class Metier {
 		}
 
 		return false;
+	}
+
+	public boolean acheter(String id, Joueur joueur) {
+		Carte carte = this.rechercherCartePioche(id);
+		if (carte == null) return false;
+
+		if (joueur.getPieces() >= carte.getCout()) {
+			joueur.retirerPiece(carte.getCout());
+			this.piocher(id, joueur);
+
+			return true;
+		}
+
+		return false;
+	}
+
+	public Carte rechercherCartePioche(String id) {
+		Carte recherche = null;
+		for(Carte c : this.pioche) if(c.getIdentifiant().equals(id)) recherche = c;
+		return recherche;
 	}
 
 }

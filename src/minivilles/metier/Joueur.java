@@ -19,7 +19,7 @@ public class Joueur {
 	 * et on met son nombre de pièces à 3.
 	 */
 	public Joueur() {
-		this.num = autoInc++;
+		this.num = ++autoInc;
 		this.pieces = 20;
 		main = new ArrayList<>();
 	}
@@ -84,8 +84,8 @@ public class Joueur {
 	 * @param nb le nombre de pièces à retirer
 	 */
 	public void retirerPiece(int nb) {
-		if (this.pieces < nb) this.pieces -= nb;
-		else this.pieces = 0;
+		if (this.pieces > nb) this.pieces -= nb;
+		else                  this.pieces = 0;
 	}
 
 	/**
