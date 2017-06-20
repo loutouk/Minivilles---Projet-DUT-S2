@@ -221,11 +221,6 @@ public class IHM {
 		return affichage;
 	}
 
-	public void initialiserPlateau(int nbJoueurs) {
-		this.ctrl.initialiserPlateau(nbJoueurs);
-	}
-
-
 	private static String centrerText(String text, int len) {
 		String out = String.format("%" + len + "s%s%" + len + "s", "", text, "");
 		float mid = (out.length() / 2);
