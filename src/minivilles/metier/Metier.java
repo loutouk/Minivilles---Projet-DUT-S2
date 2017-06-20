@@ -116,6 +116,7 @@ public class Metier {
 		for(Joueur joueur : listeJoueur){
 			piocher("1", joueur);
 			piocher("2-3", joueur);
+
 			// On donne les monuments au joueurs
             // 4 sortes de monuments, pour 16 au total
             joueur.getMain().add(new Gare());

@@ -3,6 +3,7 @@ package minivilles.ihm;
 import minivilles.*;
 import minivilles.metier.Joueur;
 import minivilles.metier.cartes.*;
+import minivilles.metier.cartes.monuments.Monument;
 
 import java.util.*;
 
@@ -207,7 +208,16 @@ public class IHM {
 			for (Carte ignored : deuxCartes) affichage += "|" + String.format("%" + nbT + "s", " ") + "| ";
 			affichage += "\n";
 
-			for (Carte c : deuxCartes) affichage += "|" + String.format("%-" + nbT + "s", " " + c.getCout()) + "| ";
+			for (Carte c : deuxCartes) {
+				affichage += "|" + String.format("%-5s", " " + c.getCout());
+				String enConstruction = "";
+
+				if (c instanceof Monument && ((Monument) c).estEnConstruction())
+					enConstruction = "En construction";
+
+				affichage += String.format("%16s", enConstruction + " ") + "| ";
+			}
+
 			affichage += "\n";
 
 			for (Carte ignored : deuxCartes) affichage += bord + " ";
