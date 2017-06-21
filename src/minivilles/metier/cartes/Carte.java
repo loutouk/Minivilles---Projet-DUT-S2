@@ -6,29 +6,32 @@ import minivilles.metier.cartes.monuments.Monument;
 
 /**
  * Classe abstraite <i>Carte</i>.
- *
+ * <p>
  * Toutes les autres classes qui représentent les cartes du jeu sont amenées à
  * hériter de cette classe.
- *
+ * <p>
  * Définit une carte de base, caractérisée par :
- * 	- son identifiant unique
- * 	- son nom
- * 	- son texte d'effet
- * 	- sa couleur
- * 	- son effet de couleur, à savoir si l'effet se déclenche pendant le tour de n'importe qui
+ * <p>
+ * <ul>
+ * 	<li>son identifiant unique
+ * 	<li>son nom
+ * 	<li>son texte d'effet
+ * 	<li>sa couleur
+ * 	<li>son effet de couleur, à savoir si l'effet se déclenche pendant le tour de n'importe qui
  * 		ou seulement pendant le tour du joueur propriétaire de la carte.
- * 	- son propriétaire
- * 	- son déclencheur, à savoir le numéro de dé qui déclenchera l'effet de la carte
- * 	- son deuxième déclencheur, s'il a lieu d'être
- * 	- son coût de construction
- *
- * 	Selon le nom donné à la <i>Carte</i>, qui doit être un des noms de carte du jeu,
- * 	le texte de l'effet et le texte pour la couleur de l'effet sont initialisés dans
- * 	les méthodes correspondantes (voir {@link #initTexteEffet()} et {@link #initCouleurEffet()}.
- *
- * 	Pendant le déroulement d'un tour de jeu, le déclenchement de l'effet de la carte est vérifié
- * 	par un appel à la méthode {@link #testEffet(Metier, int)}. Si l'effet doit effectivement être activé,
- * 	il est lancé par la méthode {@link #testEffet(Metier, int)} elle-même.
+ * 	<li>son propriétaire
+ * 	<li>son déclencheur, à savoir le numéro de dé qui déclenchera l'effet de la carte
+ * 	<li>son deuxième déclencheur, s'il a lieu d'être
+ * 	<li>son coût de construction
+ * </ul>
+ * <p>
+ * Selon le nom donné à la <i>Carte</i>, qui doit être un des noms de carte du jeu,
+ * le texte de l'effet et le texte pour la couleur de l'effet sont initialisés dans
+ * les méthodes correspondantes (voir {@link #initTexteEffet()} et {@link #initCouleurEffet()}.
+ * <p>
+ * Pendant le déroulement d'un tour de jeu, le déclenchement de l'effet de la carte est vérifié
+ * par un appel à la méthode {@link #testEffet(Metier, int)}. Si l'effet doit effectivement être activé,
+ * il est lancé par la méthode {@link #testEffet(Metier, int)} elle-même.
  */
 public abstract class Carte {
 
