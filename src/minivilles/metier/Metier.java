@@ -143,10 +143,10 @@ public class Metier {
 
 	}
 
-	public void lancerEffets(int res1, int res2) {
+	public void lancerEffets(int resultatDes) {
 		for (Joueur joueur : this.listeJoueur)
 			for (Carte c : joueur.getMain())
-				c.testEffet(this, res1, res2);
+				c.testEffet(this, resultatDes);
 	}
 
 	/**

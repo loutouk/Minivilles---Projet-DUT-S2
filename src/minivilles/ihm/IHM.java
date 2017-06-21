@@ -268,15 +268,8 @@ public class IHM {
 		System.out.println(affichage);
 	}
 
-	public void afficherValeurDes(int de1, int de2) {
-		String label;
-
-		if (de2 < 0)
-			label = "Valeurs du dé : " + de1;
-		else
-			label = "Valeurs des dés : " + de1 + " et " + de2;
-
-		this.afficherBoite(label);
+	public void afficherValeurDes(int de) {
+		this.afficherBoite("Valeurs des dés : " + de);
 	}
 
 

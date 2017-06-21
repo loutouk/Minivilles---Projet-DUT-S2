@@ -148,11 +148,9 @@ public abstract class Carte {
 			this.texteEffet = "Si votre jet de dés est un double, rejouez un tour après celui-ci.";
 	}
 
-	public boolean testEffet(Metier metier, int resultatDe1, int resultatDe2) {
+	public boolean testEffet(Metier metier, int resultatDes) {
 
-		if (resultatDe1 == this.declencheur || resultatDe1 == this.declencheur2
-				|| resultatDe2 == this.declencheur || resultatDe2 == this.declencheur2) {
-
+		if (resultatDes == this.declencheur || resultatDes == this.declencheur2) {
 			// Le monument doit être construit pour lancer l'effet
 			if (this instanceof Monument && ((Monument) this).estEnConstruction())
 				return false;
