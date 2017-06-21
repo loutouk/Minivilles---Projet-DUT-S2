@@ -15,7 +15,7 @@ import minivilles.metier.cartes.monuments.Monument;
  * 	- son nom
  * 	- son texte d'effet
  * 	- sa couleur
- * 	- son effet de couleur, à savoir si l'effet se déclenche pendant le tour n'importe qui
+ * 	- son effet de couleur, à savoir si l'effet se déclenche pendant le tour de n'importe qui
  * 		ou seulement pendant le tour du joueur propriétaire de la carte.
  * 	- son propriétaire
  * 	- son déclencheur, à savoir le numéro de dé qui déclenchera l'effet de la carte
