@@ -417,4 +417,14 @@ public class IHM {
 		return chaine.substring(0, 1).toUpperCase() + chaine.substring(1).toLowerCase();
 	}
 
+	public String choixJoueurChaineTV() {
+		System.out.println("\n-- Choisissez le joueur à qui voler 5 pièces");
+		System.out.println("   (tapez -1 pour annuler)");
+		System.out.print("   > son identifiant : ");
+
+		Scanner sc = new Scanner(System.in);
+
+		return sc.nextLine();
+	}
+
 }

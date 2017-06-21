@@ -12,12 +12,12 @@ public class CentreAffaires extends Carte {
 		String idCarteEchange       = "";
 		String idCarteJoueurCourant = "";
 		Joueur joueurCible          = null;
-		Joueur joueurCourant        = metier.getJoueurCourant();
+		Joueur joueurCourant        = this.getJoueur();
 		Carte cCourant              = null;
 		Carte cCible                = null;
 		boolean carteValideCourant  = false;
 		boolean carteValideCible    = false;
-		int nbJoueur					 = metier.getListeJoueur().size();
+		int nbJoueur				= metier.getListeJoueur().size();
 		
 		while(choixJoueur < 1 || choixJoueur > nbJoueur) {
 			choixJoueur = Integer.parseInt(metier.getIhm().choixJoueurCentreAffaire());

@@ -15,8 +15,8 @@ public class Controleur {
 	private Metier metier;
 
 	public Controleur() {
-		this.metier = new Metier();
 		this.ihm = new IHM(this);
+		this.metier = new Metier(this.ihm);
 	}
 
 
@@ -177,7 +177,8 @@ public class Controleur {
 	}
 
 	private int lancerDe() {
-		return 1 + (int) (Math.random() * 6);
+		//return 1 + (int) (Math.random() * 6);
+		return 6;
 	}
 
 	public void initialiserPlateau(int nbJoueurs) {

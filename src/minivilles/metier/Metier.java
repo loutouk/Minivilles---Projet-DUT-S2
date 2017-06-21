@@ -1,5 +1,6 @@
 package minivilles.metier;
 
+import minivilles.ihm.IHM;
 import minivilles.metier.cartes.*;
 import minivilles.metier.cartes.monuments.*;
 
@@ -16,9 +17,11 @@ public class Metier {
 	private ArrayList<Joueur> listeJoueur;
 	private Banque banque;
 	private Joueur joueurCourant;
+	private IHM ihm;
 
 
-	public Metier() {
+	public Metier(IHM ihm) {
+		this.ihm = ihm;
 		this.pioche = new ArrayList<>();
 		this.listeJoueur = new ArrayList<>();
 		this.banque = new Banque();
@@ -210,4 +213,7 @@ public class Metier {
 		return recherche;
 	}
 
+	public IHM getIhm() {
+		return ihm;
+	}
 }

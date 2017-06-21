@@ -17,7 +17,7 @@ public class ChaineDeTelevision extends Carte {
 		int choixJoueur      = 0;
 		int nbJoueur	      = metier.getListeJoueur().size();
 		int don              = 5;
-		Joueur joueurCourant = metier.getJoueurCourant();
+		Joueur joueurCourant = this.getJoueur();
 		Joueur joueurCible   = null;
 		
 		
