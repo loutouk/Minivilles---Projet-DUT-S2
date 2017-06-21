@@ -36,7 +36,7 @@ public class IHM {
 		);
 	}
 
-	public void afficherMenuRejouer(){
+	public void afficherMenuRejouer() {
 		this.afficherBoite("Voulez-vous rejouer ?", "Oui", "Non");
 	}
 
@@ -148,17 +148,17 @@ public class IHM {
 		// Affichage de la réserve de carte, 5 par 3 à l'horizontal
 		// Pour les 15 piles, on affiche la carte supérieure si il en reste au moins une dans la pile
 		ArrayList<Carte> reserve = new ArrayList<>();
-	    for(Carte c : ctrl.getMetier().getPioche()){
-	        if( ! c.getIdentifiant().equals("M1") &&
-                ! c.getIdentifiant().equals("M2") &&
-                ! c.getIdentifiant().equals("M3") &&
-                ! c.getIdentifiant().equals("M4")   ) reserve.add(c);
-        }
+		for (Carte c : ctrl.getMetier().getPioche()) {
+			if (!c.getIdentifiant().equals("M1") &&
+					!c.getIdentifiant().equals("M2") &&
+					!c.getIdentifiant().equals("M3") &&
+					!c.getIdentifiant().equals("M4")) reserve.add(c);
+		}
 		this.afficherLigneCarte(reserve);
 
 		// Affichage de la banque
 		System.out.println("---------------------------");
-		System.out.println("| Solde en banque : " + String.format("%5d",ctrl.getMetier().getBanque().getSolde()) + " |");
+		System.out.println("| Solde en banque : " + String.format("%5d", ctrl.getMetier().getBanque().getSolde()) + " |");
 		System.out.println("---------------------------");
 
 		this.retarderAffichage(1500);

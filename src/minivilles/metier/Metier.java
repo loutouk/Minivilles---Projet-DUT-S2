@@ -202,7 +202,7 @@ public class Metier {
 
 	public Carte rechercherCartePioche(String id) {
 		Carte recherche = null;
-		for(Carte c : this.pioche) if(c.getIdentifiant().equals(id)) recherche = c;
+		for (Carte c : this.pioche) if (c.getIdentifiant().equals(id)) recherche = c;
 		return recherche;
 	}
 
