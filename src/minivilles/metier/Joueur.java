@@ -96,13 +96,13 @@ public class Joueur {
 	 */
 	public void retirerPiece(int nb) {
 		if (this.pieces > nb) this.pieces -= nb;
-		else                  this.pieces = 0;
+		else this.pieces = 0;
 	}
 
 	/**
 	 * Prend la carte d'un joueur pour la donner à un autre
 	 *
-	 * @param carte     la carte à échanger
+	 * @param carte    la carte à échanger
 	 * @param receveur le joueur qui va recevoir la carte
 	 * @return un booléen indiquant la réussite de l'opération
 	 */
@@ -115,12 +115,12 @@ public class Joueur {
 	/**
 	 * Recherche une carte dans la main du joueur
 	 *
-	 * @param id     l'identifiant de la carte
+	 * @param id l'identifiant de la carte
 	 * @return La carte trouvée, ou null
 	 */
 	public Carte rechercherCarte(String id) {
 		Carte recherche = null;
-		for(Carte c : main) if(c.getIdentifiant().equals(id)) recherche = c;
+		for (Carte c : main) if (c.getIdentifiant().equals(id)) recherche = c;
 		return recherche;
 	}
 }

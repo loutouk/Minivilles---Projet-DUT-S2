@@ -1,7 +1,9 @@
 package minivilles.metier.cartes;
 
 import minivilles.metier.Metier;
+
 import java.util.ArrayList;
+
 public class Fromagerie extends Carte {
 
 	public Fromagerie() {
@@ -17,9 +19,9 @@ public class Fromagerie extends Carte {
 		int cpt = 0;
 		int gain = 3;
 		for (Carte c : arCartes) {
-			if(c.getNom().equals("Ferme")) cpt++;
+			if (c.getNom().equals("Ferme")) cpt++;
 		}
-		metier.getJoueurCourant().addPiece(cpt*gain);
-		metier.getBanque().retrait(cpt*gain);
+		metier.getJoueurCourant().addPiece(cpt * gain);
+		metier.getBanque().retrait(cpt * gain);
 	}
 }

@@ -4,7 +4,7 @@ import minivilles.metier.Metier;
 
 /**
  * Classe <i>ParcDattractions</i>, qui hérite de {@link minivilles.metier.cartes.monuments.Monument}.
- *
+ * <p>
  * Cette classe définit la carte <i>ParcDattractions</i> ainsi que son effet.
  *
  * @see minivilles.metier.cartes.Carte

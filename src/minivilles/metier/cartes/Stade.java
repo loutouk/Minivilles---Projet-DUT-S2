@@ -2,6 +2,7 @@ package minivilles.metier.cartes;
 
 import minivilles.metier.Joueur;
 import minivilles.metier.Metier;
+import java.util.ArrayList;
 
 public class Stade extends Carte {
 

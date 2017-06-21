@@ -1,7 +1,9 @@
 package minivilles.metier.cartes;
 
 import minivilles.metier.Metier;
+
 import java.util.ArrayList;
+
 public class MarcheDeFruitsEtLegumes extends Carte {
 
 	public MarcheDeFruitsEtLegumes() {
@@ -17,9 +19,9 @@ public class MarcheDeFruitsEtLegumes extends Carte {
 		int cpt = 0;
 		int gain = 2;
 		for (Carte c : arCartes) {
-			if(c.getNom().equals("Champs de blé") || c.getNom().equals("Verger")) cpt++;
+			if (c.getNom().equals("Champs de blé") || c.getNom().equals("Verger")) cpt++;
 		}
-		metier.getJoueurCourant().addPiece(cpt*gain);
-		metier.getBanque().retrait(cpt*gain);
+		metier.getJoueurCourant().addPiece(cpt * gain);
+		metier.getBanque().retrait(cpt * gain);
 	}
 }

@@ -4,8 +4,8 @@ import minivilles.metier.Metier;
 
 public class Mine extends Carte {
 
-	public Mine () {
-		super("9", "Mine", "Bleu",9,6);
+	public Mine() {
+		super("9", "Mine", "Bleu", 9, 6);
 	}
 
 	@Override
@@ -14,6 +14,4 @@ public class Mine extends Carte {
 		this.getJoueur().addPiece(gain);
 		metier.getBanque().retrait(gain);
 	}
-
-
 }
