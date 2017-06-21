@@ -36,7 +36,7 @@ public class IHM {
 		);
 	}
 
-	public void afficherMenuRejouer(){
+	public void afficherMenuRejouer() {
 		this.afficherBoite("Voulez-vous rejouer ?", "Oui", "Non");
 	}
 
@@ -128,28 +128,28 @@ public class IHM {
 		// Affichage de la réserve de carte, 5 par 3 à l'horizontal
 		// Pour les 15 piles, on affiche la carte supérieure si il en reste au moins une dans la pile
 		ArrayList<Carte> reserve = new ArrayList<>();
-	    for(Carte c : ctrl.getMetier().getPioche()){
-	        if( ! c.getIdentifiant().equals("M1") &&
-                ! c.getIdentifiant().equals("M2") &&
-                ! c.getIdentifiant().equals("M3") &&
-                ! c.getIdentifiant().equals("M4")   ) reserve.add(c);
-        }
+		for (Carte c : ctrl.getMetier().getPioche()) {
+			if (!c.getIdentifiant().equals("M1") &&
+					!c.getIdentifiant().equals("M2") &&
+					!c.getIdentifiant().equals("M3") &&
+					!c.getIdentifiant().equals("M4")) reserve.add(c);
+		}
 		this.afficherLigneCarte(reserve);
 
 		// Affichage de la banque
 		System.out.println("---------------------------");
-		System.out.println("| Solde en banque : " + String.format("%5d",ctrl.getMetier().getBanque().getSolde()) + " |");
+		System.out.println("| Solde en banque : " + String.format("%5d", ctrl.getMetier().getBanque().getSolde()) + " |");
 		System.out.println("---------------------------");
 
 		// Affichage des joueurs 2 par 2 à l'horizontal
-        for(Joueur j : ctrl.getMetier().getListeJoueur()){
+		for (Joueur j : ctrl.getMetier().getListeJoueur()) {
 			System.out.println("\nJoueur " + j.getNum());
-            // Monument
-            // Carte
+			// Monument
+			// Carte
 			this.afficherLigneCarte(j.getMain());
-            // Argent
+			// Argent
 			System.out.println("Pièces : " + j.getPieces());
-        }
+		}
 	}
 
 	/**
@@ -295,7 +295,7 @@ public class IHM {
 		System.out.println("\\" + bord + "/");
 	}
 
-	public  void clearConsole() {
+	public void clearConsole() {
 		// Clean de la console en fonction du système d'exploitation
 		try {
 			if (System.getProperty("os.name").contains("Windows"))
@@ -304,8 +304,8 @@ public class IHM {
 				System.out.print("\033[H\033[2J");
 				System.out.flush();
 			}
+		} catch (final Exception ignored) {
 		}
-		catch (final Exception ignored){}
 	}
 
 
@@ -318,8 +318,8 @@ public class IHM {
 		return out.substring((int) start, (int) end);
 	}
 
-	private static String ucfirst(String chaine){
-		return chaine.substring(0, 1).toUpperCase()+ chaine.substring(1).toLowerCase();
+	private static String ucfirst(String chaine) {
+		return chaine.substring(0, 1).toUpperCase() + chaine.substring(1).toLowerCase();
 	}
 
 }

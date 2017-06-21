@@ -86,34 +86,34 @@ public class Controleur {
 
 
 			// Effet du monument Gare : deux jet de dés
-            int nombreDeCoups = 1;
-			int nombreDeDes = ((Monument)(joueur.rechercherCarte("M1"))).estEnConstruction() ? 1 : 2;
-            int de1 = 0;
-            int de2 = 0;
+			int nombreDeCoups = 1;
+			int nombreDeDes = ((Monument) (joueur.rechercherCarte("M1"))).estEnConstruction() ? 1 : 2;
+			int de1 = 0;
+			int de2 = 0;
 
-			for(int compteur=0 ; compteur<nombreDeCoups*nombreDeDes ; compteur++){
+			for (int compteur = 0; compteur < nombreDeCoups * nombreDeDes; compteur++) {
 				int de = this.lancerDe();
 
 				if (de1 == 0) {
 					de1 = de;
-				} else if(de2 == 0) {
+				} else if (de2 == 0) {
 					de2 = de;
 				}
 
 				// Effet du monument Tour : on peut choisir de relancer les dés
-				if(!((Monument)(joueur.rechercherCarte("M4"))).estEnConstruction()
-                        && nombreDeCoups==1
-                        && (compteur-1)%nombreDeDes==0){
+				if (!((Monument) (joueur.rechercherCarte("M4"))).estEnConstruction()
+						&& nombreDeCoups == 1
+						&& (compteur - 1) % nombreDeDes == 0) {
 
 					this.ihm.afficherValeurDes(de1 + de2);
 					this.ihm.afficherMenuRejouer();
 
 					if (ihm.choixMenu() == 1) {
-					    nombreDeCoups++;
+						nombreDeCoups++;
 
-					    de1 = 0;
-					    de2 = 0;
-                    }
+						de1 = 0;
+						de2 = 0;
+					}
 				}
 			}
 
@@ -121,7 +121,7 @@ public class Controleur {
 			this.ihm.afficherValeurDes(de1 + de2);
 			this.metier.lancerEffets(de1 + de2);
 
-			rejouer = (de1 == de2 && ! ((Monument)(joueur.rechercherCarte("M3"))).estEnConstruction());
+			rejouer = (de1 == de2 && !((Monument) (joueur.rechercherCarte("M3"))).estEnConstruction());
 
 
 			this.ihm.afficherMenuAchat();
@@ -159,7 +159,7 @@ public class Controleur {
 				while (!achatTermine);
 			}
 
-			if(!rejouer) this.metier.changerJoueurCourant();
+			if (!rejouer) this.metier.changerJoueurCourant();
 		}
 	}
 
