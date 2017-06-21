@@ -1,6 +1,7 @@
 package minivilles.metier.cartes;
 
 import minivilles.metier.Metier;
+import minivilles.metier.*;
 
 public class ChaineDeTelevision extends Carte {
 
@@ -13,6 +14,27 @@ public class ChaineDeTelevision extends Carte {
 
 	@Override
 	public void lancerEffet(Metier metier) {
-
+		int choixJoueur      = 0;
+		int nbJoueur	      = metier.getListeJoueur().size();
+		int don              = 5;
+		Joueur joueurCourant = metier.getJoueurCourant();
+		Joueur joueurCible   = null;
+		
+		
+		while(choixJoueur < 1 || choixJoueur > nbJoueur) {
+			choixJoueur = Integer.parseInt(metier.getIhm().choixJoueurChaineTV());
+		}
+		
+		joueurCible = metier.getListeJoueur().get(choixJoueur - 1);
+		
+		if(joueurCible.getPieces() >= don) {
+			joueurCible.retirerPiece(don);
+			joueurCourant.addPiece(don);
+		}
+		else {
+			don = joueurCible.getPieces();
+			joueurCible.retirerPiece(don);
+			joueurCourant.addPiece(don);
+		}
 	}
 }
