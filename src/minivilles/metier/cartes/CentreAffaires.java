@@ -20,35 +20,41 @@ public class CentreAffaires extends Carte {
 		int nbJoueur				= metier.getListeJoueur().size();
 		
 		while(choixJoueur < 1 || choixJoueur > nbJoueur) {
-			choixJoueur = Integer.parseInt(metier.getIhm().choixJoueurCentreAffaire());
-		}
-		
-		joueurCible = metier.getListeJoueur().get(choixJoueur - 1);
-		
-		while (!carteValideCible) {
-			idCarteEchange = metier.getIhm().choixCarteCentreAffaire();
-			for (Carte c : joueurCible.getMain()) {
-				if(c.getIdentifiant().equals(idCarteEchange) && !c.getCouleur().equals("VIOLET")) {
-					carteValideCible = true;
-					cCible = c;
-				}
+			try{
+				choixJoueur = Integer.parseInt(metier.getIhm().choixJoueurCentreAffaire());
+			} catch (NumberFormatException e) {
+				// saisie invalide
 			}
 		}
-		
-		while (!carteValideCourant) {
-			idCarteJoueurCourant = metier.getIhm().choixCarteCentreAffaire();
-			for (Carte c : joueurCourant.getMain()) {
-				if(c.getIdentifiant().equals(idCarteEchange) && !c.getCouleur().equals("VIOLET")) {
-					carteValideCourant = true;
-					cCourant = c;
+
+		if(choixJoueur!=-1){
+
+			joueurCible = metier.getListeJoueur().get(choixJoueur - 1);
+
+			while (!carteValideCible) {
+				idCarteEchange = metier.getIhm().choixCarteCentreAffaire("cible");
+				for (Carte c : joueurCible.getMain()) {
+					if(c.getIdentifiant().equals(idCarteEchange) && !c.getCouleur().equals("VIOLET")) {
+						carteValideCible = true;
+						cCible = c;
+					}
 				}
 			}
+
+			while (!carteValideCourant) {
+				idCarteJoueurCourant = metier.getIhm().choixCarteCentreAffaire("courant");
+				for (Carte c : joueurCourant.getMain()) {
+					if(c.getIdentifiant().equals(idCarteJoueurCourant) && !c.getCouleur().equals("VIOLET")) {
+						carteValideCourant = true;
+						cCourant = c;
+					}
+				}
+			}
+
+			joueurCourant.echangerCarte(cCourant, cCible, joueurCible);
+
 		}
-		
-		joueurCible.echangerCarte(cCible,joueurCourant);
-		joueurCourant.echangerCarte(cCourant, joueurCible);
 
 	}
-
 
 }

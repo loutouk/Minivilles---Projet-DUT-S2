@@ -102,14 +102,18 @@ public class Joueur {
 	/**
 	 * Prend la carte d'un joueur pour la donner à un autre
 	 *
-	 * @param carte    la carte à échanger
-	 * @param receveur le joueur qui va recevoir la carte
-	 * @return un booléen indiquant la réussite de l'opération
+	 * @param carteCourant la carte que le joueur qui lance l'échange va perdre
+	 * @param carteCible la carte que le joueur cible va perdre
+	 * @param cible le joueur qui subit l'échange
 	 */
-	public boolean echangerCarte(Carte carte, Joueur receveur) {
-		carte.setJoueur(receveur);
-		this.main.remove(carte);
-		return receveur.main.add(carte);
+	public void echangerCarte(Carte carteCourant, Carte carteCible, Joueur cible) {
+		// Le joueur courant this est le donneur
+		carteCible.setJoueur(this);
+		carteCourant.setJoueur(cible);
+		this.main.remove(carteCourant);
+		cible.main.remove(carteCible);
+		this.main.add(carteCible);
+		cible.main.add(carteCourant);
 	}
 
 	/**

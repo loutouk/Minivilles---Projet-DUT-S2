@@ -104,9 +104,8 @@ public class IHM {
 		return sc.nextLine();
 	}
 
-	public String choixCarteCentreAffaire() {
-		System.out.println("\n-- Choisissez la carte à échanger qui ne soit pas violette");
-		System.out.println("   (tapez -1 pour annuler)");
+	public String choixCarteCentreAffaire(String joueur) {
+		System.out.println("\n-- Choisissez la carte " + joueur + " à échanger qui ne soit pas violette");
 		System.out.print("   > son identifiant : ");
 
 		Scanner sc = new Scanner(System.in);
