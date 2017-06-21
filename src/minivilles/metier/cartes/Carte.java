@@ -176,13 +176,11 @@ public abstract class Carte {
 
 			if ((this.couleur.equals("VERT") || this.couleur.equals("VIOLET"))) {
 				if (metier.getJoueurCourant().getMain().contains(this)) {
-					System.out.println("[D] On lance l'effet de la carte " + this.nom + "...");
 					this.lancerEffet(metier);
 					return true;
 				} else return false;
 			}
 
-			System.out.println("[D] On lance l'effet de la carte " + this.nom + "...");
 			this.lancerEffet(metier);
 			return true;
 		}

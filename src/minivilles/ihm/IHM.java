@@ -316,7 +316,7 @@ public class IHM {
 		this.afficherBoite("Valeurs des dés : " + de);
 	}
 
-	public void afficherBilanTour(int piecesAv, int piecesAp, int des) {
+	public void afficherBilanTour(int piecesAv, int piecesAp, int des, List<Carte> cartesLancees) {
 		System.out.println("-------------------------------");
 		System.out.println("|  BILAN DU TOUR              |");
 		System.out.println("-------------------------------");
@@ -326,7 +326,11 @@ public class IHM {
 		System.out.println("| Batîments activés :         |");
 
 		// TODO
-		System.out.println("|   aucun                     |");
+		if (cartesLancees.size() == 0)
+			System.out.println("|   aucun                     |");
+		else
+			for (Carte c : cartesLancees)
+				System.out.println("|   - " + String.format("%-23s", c.getNom()) + " |");
 
 		System.out.println("|                             |");
 		System.out.println("| Pièces après   : " + String.format("%-10d", piecesAp) + " |");

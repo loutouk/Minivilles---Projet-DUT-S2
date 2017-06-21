@@ -1,7 +1,6 @@
 package minivilles.metier;
 
 import minivilles.metier.cartes.*;
-
 import minivilles.metier.cartes.monuments.*;
 
 import java.util.ArrayList;
@@ -143,10 +142,15 @@ public class Metier {
 
 	}
 
-	public void lancerEffets(int resultatDes) {
+	public List<Carte> lancerEffets(int resultatDes) {
+		List<Carte> cartes = new ArrayList<>();
+
 		for (Joueur joueur : this.listeJoueur)
 			for (Carte c : joueur.getMain())
-				c.testEffet(this, resultatDes);
+				if (c.testEffet(this, resultatDes))
+					cartes.add(c);
+
+		return cartes;
 	}
 
 	/**

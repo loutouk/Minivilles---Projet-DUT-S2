@@ -7,6 +7,7 @@ import minivilles.metier.cartes.Carte;
 import minivilles.metier.cartes.monuments.Monument;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Controleur {
 
@@ -110,13 +111,13 @@ public class Controleur {
 			}
 
 			// On lance les effets de toutes les cartes
-			this.metier.lancerEffets(de1 + de2);
+			List<Carte> cartesLancees = this.metier.lancerEffets(de1 + de2);
 
 			rejouer = (de1 == de2 && !((Monument) (joueur.rechercherCarte("M3"))).estEnConstruction());
 
 
 			// Affichage du bilan du tour
-			this.ihm.afficherBilanTour(pieceAvant, joueur.getPieces(), de1 + de2);
+			this.ihm.afficherBilanTour(pieceAvant, joueur.getPieces(), de1 + de2, cartesLancees);
 
 
 			this.ihm.afficherMenuAchat(joueur);
