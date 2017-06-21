@@ -30,7 +30,7 @@ import java.util.*;
  * @see minivilles.metier.Joueur
  * @see minivilles.metier.Banque
  */
-public abstract class IHM {
+public abstract class IHM{
 
 	protected Controleur ctrl;
 

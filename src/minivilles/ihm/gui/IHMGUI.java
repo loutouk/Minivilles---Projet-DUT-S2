@@ -5,14 +5,17 @@ import minivilles.ihm.IHM;
 import minivilles.metier.Joueur;
 import minivilles.metier.cartes.Carte;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IHMGUI extends IHM {
+public class IHMGUI extends IHM{
 
+	private JFrame fenetre;
 
 	public IHMGUI(Controleur ctrl) {
 		super(ctrl);
+		this.fenetre = new Fenetre();
 	}
 
 
