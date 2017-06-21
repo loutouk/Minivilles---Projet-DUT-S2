@@ -1,6 +1,7 @@
 package minivilles;
 
 import minivilles.ihm.IHM;
+import minivilles.ihm.console.IHMConsole;
 import minivilles.metier.Joueur;
 import minivilles.metier.Metier;
 import minivilles.metier.cartes.Carte;
@@ -21,7 +22,7 @@ public class Controleur {
 		this(false);
 	}
 	public Controleur(boolean debugMode) {
-		this.ihm = new IHM(this);
+		this.ihm = new IHMConsole(this);
 		this.metier = new Metier(this.ihm);
 		this.debugMode = debugMode;
 	}
@@ -34,10 +35,6 @@ public class Controleur {
 	 */
 	public Metier getMetier() {
 		return this.metier;
-	}
-
-	public IHM getIhm() {
-		return ihm;
 	}
 
 	public void lancer() {
@@ -137,7 +134,7 @@ public class Controleur {
 			if (choix == 1 || choix == 2) {
 				ArrayList<Carte> cartes = (choix == 1) ? this.metier.getPioche() : joueur.getMonuments();
 
-				this.ihm.clearConsole();
+				this.ihm.nettoyerAffichage();
 				this.ihm.afficherLigneCarte(cartes);
 
 				Carte carte;

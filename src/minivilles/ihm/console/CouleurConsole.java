@@ -1,4 +1,4 @@
-package minivilles.ihm;
+package minivilles.ihm.console;
 
 public enum CouleurConsole {
 
