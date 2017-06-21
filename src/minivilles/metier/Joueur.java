@@ -95,8 +95,16 @@ public class Joueur {
 	 * @param nb le nombre de pièces à retirer
 	 */
 	public void retirerPiece(int nb) {
-		if (this.pieces > nb) this.pieces -= nb;
-		else                  this.pieces = 0;
+		if (this.pieces >= nb){
+			System.out.println("Retire " + nb);
+			System.out.println("Avant " + this.pieces);
+			this.pieces -= nb;
+			System.out.println("Après " + this.pieces);
+		}
+		else{
+			System.out.println("Met le solde à 0");
+			this.pieces = 0;
+		}
 	}
 
 	/**

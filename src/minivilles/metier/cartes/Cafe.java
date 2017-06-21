@@ -13,11 +13,6 @@ public class Cafe extends Carte {
 	public void lancerEffet(Metier metier) {
 		int don = 1;
 
-		if (metier.getJoueurCourant().getPieces() >= don) {
-			metier.getJoueurCourant().retirerPiece(don);
-			this.getJoueur().addPiece(don);
-		}
-
 		// Effet du monument CentreCommercial : 1 piece de plus
 		Carte carte = super.getJoueur().rechercherCarte("M2");
 
@@ -26,13 +21,10 @@ public class Cafe extends Carte {
 			if (!monument.estEnConstruction()) don++;
 		}
 
-		for (Joueur j : metier.getListeJoueur()) {
-			for (Carte c : j.getMain()) {
-				if (c.getNom().equals("Café")) {
-					metier.getJoueurCourant().retirerPiece(don);
-					j.addPiece(don);
-				}
-			}
+		if (metier.getJoueurCourant().getPieces() >= don) {
+			metier.getJoueurCourant().retirerPiece(don);
+			this.getJoueur().addPiece(don);
 		}
+
 	}
 }

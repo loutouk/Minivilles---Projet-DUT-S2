@@ -396,7 +396,7 @@ public class IHM {
 			String iden = c.getIdentifiant();
 
 			if (!cartes.containsKey(iden))
-				cartes.put(iden, new ArrayList<>());
+				cartes.put(iden, new ArrayList<Carte>());
 
 			cartes.get(iden).add(c);
 		}
