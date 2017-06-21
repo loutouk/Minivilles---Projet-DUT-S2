@@ -73,8 +73,7 @@ public class Controleur {
 	}
 
 	private void lancerPartie() {
-		while (true) {
-
+		do {
 			// Effet du ParcDattractions : on peut rejouer un tour si le jet de dés est un double
 			boolean rejouer;
 
@@ -94,16 +93,13 @@ public class Controleur {
 			for (int compteur = 0; compteur < nombreDeCoups * nombreDeDes; compteur++) {
 				int de = this.lancerDe();
 
-				if (de1 == 0) {
-					de1 = de;
-				} else if (de2 == 0) {
-					de2 = de;
-				}
+				if (de1 == 0) de1 = de;
+				else de2 = de;
 
 				// Effet du monument Tour : on peut choisir de relancer les dés
-				if (!((Monument) (joueur.rechercherCarte("M4"))).estEnConstruction()
-						&& nombreDeCoups == 1
-						&& (compteur - 1) % nombreDeDes == 0) {
+				if (!((Monument) (joueur.rechercherCarte("M4"))).estEnConstruction() &&
+						nombreDeCoups == 1 &&
+						(compteur - 1) % nombreDeDes == 0) {
 
 					this.ihm.afficherValeurDes(de1 + de2);
 					this.ihm.afficherMenuRejouer();
@@ -161,6 +157,23 @@ public class Controleur {
 
 			if (!rejouer) this.metier.changerJoueurCourant();
 		}
+		while (this.getGagnant() == null);
+
+		this.ihm.afficherGagnant(this.getGagnant());
+	}
+
+	public Joueur getGagnant() {
+		for (Joueur joueur : this.metier.getJoueurs()) {
+			int nbMon = 0;
+
+			for (Carte monument : joueur.getMonuments())
+				if (!((Monument) monument).estEnConstruction())
+					nbMon++;
+
+			if (nbMon == 4) return joueur;
+		}
+
+		return null;
 	}
 
 	private int lancerDe() {
