@@ -139,8 +139,6 @@ public class IHM {
 	/**
 	 * Créé une représentation textuelle du plateau.
 	 * On affiche la réserve la banque et les villes des joueurs.
-	 *
-	 * @return une représentation textuelle du plateau.
 	 */
 	public void afficherPlateau() {
 		this.clearConsole();
@@ -189,7 +187,6 @@ public class IHM {
 	 * Affiche les cartes ligne par ligne.
 	 *
 	 * @param listeCartes l'<i>ArrayList</i> de <i>Carte</i> à afficher.
-	 * @return l'affichage des cartes ligne par ligne.
 	 */
 	public void afficherLigneCarte(ArrayList<Carte> listeCartes) {
 		int nbCarteParLigne = 5;
