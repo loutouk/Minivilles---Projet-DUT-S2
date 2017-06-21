@@ -1,13 +1,15 @@
 package minivilles.ihm.gui;
 
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 /**
  * Created by louis on 21/06/17.
  */
-public class Fenetre extends JFrame {
+public class Fenetre extends JFrame implements ItemListener {
 
     // Noms des cartes dans la réserve
     private JComboBox listePioche;
@@ -65,7 +67,7 @@ public class Fenetre extends JFrame {
 
     private String[] nomCartes = {"Champs de blé", "Ferme", "Boulangerie", "Café",
             "Supérette", "Forêt", "Stade", "Chaîne de télévision", "Centre d'affaires",
-            "Fromagerie", "Fabrique de meubles", "Mines", "Restaurant", "Verger",
+            "Fromagerie", "Fabrique de meubles", "Mine", "Restaurant", "Verger",
             "Marché de fruits et légumes"};
     private String[] nomMonuments = {"Gare", "Centre commercial", "Parc d'attractions", "Tour radio"};
 
@@ -108,10 +110,11 @@ public class Fenetre extends JFrame {
         // Gauche ///////////////////////////////////////////////////////////////////////////
         JPanel contenantGauche = new JPanel(new BorderLayout());
         listePioche = new JComboBox(nomCartes);
+        listePioche.addItemListener(this);
         listePioche.setBorder(new EmptyBorder(5,5,5,5));
         nombreDeCarte = new JLabel("Nombre de cette carte dans la réserve : 6");
         nombreDeCarte.setBorder(new EmptyBorder(5,5,5,5));
-        imageCarte = new JLabel(new ImageIcon(Art.getImage("img1")));
+        imageCarte = new JLabel(new ImageIcon(Art.getImage("Champs de blé")));
         contenantGauche.add(listePioche, BorderLayout.NORTH);
         contenantGauche.add(imageCarte, BorderLayout.CENTER);
         contenantGauche.add(nombreDeCarte, BorderLayout.SOUTH);
@@ -128,11 +131,13 @@ public class Fenetre extends JFrame {
         JPanel boutons = new JPanel(new GridLayout(3,2,14,14));
 
         acheterBatimentListe = new JComboBox(nomCartes);
+        acheterBatimentListe.addItemListener(this);
         boutons.add(acheterBatimentListe);
         acheterBatimentButton = new JButton("Acheter ce bâtiment");
         boutons.add(acheterBatimentButton);
 
         construireMonumentListe = new JComboBox(nomMonuments);
+        construireMonumentListe.addItemListener(this);
         boutons.add(construireMonumentListe);
         construireMonumenButton = new JButton("Construire ce monument");
         boutons.add(construireMonumenButton);
@@ -162,6 +167,8 @@ public class Fenetre extends JFrame {
 
         // Joueur A /////////////////////////////////////////////////////////////////////////
         JPanel contenantJoueurA = new JPanel();
+        // On colore la case du joueur courant
+        contenantJoueurA.setBackground(Color.green);
 
         JPanel infoJoueurA = new JPanel(new GridLayout(4,1));
 
@@ -280,5 +287,13 @@ public class Fenetre extends JFrame {
         add(panelGlobal);
         setVisible(true);
         pack();
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent event) {
+        if (event.getStateChange() == ItemEvent.SELECTED) {
+            // On affiche le nom de la carte par son String qui correspond au nom du fichier png
+            imageCarte.setIcon(new ImageIcon(Art.getImage(event.getItem().toString())));
+        }
     }
 }
