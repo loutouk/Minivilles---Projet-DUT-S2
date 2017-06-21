@@ -77,29 +77,50 @@ public class IHM {
 	 * @return le choix de l'utilisateur.
 	 */
 	public int choixMenu() {
+		return this.choixMenu(1, this.nbItemsDernierMenu);
+	}
+	public int choixMenu(int min, int max) {
 		System.out.print("\n   choix : ");
+		CouleurConsole.JAUNE.print();
 
 		Scanner sc = new Scanner(System.in);
 
-		int menu = -1;
+		int menu;
 
 		try {
 			menu = sc.nextInt();
+			CouleurConsole.RESET.print();
 		} catch (NumberFormatException | InputMismatchException ignored) {
-			System.out.println("Veuillez entrer un nombre valide.");
+			IHM.messageCouleur("Veuillez entrer un nombre valide.", CouleurConsole.ROUGE);
+
 			sc.nextLine();
-			return this.choixMenu();
+			return this.choixMenu(min, max);
 		}
 
-		if (menu < 1 || menu > this.nbItemsDernierMenu) {
-			System.out.println("Choix invalide");
+		if (menu < min || menu > max) {
+			IHM.messageCouleur("Choix invalide", CouleurConsole.ROUGE);
+
 			sc.nextLine();
-			return this.choixMenu();
+			return this.choixMenu(min, max);
 		}
 
 		// On scan dans le vide comme on a changé de type
 		sc.nextLine();
+		System.out.println();
 		return menu;
+	}
+
+	public String choixStringMenu() {
+		System.out.print("\n   choix : ");
+		CouleurConsole.JAUNE.print();
+
+		Scanner sc = new Scanner(System.in);
+		String in = sc.nextLine();
+
+		System.out.println();
+		CouleurConsole.RESET.print();
+
+		return in;
 	}
 
 	/**
@@ -110,34 +131,25 @@ public class IHM {
 	 * @return le choix de l'utilisateur
 	 */
 	public int choixNbJoueurs() {
-		System.out.println("\n-- Choisissez un nombre de joueurs");
-		System.out.print("   > joueurs (entre 2 et 4) : ");
+		this.clearConsole();
 
-		Scanner sc = new Scanner(System.in);
+		this.afficherBoite("Combien de joueurs vont jouer ?\n(entre 2 et 4 j.)");
+		return this.choixMenu(2, 4);
+	}
 
-		int nbJ = -1;
+	public int choixNbDes() {
+		this.afficherBoite("Combien de dé(s) voulez-vous lancer ?", "1", "2");
+		return this.choixMenu();
+	}
 
-		try {
-			nbJ = sc.nextInt();
-		} catch (NumberFormatException | InputMismatchException ignored) {
-			System.out.println("Veuillez entrer un nombre valide.");
-			sc.nextLine();
-			return this.choixNbJoueurs();
-		}
-
-		// On scan dans le vide comme on a change de type
-		sc.nextLine();
-		return nbJ;
+	public int choixDebugDe() {
+		this.afficherBoite("Mode d'évaluation activé.\nChoisissez la valeur du dé.");
+		return this.choixMenu(1, 6);
 	}
 
 	public String choixIdentifiantCarte() {
-		System.out.println("\n-- Choisissez la carte à acheter");
-		System.out.println("   (tapez -1 pour annuler)");
-		System.out.print("   > son identifiant : ");
-
-		Scanner sc = new Scanner(System.in);
-
-		return sc.nextLine();
+		this.afficherBoite("Choisissez la carte à acheter\n(tapez -1 pour annuler)");
+		return this.choixStringMenu();
 	}
 
 	public String choixCarteCentreAffaire(String joueur) {
@@ -341,12 +353,13 @@ public class IHM {
 		for (Map.Entry<String, List<Carte>> entree : cartes.entrySet()) {
 			Carte c = entree.getValue().get(0);
 
-			String enCons = (c instanceof Monument && ((Monument) c).estEnConstruction()) ? "[Inactif]" : "";
+			String enCons = (c instanceof Monument && ((Monument) c).estEnConstruction()) ?
+					CouleurConsole.ROUGE + "[Inactif]" + CouleurConsole.RESET : "";
 			String actif = String.format("%9s", enCons);
 
 			String iden = String.format("%5s", c.getIdentifiant());
 			String nom = String.format("%-29.29s", c.getNom());
-			String nbCa = String.format("%3s", "x" + entree.getValue().size());
+			String nbCa = CouleurConsole.VIOLET + String.format("%3s", "x" + entree.getValue().size()) + CouleurConsole.RESET;
 
 			System.out.println("| " + iden + ". " + nom + " " + actif + " " + nbCa + " |");
 		}
@@ -358,11 +371,14 @@ public class IHM {
 		this.afficherBoite("Valeurs des dés : " + de);
 	}
 
-	public void afficherBilanTour(Joueur joueur, int piecesAv, int des, List<Carte> cartesLancees) {
+	public void afficherBilanTour(Joueur joueur, int piecesAv, int nbDes, int des, List<Carte> cartesLancees) {
 		System.out.println("-------------------------------");
 		System.out.println("|  BILAN DU TOUR (J" + joueur.getNum() + ")         |");
 		System.out.println("-------------------------------");
-		System.out.println("| Valeur des dés : " + String.format("%-10d", des) + " |");
+
+		String labelDe = (nbDes > 1) ? "des dés" : "du dé  ";
+
+		System.out.println("| Valeur " + labelDe + " : " + String.format("%-10d", des) + " |");
 		System.out.println("| Pièces avant   : " + String.format("%-10d", piecesAv) + " |");
 		System.out.println("|                             |");
 		System.out.println("| Batîments activés :         |");
@@ -388,29 +404,62 @@ public class IHM {
 		System.out.println();
 	}
 
+	public void afficherModeEvaluation() {
+		CouleurConsole.VERT.print();
+
+		System.out.println("\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+		System.out.println("x  Mode évaluation activé !                                    x");
+		System.out.println("x  Ce dernier n'est pas représentatif d'une partie classique.  x");
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n");
+
+		CouleurConsole.RESET.print();
+	}
 
 	private void afficherBoite(String titre, String... sousItems) {
-		int largeur = titre.length();
+		int largeur = 0;
 
+		// Gestion de la largeur du titre
+		if (titre.contains("\n")) {
+			String[] lignes = titre.split("\n");
+
+			for (String ligne : lignes)
+				if (largeur < ligne.length())
+					largeur = ligne.length();
+		} else {
+			largeur = titre.length();
+		}
+
+		// Gestion de la largeur des items du menu (s'il y en a)
 		for (String item : sousItems)
 			if (item.length() > largeur)
 				largeur = item.length();
 
 		String bord = String.format("%" + (largeur + 8) + "s", " ").replaceAll(" ", "-");
 
+		CouleurConsole.BLEU.print();
 		System.out.println("/" + bord + "\\");
-		System.out.println("|  " + String.format("%-" + (largeur + 4) + "s", titre.toUpperCase()) + "  |");
+
+		// Gestion du titre multi-lignes
+		String[] lignes = (titre.contains("\n")) ? titre.split("\n") : new String[]{ titre };
+
+		for (String ligne : lignes)
+			System.out.println("|  " + String.format("%-" + (largeur + 4) + "s", ligne.toUpperCase()) + "  |");
+
 
 		if (sousItems.length > 0) {
 			System.out.println("|" + bord + "|");
 
 			for (int cpt = 0; cpt < sousItems.length; cpt++)
-				System.out.println("| " + String.format("%2d", cpt + 1) + ".  " + String.format("%-" + largeur + "s", IHM.ucfirst(sousItems[cpt])) + "  |");
+				System.out.println("| " + String.format("%2d", cpt + 1) + ".  " + CouleurConsole.CYAN + String.format("%-" + largeur + "s", IHM.ucfirst(sousItems[cpt])) + CouleurConsole.BLEU + "  |");
+
+			this.nbItemsDernierMenu = sousItems.length;
+		} else {
+			this.nbItemsDernierMenu = Integer.MAX_VALUE;
 		}
 
-		this.nbItemsDernierMenu = sousItems.length;
 
 		System.out.println("\\" + bord + "/");
+		CouleurConsole.RESET.print();
 	}
 
 	private void retarderAffichage(int ms) {
@@ -450,6 +499,12 @@ public class IHM {
 
 		// On retourne un tableau trié
 		return new TreeMap<>(cartes);
+	}
+
+	private static void messageCouleur(String message, CouleurConsole couleur) {
+		couleur.print();
+		System.out.println(message);
+		CouleurConsole.RESET.print();
 	}
 
 	private static String centrerText(String text, int len) {

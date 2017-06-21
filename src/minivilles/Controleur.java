@@ -14,9 +14,16 @@ public class Controleur {
 	private IHM ihm;
 	private Metier metier;
 
-	public Controleur() {
+	private boolean debugMode;
+
+
+	public Controleur () {
+		this(false);
+	}
+	public Controleur(boolean debugMode) {
 		this.ihm = new IHM(this);
 		this.metier = new Metier(this.ihm);
+		this.debugMode = debugMode;
 	}
 
 
@@ -37,6 +44,8 @@ public class Controleur {
 		boolean quitter = false;
 		int choix;
 
+		this.ihm.afficherModeEvaluation();
+
 		while (!quitter) {
 			this.ihm.afficherMenuPrincipal();
 
@@ -44,7 +53,9 @@ public class Controleur {
 
 			switch (choix) {
 				case 1:
-					this.initialiserPartie();
+					// En mode évaluation, l'initialisation de la partie se fait autre part.
+					if (!this.debugMode) this.initialiserPartie();
+
 					this.lancerPartie();
 					break;
 
@@ -58,12 +69,7 @@ public class Controleur {
 	private void initialiserPartie() {
 		int nbJoueurs = this.ihm.choixNbJoueurs();
 
-		if (nbJoueurs >= 2 && nbJoueurs <= 4)
-			this.initialiserPlateau(nbJoueurs);
-		else {
-			System.out.println("   --> Veuillez entrez un nombre valide.\n");
-			this.initialiserPartie();
-		}
+		this.initialiserPlateau(nbJoueurs);
 	}
 
 	private void lancerPartie() {
@@ -83,8 +89,17 @@ public class Controleur {
 			int de1 = 0;
 			int de2 = 0;
 
+			// Il peut lancer deux dés, on demande avant au joueur pour être sûr
+			if (nombreDeDes > 1) nombreDeDes = this.ihm.choixNbDes();
+
+
 			for (int compteur = 0; compteur < nombreDeCoups * nombreDeDes; compteur++) {
-				int de = this.lancerDe();
+				int de;
+
+				// On lance le dé (ou on le défini, via le mode d'évaluation)
+				if (!this.debugMode) de = this.lancerDe();
+				else de = this.ihm.choixDebugDe();
+
 
 				if (de1 == 0) de1 = de;
 				else de2 = de;
@@ -113,7 +128,7 @@ public class Controleur {
 
 
 			// Affichage du bilan du tour
-			this.ihm.afficherBilanTour(joueur, pieceAvant, de1 + de2, cartesLancees);
+			this.ihm.afficherBilanTour(joueur, pieceAvant, nombreDeDes, de1 + de2, cartesLancees);
 
 
 			this.ihm.afficherMenuAchat(joueur);
@@ -173,8 +188,7 @@ public class Controleur {
 	}
 
 	private int lancerDe() {
-		//return 1 + (int) (Math.random() * 6);
-		return 7;
+		return 1 + (int) (Math.random() * 6);
 	}
 
 	public void initialiserPlateau(int nbJoueurs) {

@@ -18,7 +18,7 @@ public class TestFichier {
 
 
 	public TestFichier() {
-		this.ctrl = new Controleur();
+		this.ctrl = new Controleur(true);
 	}
 
 
@@ -86,9 +86,6 @@ public class TestFichier {
 					joueur.getMain().add(c);
 				}
 			}
-
-			for (Joueur joueur : this.ctrl.getMetier().getJoueurs())
-				this.ctrl.getIhm().afficherColonneCarte(joueur.getMain());
 
 			sc.close();
 		} catch (IOException ex) {
