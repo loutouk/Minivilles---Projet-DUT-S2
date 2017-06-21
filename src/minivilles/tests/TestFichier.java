@@ -2,6 +2,8 @@ package minivilles.tests;
 
 import minivilles.Controleur;
 import minivilles.metier.Joueur;
+import minivilles.metier.cartes.Carte;
+import minivilles.metier.cartes.monuments.Monument;
 
 import java.io.File;
 import java.io.FileReader;
@@ -20,9 +22,17 @@ public class TestFichier {
 	}
 
 
-	private void analyserFichier(File f) {
+	private void analyserFichier(File f) throws Exception {
+		int nbJoueur = this.getNbJoueurs(f);
+
+		if (nbJoueur < 2 || nbJoueur > 4)
+			throw new ArrayIndexOutOfBoundsException(
+					"Le nombre de joueurs doit être compris entre 2 et 4 !"
+			);
+
 		// On initialise tout d'abord le plateau (nb de joueurs)
-		this.ctrl.initialiserPlateau(this.getNbJoueurs(f));
+		// sans donner les cartes de départ.
+		this.ctrl.getMetier().initialiserPlateau(nbJoueur, true);
 
 		try {
 			Scanner sc = new Scanner(new FileReader(f));
@@ -54,21 +64,31 @@ public class TestFichier {
 				if (ligne.startsWith("monuments:")) {
 					String[] mSplit = ligne.split(":")[1].trim().split(",");
 
-					for (String monument : mSplit)
-						this.ctrl.getMetier().piocher("M" + monument, joueur);
+					for (String monumentId : mSplit) {
+						Monument mon = (Monument) joueur.rechercherCarte("M" + monumentId);
+						if (mon == null) continue;
+
+						mon.construire();
+					}
 
 					continue;
 				}
 
 				// On ajoute la carte correspondante au dernier joueur enregistré
 				String[] parts = ligne.trim().replaceFirst("-", "").replaceAll(" +", "").split(":");
+				int nbCarte = Integer.parseInt(parts[1]);
 
-				for (int cpt = 0; cpt < Integer.parseInt(parts[1]); cpt++)
-					this.ctrl.getMetier().piocher(parts[0], joueur);
+				for (int cpt = 0; cpt < nbCarte; cpt++) {
+					Carte c = IdentifiantCarte.nouvelleCarte(parts[0]);
+					if (c == null) break;
+
+					c.setJoueur(joueur);
+					joueur.getMain().add(c);
+				}
 			}
 
 			for (Joueur joueur : this.ctrl.getMetier().getJoueurs())
-				this.ctrl.getIhm().afficherLigneCarte(joueur.getMain());
+				this.ctrl.getIhm().afficherColonneCarte(joueur.getMain());
 
 			sc.close();
 		} catch (IOException ex) {
@@ -98,7 +118,7 @@ public class TestFichier {
 	}
 
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// Un chemin de fichier doit être passé en paramètre
 		if (args.length == 0) {
 			System.out.println("Utilisation: TestFichier <fichier à analyser>");

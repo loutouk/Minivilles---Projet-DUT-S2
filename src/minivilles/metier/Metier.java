@@ -90,6 +90,10 @@ public class Metier {
 	 * @param nbJoueurs le nombre de joueur de la partie
 	 */
 	public void initialiserPlateau(int nbJoueurs) {
+		this.initialiserPlateau(nbJoueurs, false);
+	}
+
+	public void initialiserPlateau(int nbJoueurs, boolean sansCarteDepart) {
 
 		// Creation des joueurs
 		for (int cpt = 0; cpt < nbJoueurs; cpt++) listeJoueur.add(new Joueur());
@@ -121,8 +125,12 @@ public class Metier {
 
 		// Attributions des cartes
 		for (Joueur joueur : listeJoueur) {
-			piocher("1", joueur);
-			piocher("2-3", joueur);
+
+			// On pioche les cartes de départ
+			if (!sansCarteDepart) {
+				piocher("1", joueur);
+				piocher("2-3", joueur);
+			}
 
 			// On donne les monuments au joueurs
 			// 4 sortes de monuments, pour 16 au total
@@ -170,6 +178,8 @@ public class Metier {
 		for (Carte c : this.pioche)
 			if (c.getNom().equals(id) || c.getIdentifiant().equals(id))
 				carte = c;
+
+		System.out.println(id + " : " + carte);
 
 		if (pioche.contains(carte)) {
 			carte.setJoueur(joueur);

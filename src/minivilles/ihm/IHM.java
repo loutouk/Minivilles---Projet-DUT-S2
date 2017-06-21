@@ -179,6 +179,8 @@ public class IHM {
 	}
 
 	public void afficherDebutTour(Joueur j) {
+		this.clearConsole();
+
 		this.afficherBoite("Début du tour du joueur " + j.getNum());
 		this.retarderAffichage(2000);
 	}
@@ -289,7 +291,7 @@ public class IHM {
 	public void afficherColonneCarte(ArrayList<Carte> listeCartes) {
 		Map<String, List<Carte>> cartes = IHM.grouperCartes(listeCartes);
 
-		String bord = String.format("%49s", " ").replaceAll(" ", "-");
+		String bord = String.format("%54s", " ").replaceAll(" ", "-");
 
 		System.out.println("\n" + bord);
 
@@ -300,7 +302,7 @@ public class IHM {
 			String actif = String.format("%9s", enCons);
 
 			String iden = String.format("%5s", c.getIdentifiant());
-			String nom = String.format("%-25s", c.getNom());
+			String nom = String.format("%-29.29s", c.getNom());
 			String nbCa = String.format("%3s", "x" + entree.getValue().size());
 
 			System.out.println("| " + iden + ". " + nom + " " + actif + " " + nbCa + " |");
