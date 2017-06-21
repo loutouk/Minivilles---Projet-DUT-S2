@@ -117,7 +117,7 @@ public class Controleur {
 
 
 			// Affichage du bilan du tour
-			this.ihm.afficherBilanTour(pieceAvant, joueur.getPieces(), de1 + de2, cartesLancees);
+			this.ihm.afficherBilanTour(joueur, pieceAvant, de1 + de2, cartesLancees);
 
 
 			this.ihm.afficherMenuAchat(joueur);

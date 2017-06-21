@@ -313,9 +313,9 @@ public class IHM {
 		this.afficherBoite("Valeurs des dés : " + de);
 	}
 
-	public void afficherBilanTour(int piecesAv, int piecesAp, int des, List<Carte> cartesLancees) {
+	public void afficherBilanTour(Joueur joueur, int piecesAv, int des, List<Carte> cartesLancees) {
 		System.out.println("-------------------------------");
-		System.out.println("|  BILAN DU TOUR              |");
+		System.out.println("|  BILAN DU TOUR (J" + joueur.getNum() + ")         |");
 		System.out.println("-------------------------------");
 		System.out.println("| Valeur des dés : " + String.format("%-10d", des) + " |");
 		System.out.println("| Pièces avant   : " + String.format("%-10d", piecesAv) + " |");
@@ -327,10 +327,10 @@ public class IHM {
 			System.out.println("|   aucun                     |");
 		else
 			for (Carte c : cartesLancees)
-				System.out.println("|   - " + String.format("%-23s", c.getNom()) + " |");
+				System.out.println("|   - " + String.format("%-18s", c.getNom()) + " (J" + c.getJoueur().getNum() + ") |");
 
 		System.out.println("|                             |");
-		System.out.println("| Pièces après   : " + String.format("%-10d", piecesAp) + " |");
+		System.out.println("| Pièces après   : " + String.format("%-10d", joueur.getPieces()) + " |");
 		System.out.println("-------------------------------");
 
 
@@ -401,7 +401,8 @@ public class IHM {
 			cartes.get(iden).add(c);
 		}
 
-		return cartes;
+		// On retourne un tableau trié
+		return new TreeMap<>(cartes);
 	}
 
 	private static String centrerText(String text, int len) {
