@@ -177,7 +177,7 @@ public class Controleur {
 	}
 
 	private int lancerDe() {
-		return 1 + (int)(Math.random() * 6);
+		return 1 + (int) (Math.random() * 6);
 	}
 
 	public void initialiserPlateau(int nbJoueurs) {

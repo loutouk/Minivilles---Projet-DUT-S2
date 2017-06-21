@@ -162,18 +162,18 @@ public class IHM {
 		this.retarderAffichage(1500);
 
 		// Affichage des joueurs 2 par 2 à l'horizontal
-        for(Joueur j : ctrl.getMetier().getListeJoueur()){
+		for (Joueur j : ctrl.getMetier().getListeJoueur()) {
 			System.out.println("\n###############");
 			System.out.println("# " + String.format("%-11s", "Joueur " + j.getNum()) + " #");
 			System.out.println("# " + String.format("%-11s", j.getPieces() + " pièces") + " #");
 			System.out.println("###############");
 
-            // Monument
-            // Carte
+			// Monument
+			// Carte
 			this.afficherColonneCarte(j.getMain());
 
 			this.retarderAffichage(1000);
-        }
+		}
 
 		System.out.println("\n\n");
 	}
@@ -374,7 +374,7 @@ public class IHM {
 		}
 	}
 
-	public  void clearConsole() {
+	public void clearConsole() {
 		// Clean de la console en fonction du système d'exploitation
 		try {
 			if (System.getProperty("os.name").contains("Windows"))
@@ -383,8 +383,8 @@ public class IHM {
 				System.out.print("\033[H\033[2J");
 				System.out.flush();
 			}
+		} catch (final Exception ignored) {
 		}
-		catch (final Exception ignored){}
 	}
 
 
@@ -413,8 +413,8 @@ public class IHM {
 		return out.substring((int) start, (int) end);
 	}
 
-	private static String ucfirst(String chaine){
-		return chaine.substring(0, 1).toUpperCase()+ chaine.substring(1).toLowerCase();
+	private static String ucfirst(String chaine) {
+		return chaine.substring(0, 1).toUpperCase() + chaine.substring(1).toLowerCase();
 	}
 
 }

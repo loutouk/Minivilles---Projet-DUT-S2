@@ -4,7 +4,7 @@ import minivilles.metier.Metier;
 
 public class Ferme extends Carte {
 
-	public Ferme () {
+	public Ferme() {
 		super("2", "Ferme", "Bleu", 2, 1);
 	}
 
@@ -14,6 +14,4 @@ public class Ferme extends Carte {
 		this.getJoueur().addPiece(gain);
 		metier.getBanque().retrait(gain);
 	}
-
-
 }
