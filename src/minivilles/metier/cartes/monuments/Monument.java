@@ -8,8 +8,8 @@ import minivilles.metier.cartes.Carte;
 public abstract class Monument extends Carte {
 	boolean enConstruction = true;
 
-	public Monument(String identifiant, String nom, String couleur, int declencheur, int cout) {
-		super(identifiant, nom, couleur, declencheur, cout);
+	public Monument(String identifiant, String nom, int declencheur, int cout) {
+		super(identifiant, nom, "Marron", declencheur, cout);
 	}
 
 	public boolean estEnConstruction() {

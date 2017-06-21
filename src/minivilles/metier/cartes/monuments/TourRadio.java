@@ -3,12 +3,17 @@ package minivilles.metier.cartes.monuments;
 import minivilles.metier.Metier;
 
 /**
- * Created by richard on 6/19/17.
+ * Classe <i>TourRadio</i>, qui hérite de {@link minivilles.metier.cartes.monuments.Monument}.
+ *
+ * Cette classe définit la carte <i>TourRadio</i> ainsi que son effet.
+ *
+ * @see minivilles.metier.cartes.Carte
+ * @see minivilles.metier.cartes.monuments.Monument
  */
 public class TourRadio extends Monument {
 
 	public TourRadio() {
-		super("M4", "Tour radio", "Marron", -1, 22);
+		super("M4", "Tour radio", -1, 22);
 	}
 
 

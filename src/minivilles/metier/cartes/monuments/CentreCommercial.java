@@ -3,12 +3,17 @@ package minivilles.metier.cartes.monuments;
 import minivilles.metier.Metier;
 
 /**
- * Created by richard on 6/19/17.
+ * Classe <i>CentreCommercial</i>, qui hérite de {@link minivilles.metier.cartes.monuments.Monument}.
+ *
+ * Cette classe définit la carte <i>CentreCommercial</i> ainsi que son effet.
+ *
+ * @see minivilles.metier.cartes.Carte
+ * @see minivilles.metier.cartes.monuments.Monument
  */
 public class CentreCommercial extends Monument {
 
 	public CentreCommercial() {
-		super("M2", "Centre commercial", "Marron", -1, 10);
+		super("M2", "Centre commercial", -1, 10);
 	}
 
 

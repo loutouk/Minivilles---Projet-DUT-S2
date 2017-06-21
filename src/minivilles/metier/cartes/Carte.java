@@ -5,7 +5,30 @@ import minivilles.metier.Metier;
 import minivilles.metier.cartes.monuments.Monument;
 
 /**
- * Created by richard on 6/19/17.
+ * Classe abstraite <i>Carte</i>.
+ *
+ * Toutes les autres classes qui représentent les cartes du jeu sont amenées à
+ * hériter de cette classe.
+ *
+ * Définit une carte de base, caractérisée par :
+ * 	- son identifiant unique
+ * 	- son nom
+ * 	- son texte d'effet
+ * 	- sa couleur
+ * 	- son effet de couleur, à savoir si l'effet se déclenche pendant le tour n'importe qui
+ * 		ou seulement pendant le tour du joueur propriétaire de la carte.
+ * 	- son propriétaire
+ * 	- son déclencheur, à savoir le numéro de dé qui déclenchera l'effet de la carte
+ * 	- son deuxième déclencheur, s'il a lieu d'être
+ * 	- son coût de construction
+ *
+ * 	Selon le nom donné à la <i>Carte</i>, qui doit être un des noms de carte du jeu,
+ * 	le texte de l'effet et le texte pour la couleur de l'effet sont initialisés dans
+ * 	les méthodes correspondantes (voir {@link #initTexteEffet()} et {@link #initCouleurEffet()}.
+ *
+ * 	Pendant le déroulement d'un tour de jeu, le déclenchement de l'effet de la carte est vérifié
+ * 	par un appel à la méthode {@link #testEffet(Metier, int)}. Si l'effet doit effectivement être activé,
+ * 	il est lancé par la méthode {@link #testEffet(Metier, int)} elle-même.
  */
 public abstract class Carte {
 
@@ -21,10 +44,6 @@ public abstract class Carte {
 	private int declencheur;
 	private int declencheur2;
 	private int cout;
-
-	public Carte(String identifiant, String nom, String couleur, int declencheur) {
-		this(identifiant, nom, couleur, declencheur, -1, 0);
-	}
 
 	public Carte(String identifiant, String nom, String couleur, int declencheur, int cout) {
 		this(identifiant, nom, couleur, declencheur, -1, cout);
