@@ -1,9 +1,5 @@
 package minivilles;
 
-/**
- * Created by Louis on 19/06/2017.
- */
-
 import minivilles.ihm.IHM;
 import minivilles.metier.Joueur;
 import minivilles.metier.Metier;
@@ -13,6 +9,7 @@ import minivilles.metier.cartes.monuments.Monument;
 import java.util.ArrayList;
 
 public class Controleur {
+
 	private IHM ihm;
 	private Metier metier;
 
@@ -78,11 +75,10 @@ public class Controleur {
 			boolean rejouer;
 
 			Joueur joueur = this.metier.getJoueurCourant();
+			int pieceAvant = joueur.getPieces();
 
+			this.ihm.afficherDebutTour(joueur);
 			this.ihm.afficherPlateau();
-
-			System.out.println("Joueur #" + this.metier.getJoueurCourant().getNum());
-
 
 			// Effet du monument Gare : deux jet de dés
 			int nombreDeCoups = 1;
@@ -114,13 +110,16 @@ public class Controleur {
 			}
 
 			// On lance les effets de toutes les cartes
-			this.ihm.afficherValeurDes(de1 + de2);
 			this.metier.lancerEffets(de1 + de2);
 
 			rejouer = (de1 == de2 && !((Monument) (joueur.rechercherCarte("M3"))).estEnConstruction());
 
 
-			this.ihm.afficherMenuAchat();
+			// Affichage du bilan du tour
+			this.ihm.afficherBilanTour(pieceAvant, joueur.getPieces(), de1 + de2);
+
+
+			this.ihm.afficherMenuAchat(joueur);
 			int choix = this.ihm.choixMenu();
 
 			if (choix == 1 || choix == 2) {
@@ -177,7 +176,7 @@ public class Controleur {
 	}
 
 	private int lancerDe() {
-		return (int) (Math.random() * 5) + 1;
+		return 1 + (int)(Math.random() * 6);
 	}
 
 	public void initialiserPlateau(int nbJoueurs) {

@@ -27,9 +27,9 @@ public class IHM {
 		);
 	}
 
-	public void afficherMenuAchat() {
+	public void afficherMenuAchat(Joueur joueur) {
 		this.afficherBoite(
-				"menu de construction",
+				"menu de construction (" + joueur.getPieces() + " pièces)",
 				"Acheter une carte de la réserve",
 				"Construire un monument",
 				"Passer mon tour"
@@ -161,15 +161,28 @@ public class IHM {
 		System.out.println("| Solde en banque : " + String.format("%5d",ctrl.getMetier().getBanque().getSolde()) + " |");
 		System.out.println("---------------------------");
 
+		this.retarderAffichage(1500);
+
 		// Affichage des joueurs 2 par 2 à l'horizontal
         for(Joueur j : ctrl.getMetier().getListeJoueur()){
-			System.out.println("\nJoueur " + j.getNum());
+			System.out.println("\n###############");
+			System.out.println("# " + String.format("%-11s", "Joueur " + j.getNum()) + " #");
+			System.out.println("# " + String.format("%-11s", j.getPieces() + " pièces") + " #");
+			System.out.println("###############");
+
             // Monument
             // Carte
-			this.afficherLigneCarte(j.getMain());
-            // Argent
-			System.out.println("Pièces : " + j.getPieces());
+			this.afficherColonneCarte(j.getMain());
+
+			this.retarderAffichage(1000);
         }
+
+		System.out.println("\n\n");
+	}
+
+	public void afficherDebutTour(Joueur j) {
+		this.afficherBoite("Début du tour du joueur " + j.getNum());
+		this.retarderAffichage(2000);
 	}
 
 	/**
@@ -185,19 +198,7 @@ public class IHM {
 		String bord = "-----------------------";
 		int nbT = bord.length() - 2;
 
-
-		Map<String, List<Carte>> cartes = new HashMap<>();
-
-		// Tout d'abord, on regroupe les mêmes cartes
-		for (Carte c : listeCartes) {
-			String iden = c.getIdentifiant();
-
-			if (!cartes.containsKey(iden))
-				cartes.put(iden, new ArrayList<>());
-
-			cartes.get(iden).add(c);
-		}
-
+		Map<String, List<Carte>> cartes = IHM.grouperCartes(listeCartes);
 
 		for (int i = 0; i <= cartes.size() / nbCarteParLigne; i++) {
 
@@ -288,8 +289,51 @@ public class IHM {
 		System.out.println(affichage);
 	}
 
+	public void afficherColonneCarte(ArrayList<Carte> listeCartes) {
+		Map<String, List<Carte>> cartes = IHM.grouperCartes(listeCartes);
+
+		String bord = String.format("%49s", " ").replaceAll(" ", "-");
+
+		System.out.println("\n" + bord);
+
+		for (Map.Entry<String, List<Carte>> entree : cartes.entrySet()) {
+			Carte c = entree.getValue().get(0);
+
+			String enCons = (c instanceof Monument && ((Monument) c).estEnConstruction()) ? "[Inactif]" : "";
+			String actif = String.format("%9s", enCons);
+
+			String iden = String.format("%5s", c.getIdentifiant());
+			String nom = String.format("%-25s", c.getNom());
+			String nbCa = String.format("%3s", "x" + entree.getValue().size());
+
+			System.out.println("| " + iden + ". " + nom + " " + actif + " " + nbCa + " |");
+		}
+
+		System.out.println(bord + "\n");
+	}
+
 	public void afficherValeurDes(int de) {
 		this.afficherBoite("Valeurs des dés : " + de);
+	}
+
+	public void afficherBilanTour(int piecesAv, int piecesAp, int des) {
+		System.out.println("-------------------------------");
+		System.out.println("|  BILAN DU TOUR              |");
+		System.out.println("-------------------------------");
+		System.out.println("| Valeur des dés : " + String.format("%-10d", des) + " |");
+		System.out.println("| Pièces avant   : " + String.format("%-10d", piecesAv) + " |");
+		System.out.println("|                             |");
+		System.out.println("| Batîments activés :         |");
+
+		// TODO
+		System.out.println("|   aucun                     |");
+
+		System.out.println("|                             |");
+		System.out.println("| Pièces après   : " + String.format("%-10d", piecesAp) + " |");
+		System.out.println("-------------------------------");
+
+
+		this.retarderAffichage(2000);
 	}
 
 	public void afficherGagnant(Joueur gagnant) {
@@ -321,6 +365,14 @@ public class IHM {
 		System.out.println("\\" + bord + "/");
 	}
 
+	private void retarderAffichage(int ms) {
+		try {
+			Thread.sleep(ms);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public  void clearConsole() {
 		// Clean de la console en fonction du système d'exploitation
 		try {
@@ -334,6 +386,22 @@ public class IHM {
 		catch (final Exception ignored){}
 	}
 
+
+	private static Map<String, List<Carte>> grouperCartes(ArrayList<Carte> listeCartes) {
+		Map<String, List<Carte>> cartes = new HashMap<>();
+
+		// On parcoure toutes les cartes pour les regrouper
+		for (Carte c : listeCartes) {
+			String iden = c.getIdentifiant();
+
+			if (!cartes.containsKey(iden))
+				cartes.put(iden, new ArrayList<>());
+
+			cartes.get(iden).add(c);
+		}
+
+		return cartes;
+	}
 
 	private static String centrerText(String text, int len) {
 		String out = String.format("%" + len + "s%s%" + len + "s", "", text, "");
