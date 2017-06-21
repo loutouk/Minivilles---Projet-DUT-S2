@@ -2,6 +2,7 @@ package minivilles;
 
 import minivilles.ihm.IHM;
 import minivilles.ihm.console.IHMConsole;
+import minivilles.ihm.gui.IHMGUI;
 import minivilles.metier.Joueur;
 import minivilles.metier.Metier;
 import minivilles.metier.cartes.Carte;
@@ -18,11 +19,18 @@ public class Controleur {
 	private boolean debugMode;
 
 
-	public Controleur () {
-		this(false);
+	public Controleur() {
+		this("console");
 	}
-	public Controleur(boolean debugMode) {
-		this.ihm = new IHMConsole(this);
+	public Controleur(String mode) {
+		this(mode, false);
+	}
+	public Controleur(String mode, boolean debugMode) {
+		if (mode.equals("console"))
+			this.ihm = new IHMConsole(this);
+		else
+			this.ihm = new IHMGUI(this);
+
 		this.metier = new Metier(this.ihm);
 		this.debugMode = debugMode;
 	}
@@ -41,7 +49,8 @@ public class Controleur {
 		boolean quitter = false;
 		int choix;
 
-		this.ihm.afficherModeEvaluation();
+		if (this.debugMode)
+			this.ihm.afficherModeEvaluation();
 
 		while (!quitter) {
 			this.ihm.afficherMenuPrincipal();
@@ -194,6 +203,10 @@ public class Controleur {
 
 
 	public static void main(String[] a) {
-		new Controleur().lancer();
+		String mode = "console";
+
+		if (a.length > 0 && a[0].equals("gui")) mode = a[0];
+
+		new Controleur(mode).lancer();
 	}
 }

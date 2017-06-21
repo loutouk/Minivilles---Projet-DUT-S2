@@ -18,7 +18,7 @@ public class TestFichier {
 
 
 	public TestFichier() {
-		this.ctrl = new Controleur(true);
+		this.ctrl = new Controleur("console", true);
 	}
 
 
