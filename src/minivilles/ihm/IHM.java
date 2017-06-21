@@ -104,6 +104,26 @@ public class IHM {
 		return sc.nextLine();
 	}
 
+	public String choixCarteCentreAffaire() {
+		System.out.println("\n-- Choisissez la carte à échanger qui ne soit pas violette");
+		System.out.println("   (tapez -1 pour annuler)");
+		System.out.print("   > son identifiant : ");
+
+		Scanner sc = new Scanner(System.in);
+
+		return sc.nextLine();
+	}
+
+	public String choixJoueurCentreAffaire() {
+		System.out.println("\n-- Choisissez le joueur avec qui échanger une carte");
+		System.out.println("   (tapez -1 pour annuler)");
+		System.out.print("   > son identifiant : ");
+
+		Scanner sc = new Scanner(System.in);
+
+		return sc.nextLine();
+	}
+
 	public int getDe() {
 		System.out.print("\nEntrez un nombre pour le dé : ");
 
@@ -270,6 +290,12 @@ public class IHM {
 
 	public void afficherValeurDes(int de) {
 		this.afficherBoite("Valeurs des dés : " + de);
+	}
+
+	public void afficherGagnant(Joueur gagnant) {
+		System.out.println();
+		this.afficherBoite("Le joueur #" + gagnant.getNum() + " gagne !");
+		System.out.println();
 	}
 
 
