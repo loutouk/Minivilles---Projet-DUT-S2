@@ -18,9 +18,9 @@ public class Superette extends Carte {
 
 		// Effet du monument CentreCommercial : 1 piece de plus
 		Carte carte = super.getJoueur().rechercherCarte("M2");
-		if(carte!=null) {
+		if (carte != null) {
 			Monument monument = (Monument) carte;
-			if(!monument.estEnConstruction()) gain++;
+			if (!monument.estEnConstruction()) gain++;
 		}
 
 		metier.getJoueurCourant().addPiece(gain);

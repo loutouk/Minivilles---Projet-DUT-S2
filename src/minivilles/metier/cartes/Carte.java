@@ -13,16 +13,16 @@ import minivilles.metier.cartes.monuments.Monument;
  * Définit une carte de base, caractérisée par :
  * <p>
  * <ul>
- * 	<li>son identifiant unique
- * 	<li>son nom
- * 	<li>son texte d'effet
- * 	<li>sa couleur
- * 	<li>son effet de couleur, à savoir si l'effet se déclenche pendant le tour de n'importe qui
- * 		ou seulement pendant le tour du joueur propriétaire de la carte.
- * 	<li>son propriétaire
- * 	<li>son déclencheur, à savoir le numéro de dé qui déclenchera l'effet de la carte
- * 	<li>son deuxième déclencheur, s'il a lieu d'être
- * 	<li>son coût de construction
+ * <li>son identifiant unique
+ * <li>son nom
+ * <li>son texte d'effet
+ * <li>sa couleur
+ * <li>son effet de couleur, à savoir si l'effet se déclenche pendant le tour de n'importe qui
+ * ou seulement pendant le tour du joueur propriétaire de la carte.
+ * <li>son propriétaire
+ * <li>son déclencheur, à savoir le numéro de dé qui déclenchera l'effet de la carte
+ * <li>son deuxième déclencheur, s'il a lieu d'être
+ * <li>son coût de construction
  * </ul>
  * <p>
  * Selon le nom donné à la <i>Carte</i>, qui doit être un des noms de carte du jeu,

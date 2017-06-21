@@ -4,7 +4,7 @@ import minivilles.metier.Metier;
 
 /**
  * Classe <i>TourRadio</i>, qui hérite de {@link minivilles.metier.cartes.monuments.Monument}.
- *
+ * <p>
  * Cette classe définit la carte <i>TourRadio</i> ainsi que son effet.
  *
  * @see minivilles.metier.cartes.Carte

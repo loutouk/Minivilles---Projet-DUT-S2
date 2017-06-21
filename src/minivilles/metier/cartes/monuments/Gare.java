@@ -4,7 +4,7 @@ import minivilles.metier.Metier;
 
 /**
  * Classe <i>Gare</i>, qui hérite de {@link minivilles.metier.cartes.Carte}.
- *
+ * <p>
  * Cette classe définit la carte <i>Gare</i> ainsi que son effet.
  *
  * @see minivilles.metier.cartes.Carte

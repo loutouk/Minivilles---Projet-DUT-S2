@@ -11,7 +11,7 @@ import minivilles.metier.cartes.Carte;
  * @see minivilles.metier.cartes.Carte
  */
 public abstract class Monument extends Carte {
-	boolean enConstruction = true;
+	private boolean enConstruction = true;
 
 	public Monument(String identifiant, String nom, int declencheur, int cout) {
 		super(identifiant, nom, "Marron", declencheur, cout);
