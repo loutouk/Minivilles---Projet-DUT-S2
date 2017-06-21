@@ -157,9 +157,12 @@ public class Metier {
 		List<Carte> cartes = new ArrayList<>();
 
 		for (Joueur joueur : this.listeJoueur)
-			for (Carte c : joueur.getMain())
+			for (int cpt = 0; cpt < joueur.getMain().size(); cpt++) {
+				Carte c = joueur.getMain().get(cpt);
+
 				if (c.testEffet(this, resultatDes))
 					cartes.add(c);
+			}
 
 		return cartes;
 	}
