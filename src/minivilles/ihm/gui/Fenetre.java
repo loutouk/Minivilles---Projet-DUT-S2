@@ -60,6 +60,8 @@ public class Fenetre extends JFrame {
     private JLabel imageCarteMonumentD3;
     private JLabel imageCarteMonumentD4;
 
+    private JLabel imageDeUn;
+    private JLabel imageDeDeux;
 
     private String[] nomCartes = {"Champs de blé", "Ferme", "Boulangerie", "Café",
             "Supérette", "Forêt", "Stade", "Chaîne de télévision", "Centre d'affaires",
@@ -74,24 +76,26 @@ public class Fenetre extends JFrame {
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(3);
 
-        JPanel panelGlobal = new JPanel(new GridLayout(2,1));
+        JPanel panelGlobal = new JPanel();
+        BoxLayout globalLayout = new BoxLayout(panelGlobal, BoxLayout.PAGE_AXIS);
+        panelGlobal.setLayout(globalLayout);
         panelGlobal.setBorder(new EmptyBorder( 0, 0 ,0,0 ));
-        JPanel partieHaute = new JPanel(new GridLayout(1,2));
+        JPanel partieHaute = new JPanel(new FlowLayout());
         JPanel gauche = new JPanel();
-        gauche.setBorder(BorderFactory.createLineBorder(Color.black));
+        //gauche.setBorder(BorderFactory.createLineBorder(Color.black));
         BoxLayout gaucheLayout = new BoxLayout(gauche, BoxLayout.X_AXIS);
         gauche.setLayout(gaucheLayout);
         JPanel droite = new JPanel();
-        droite.setBorder(BorderFactory.createLineBorder(Color.black));
+        //droite.setBorder(BorderFactory.createLineBorder(Color.black));
         JPanel partieBasse = new JPanel(new GridLayout(2,2));
         JPanel joueurA = new JPanel();
-        joueurA.setBorder(BorderFactory.createLineBorder(Color.black));
+        //joueurA.setBorder(BorderFactory.createLineBorder(Color.black));
         JPanel joueurB = new JPanel();
-        joueurB.setBorder(BorderFactory.createLineBorder(Color.black));
+        //joueurB.setBorder(BorderFactory.createLineBorder(Color.black));
         JPanel joueurC = new JPanel();
-        joueurC.setBorder(BorderFactory.createLineBorder(Color.black));
+        //joueurC.setBorder(BorderFactory.createLineBorder(Color.black));
         JPanel joueurD = new JPanel();
-        joueurD.setBorder(BorderFactory.createLineBorder(Color.black));
+        //joueurD.setBorder(BorderFactory.createLineBorder(Color.black));
         partieHaute.add(gauche);
         partieHaute.add(droite);
         partieBasse.add(joueurA);
@@ -102,17 +106,16 @@ public class Fenetre extends JFrame {
         panelGlobal.add(partieBasse);
 
         // Gauche ///////////////////////////////////////////////////////////////////////////
-        JPanel gauchePartieGauche = new JPanel(new BorderLayout());
+        JPanel contenantGauche = new JPanel(new BorderLayout());
         listePioche = new JComboBox(nomCartes);
-        listePioche.setBorder(new EmptyBorder(10,10,7,7));
-        nombreDeCarte = new JLabel("Nombre de carte dans la réserve : ");
-        nombreDeCarte.setBorder(new EmptyBorder(0,0,7,7));
-        gauchePartieGauche.add(listePioche, BorderLayout.NORTH);
-        gauchePartieGauche.add(nombreDeCarte, BorderLayout.SOUTH);
-        gauche.add(gauchePartieGauche);
-
+        listePioche.setBorder(new EmptyBorder(5,5,5,5));
+        nombreDeCarte = new JLabel("Nombre de cette carte dans la réserve : 6");
+        nombreDeCarte.setBorder(new EmptyBorder(5,5,5,5));
         imageCarte = new JLabel(new ImageIcon(Art.getImage("img1")));
-        gauche.add(imageCarte);
+        contenantGauche.add(listePioche, BorderLayout.NORTH);
+        contenantGauche.add(imageCarte, BorderLayout.CENTER);
+        contenantGauche.add(nombreDeCarte, BorderLayout.SOUTH);
+        gauche.add(contenantGauche);
         /////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -122,7 +125,7 @@ public class Fenetre extends JFrame {
         BoxLayout contenantDroitLayout = new BoxLayout(contenantDroit, BoxLayout.Y_AXIS);
         contenantDroit.setLayout(contenantDroitLayout);
 
-        JPanel boutons = new JPanel(new GridLayout(3,3,10,10));
+        JPanel boutons = new JPanel(new GridLayout(3,2,14,14));
 
         acheterBatimentListe = new JComboBox(nomCartes);
         boutons.add(acheterBatimentListe);
@@ -142,16 +145,25 @@ public class Fenetre extends JFrame {
 
         boutons.add(tourDuJoueur);
         boutons.add(passerTour);
+
+        JPanel imageDe = new JPanel(new GridLayout(1,2,50,50));
+        imageDeUn = new JLabel(new ImageIcon(Art.getImage("un")));
+        imageDeUn.setBorder(new EmptyBorder(50,50,50,50));
+        imageDeDeux = new JLabel(new ImageIcon(Art.getImage("un")));
+        imageDeDeux.setBorder(new EmptyBorder(45,45,45,45));
+        imageDe.add(imageDeUn);
+        imageDe.add(imageDeDeux);
+
+
         contenantDroit.add(boutons);
+        contenantDroit.add(imageDe);
         droite.add(contenantDroit);
         /////////////////////////////////////////////////////////////////////////////////////
 
         // Joueur A /////////////////////////////////////////////////////////////////////////
         JPanel contenantJoueurA = new JPanel();
 
-        JPanel infoJoueurA = new JPanel();
-        BoxLayout infoJoueurALayout = new BoxLayout(infoJoueurA, BoxLayout.Y_AXIS);
-        infoJoueurA.setLayout(infoJoueurALayout);
+        JPanel infoJoueurA = new JPanel(new GridLayout(4,1));
 
         infoJoueurA.add(new JLabel("Joueur numéro 1"));
         pieceJoueurA = new JLabel("Pièces : 3");
@@ -180,9 +192,7 @@ public class Fenetre extends JFrame {
         // Joueur B /////////////////////////////////////////////////////////////////////////
         JPanel contenantJoueurB = new JPanel();
 
-        JPanel infoJoueurB = new JPanel();
-        BoxLayout infoJoueurBLayout = new BoxLayout(infoJoueurB, BoxLayout.Y_AXIS);
-        infoJoueurB.setLayout(infoJoueurBLayout);
+        JPanel infoJoueurB = new JPanel(new GridLayout(4,1));
 
         infoJoueurB.add(new JLabel("Joueur numéro 1"));
         pieceJoueurB = new JLabel("Pièces : 2");
@@ -211,9 +221,7 @@ public class Fenetre extends JFrame {
         // Joueur C /////////////////////////////////////////////////////////////////////////
         JPanel contenantJoueurC = new JPanel();
 
-        JPanel infoJoueurC = new JPanel();
-        BoxLayout infoJoueurCLayout = new BoxLayout(infoJoueurC, BoxLayout.Y_AXIS);
-        infoJoueurC.setLayout(infoJoueurCLayout);
+        JPanel infoJoueurC = new JPanel(new GridLayout(4,1));
 
         infoJoueurC.add(new JLabel("Joueur numéro 3"));
         pieceJoueurC = new JLabel("Pièces : 3");
@@ -242,9 +250,7 @@ public class Fenetre extends JFrame {
         // Joueur D /////////////////////////////////////////////////////////////////////////
         JPanel contenantJoueurD = new JPanel();
 
-        JPanel infoJoueurD = new JPanel();
-        BoxLayout infoJoueurDLayout = new BoxLayout(infoJoueurD, BoxLayout.Y_AXIS);
-        infoJoueurD.setLayout(infoJoueurDLayout);
+        JPanel infoJoueurD = new JPanel(new GridLayout(4,1));
 
         infoJoueurD.add(new JLabel("Joueur numéro 4"));
         pieceJoueurD = new JLabel("Pièces : 3");
