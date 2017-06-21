@@ -25,9 +25,25 @@ import minivilles.metier.cartes.monuments.Monument;
  * <li>son coût de construction
  * </ul>
  * <p>
+ * L'identifiant est, sauf exception, le résultat du dé à avoir pour activer l'effet de la carte.
+ * <p>
+ * Par exemple, l'identifiant d'un {@link minivilles.metier.cartes.Cafe} sera :
+ * <i>2-3</i>
+ * <p>
+ * Celui d'un {@link minivilles.metier.cartes.ChampsDeBle} sera :
+ * <i>1</i>
+ * <p>
+ * Pour les établissements violets, nous utilisons :
+ * <p>
+ * <ul>
+ * <li>{@link minivilles.metier.cartes.Stade} : 6:1</li>
+ * <li>{@link minivilles.metier.cartes.ChaineDeTelevision} : 6:2</li>
+ * <li>{@link minivilles.metier.cartes.CentreAffaires} : 6:3</li>
+ * </ul>
+ * <p>
  * Selon le nom donné à la <i>Carte</i>, qui doit être un des noms de carte du jeu,
  * le texte de l'effet et le texte pour la couleur de l'effet sont initialisés dans
- * les méthodes correspondantes (voir {@link #initTexteEffet()} et {@link #initCouleurEffet()}.
+ * les méthodes correspondantes (voir {@link #initTexteEffet()} et {@link #initCouleurEffet()}).
  * <p>
  * Pendant le déroulement d'un tour de jeu, le déclenchement de l'effet de la carte est vérifié
  * par un appel à la méthode {@link #testEffet(Metier, int)}. Si l'effet doit effectivement être activé,
@@ -48,10 +64,36 @@ public abstract class Carte {
 	private int declencheur2;
 	private int cout;
 
+	/**
+	 * Constructeur de <i>Carte</i> à un seul déclencheur.
+	 * <p>
+	 * Appelle le deuxième constructeur ({@link #Carte(String, String, String, int, int, int)}) en passant -1 comme
+	 * valeur pour le second déclencheur.
+	 *
+	 * @param identifiant l'identifiant de la carte
+	 * @param nom         le nom complet de la carte : Champs de blé, Café, ...
+	 * @param couleur     la couleur de la carte
+	 * @param declencheur le déclencheur de la carte : c'est le résultat de dé qui activera l'effet de la carte
+	 * @param cout        le coût de construction de la carte
+	 */
 	public Carte(String identifiant, String nom, String couleur, int declencheur, int cout) {
 		this(identifiant, nom, couleur, declencheur, -1, cout);
 	}
 
+	/**
+	 * Constructeur de <i>Carte</i> à deux déclencheurs.
+	 * <p>
+	 * Il initialise tous les attributs dont on passe la valeur en paramètre, comme ci-dessous.
+	 * Les autres attributs <i>texteEffet</i>, <i>couleurEffet</i>, et <i>joueur</i> sont initialisés
+	 * par les méthodes adéquates : {@link #initTexteEffet()} ()}, {@link #initCouleurEffet()} ()}, {@link #setJoueur(Joueur)}
+	 *
+	 * @param identifiant  l'identifiant de la carte
+	 * @param nom          le nom complet de la carte : Champs de blé, Café, ...
+	 * @param couleur      la couleur de la carte
+	 * @param declencheur  le déclencheur de la carte : c'est le résultat de dé qui activera l'effet de la carte
+	 * @param declencheur2 le deuxième déclencheur de la carte, s'il a lieu d'être
+	 * @param cout         le coût de construction de la carte
+	 */
 	public Carte(String identifiant, String nom, String couleur, int declencheur, int declencheur2, int cout) {
 		this.identifiant = identifiant;
 
@@ -66,6 +108,11 @@ public abstract class Carte {
 		this.cout = cout;
 	}
 
+	/**
+	 * Retourne l'identifiant de la <i>Carte</i>.
+	 *
+	 * @return l'identifiant de la <i>Carte</i>.
+	 */
 	public String getIdentifiant() {
 		return this.identifiant;
 	}

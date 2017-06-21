@@ -8,11 +8,39 @@ import minivilles.metier.cartes.monuments.Monument;
 import java.util.*;
 
 /**
- * Created by richard on 6/19/17.
+ * Classe <i>IHM</i>.
+ * <p>
+ * Instanciée par le contrôleur, elle gère tous les affichages :
+ * <p>
+ * <ul>
+ * <li>Affichage du plateau</li>
+ * <li>Affichage du solde de la banque</li>
+ * <li>Affichage de la situation des joueurs</li>
+ * <li>Affichage des cartes</li>
+ * </ul>
+ * <p>
+ * Elle est aussi chargée de récupérer les différentes saisies des joueurs,
+ * notamment dans le menu principal ou lorsqu'ils doivent choisir un autre joueur
+ * avec qui échanger des <i>{@link minivilles.metier.cartes.Carte}</i> ou des pièces.
+ * <p>
+ * L'IHM fait partie du modèle MVC et ses méthodes sont appelées par le {@link minivilles.Controleur},
+ * qui fait le pont avec la partie métier.
+ *
+ * @see minivilles.Controleur
+ * @see minivilles.metier.Metier
+ * @see minivilles.metier.Joueur
+ * @see minivilles.metier.Banque
  */
 public class IHM {
 	private Controleur ctrl;
 
+	private int nbItemsDernierMenu;
+
+	/**
+	 * Instancie une IHM et assigne son contrôleur.
+	 *
+	 * @param ctrl le contrôleur amené à gérer cette IHM.
+	 */
 	public IHM(Controleur ctrl) {
 		this.ctrl = ctrl;
 	}
@@ -57,12 +85,19 @@ public class IHM {
 
 		try {
 			menu = sc.nextInt();
-		} catch (NumberFormatException nfe) {
+		} catch (NumberFormatException | InputMismatchException ignored) {
 			System.out.println("Veuillez entrer un nombre valide.");
-			this.choixMenu();
+			sc.nextLine();
+			return this.choixMenu();
 		}
 
-		// On scan dans le vide comme on a change de type
+		if (menu < 1 || menu > this.nbItemsDernierMenu) {
+			System.out.println("Choix invalide");
+			sc.nextLine();
+			return this.choixMenu();
+		}
+
+		// On scan dans le vide comme on a changé de type
 		sc.nextLine();
 		return menu;
 	}
@@ -84,9 +119,10 @@ public class IHM {
 
 		try {
 			nbJ = sc.nextInt();
-		} catch (NumberFormatException nfe) {
+		} catch (NumberFormatException | InputMismatchException ignored) {
 			System.out.println("Veuillez entrer un nombre valide.");
-			this.choixMenu();
+			sc.nextLine();
+			return this.choixNbJoueurs();
 		}
 
 		// On scan dans le vide comme on a change de type
@@ -128,7 +164,15 @@ public class IHM {
 		System.out.print("\nEntrez un nombre pour le dé : ");
 
 		Scanner sc = new Scanner(System.in);
-		int menu = sc.nextInt();
+
+		int menu = -1;
+
+		try {
+			menu = sc.nextInt();
+		} catch (NumberFormatException | InputMismatchException ignored) {
+			System.out.println("Veuillez entrer un nombre valide.");
+			this.getDe();
+		}
 
 		// On scan dans le vide comme on a change de type
 		sc.nextLine();
@@ -364,6 +408,8 @@ public class IHM {
 			for (int cpt = 0; cpt < sousItems.length; cpt++)
 				System.out.println("| " + String.format("%2d", cpt + 1) + ".  " + String.format("%-" + largeur + "s", IHM.ucfirst(sousItems[cpt])) + "  |");
 		}
+
+		this.nbItemsDernierMenu = sousItems.length;
 
 		System.out.println("\\" + bord + "/");
 	}

@@ -51,10 +51,6 @@ public class Controleur {
 				case 2:
 					quitter = true;
 					break;
-
-				default:
-					System.out.println("Choix invalide");
-					break;
 			}
 		}
 	}
@@ -178,7 +174,7 @@ public class Controleur {
 
 	private int lancerDe() {
 		//return 1 + (int) (Math.random() * 6);
-		return 6;
+		return 7;
 	}
 
 	public void initialiserPlateau(int nbJoueurs) {
