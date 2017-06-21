@@ -179,8 +179,6 @@ public class Metier {
 			if (c.getNom().equals(id) || c.getIdentifiant().equals(id))
 				carte = c;
 
-		System.out.println(id + " : " + carte);
-
 		if (pioche.contains(carte)) {
 			carte.setJoueur(joueur);
 			joueur.getMain().add(carte);
