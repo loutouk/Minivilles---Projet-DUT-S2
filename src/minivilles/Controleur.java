@@ -133,7 +133,7 @@ public class Controleur {
 						nombreDeCoups == 1 &&
 						(compteur - 1) % nombreDeDes == 0) {
 
-					ihm.afficherValeurDes(de1 + de2);
+					ihm.afficherValeurDes(de1, de2);
 					ihm.afficherMenuRejouer();
 
 					if (ihm.choixMenu() == 1) {
