@@ -12,11 +12,11 @@ import java.util.List;
 public class IHMGUI extends IHM {
 
 	private Fenetre fenetre;
+	private int nombreDeJoueurs=0;
 
 
 	public IHMGUI(Controleur ctrl) {
 		super(ctrl);
-
 		SwingUtilities.invokeLater(() -> this.fenetre = new Fenetre());
 	}
 
@@ -62,8 +62,12 @@ public class IHMGUI extends IHM {
 		Object[] selectionValues = { 2, 3, 4 };
 		int initialSelection = 2;
 
-		return (int) JOptionPane.showInputDialog(null, "Combien de joueurs vont jouer ?",
+		nombreDeJoueurs = (int) JOptionPane.showInputDialog(null, "Combien de joueurs vont jouer ?",
 				"Nombre de joueurs", JOptionPane.QUESTION_MESSAGE, null, selectionValues, initialSelection);
+
+		fenetre.setPanelJoueurs(nombreDeJoueurs);
+
+		return nombreDeJoueurs;
 	}
 
 	@Override
