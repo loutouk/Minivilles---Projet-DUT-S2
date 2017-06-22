@@ -216,10 +216,13 @@ public class Metier {
 		return false;
 	}
 
-	public Carte rechercherCartePioche(String id) {
-		Carte recherche = null;
-		for (Carte c : this.pioche) if (c.getIdentifiant().equals(id)) recherche = c;
-		return recherche;
+
+	public Carte rechercherCartePioche(String rech) {
+		for (Carte carte : this.pioche)
+			if (carte.getIdentifiant().equals(rech) || carte.getNom().equalsIgnoreCase(rech))
+				return carte;
+
+		return null;
 	}
 
 }

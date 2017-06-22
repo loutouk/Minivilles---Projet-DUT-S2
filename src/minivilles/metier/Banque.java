@@ -9,9 +9,11 @@ public class Banque {
 
 	private int solde;
 
+
 	public Banque() {
 		this.solde = 1000;
 	}
+
 
 	/**
 	 * Effectue un retrait dans le solde de la banque, du montant indiqué en paramètre.
