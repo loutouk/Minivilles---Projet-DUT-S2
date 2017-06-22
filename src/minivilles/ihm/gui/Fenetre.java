@@ -73,6 +73,9 @@ public class Fenetre extends JFrame implements ItemListener {
     private String[] nomCartes    = new String[0];
     private String[] nomMonuments = {"Gare", "Centre commercial", "Parc d'attractions", "Tour radio"};
 
+    private Map<String, List<Carte>> pioche;
+
+
     public Fenetre() {
 
         setTitle("Miniville");
@@ -116,7 +119,7 @@ public class Fenetre extends JFrame implements ItemListener {
         listePioche.setBorder(new EmptyBorder(5,5,5,5));
         nombreDeCarte = new JLabel("Nombre de cette carte dans la réserve : 6");
         nombreDeCarte.setBorder(new EmptyBorder(5,5,5,5));
-        imageCarte = new JLabel(new ImageIcon(Art.getImage("1")));
+        imageCarte = new JLabel(new ImageIcon(Art.getImage("cartes/1")));
         contenantGauche.add(listePioche, BorderLayout.NORTH);
         contenantGauche.add(imageCarte, BorderLayout.CENTER);
         contenantGauche.add(nombreDeCarte, BorderLayout.SOUTH);
@@ -185,13 +188,13 @@ public class Fenetre extends JFrame implements ItemListener {
 
         contenantJoueurA.add(infoJoueurA);
 
-        imageCarteMonumentA1 = new JLabel(new ImageIcon(Art.getImage("mF1small")));
+        imageCarteMonumentA1 = new JLabel(new ImageIcon(Art.getImage("cartes/M1EP")));
         contenantJoueurA.add(imageCarteMonumentA1);
-        imageCarteMonumentA2 = new JLabel(new ImageIcon(Art.getImage("mF2small")));
+        imageCarteMonumentA2 = new JLabel(new ImageIcon(Art.getImage("cartes/M2EP")));
         contenantJoueurA.add(imageCarteMonumentA2);
-        imageCarteMonumentA3 = new JLabel(new ImageIcon(Art.getImage("mF3small")));
+        imageCarteMonumentA3 = new JLabel(new ImageIcon(Art.getImage("cartes/M3EP")));
         contenantJoueurA.add(imageCarteMonumentA3);
-        imageCarteMonumentA4 = new JLabel(new ImageIcon(Art.getImage("mF4small")));
+        imageCarteMonumentA4 = new JLabel(new ImageIcon(Art.getImage("cartes/M4EP")));
         contenantJoueurA.add(imageCarteMonumentA4);
 
         joueurA.add(contenantJoueurA);
@@ -214,13 +217,13 @@ public class Fenetre extends JFrame implements ItemListener {
 
         contenantJoueurB.add(infoJoueurB);
 
-        imageCarteMonumentB1 = new JLabel(new ImageIcon(Art.getImage("mF1small")));
+        imageCarteMonumentB1 = new JLabel(new ImageIcon(Art.getImage("cartes/M1EP")));
         contenantJoueurB.add(imageCarteMonumentB1);
-        imageCarteMonumentB2 = new JLabel(new ImageIcon(Art.getImage("mF2small")));
+        imageCarteMonumentB2 = new JLabel(new ImageIcon(Art.getImage("cartes/M2EP")));
         contenantJoueurB.add(imageCarteMonumentB2);
-        imageCarteMonumentB3 = new JLabel(new ImageIcon(Art.getImage("mF3small")));
+        imageCarteMonumentB3 = new JLabel(new ImageIcon(Art.getImage("cartes/M3EP")));
         contenantJoueurB.add(imageCarteMonumentB3);
-        imageCarteMonumentB4 = new JLabel(new ImageIcon(Art.getImage("mF4small")));
+        imageCarteMonumentB4 = new JLabel(new ImageIcon(Art.getImage("cartes/M4EP")));
         contenantJoueurB.add(imageCarteMonumentB4);
 
         joueurB.add(contenantJoueurB);
@@ -243,13 +246,13 @@ public class Fenetre extends JFrame implements ItemListener {
 
         contenantJoueurC.add(infoJoueurC);
 
-        imageCarteMonumentC1 = new JLabel(new ImageIcon(Art.getImage("mF1small")));
+        imageCarteMonumentC1 = new JLabel(new ImageIcon(Art.getImage("cartes/M1EP")));
         contenantJoueurC.add(imageCarteMonumentC1);
-        imageCarteMonumentC2 = new JLabel(new ImageIcon(Art.getImage("mF2small")));
+        imageCarteMonumentC2 = new JLabel(new ImageIcon(Art.getImage("cartes/M2EP")));
         contenantJoueurC.add(imageCarteMonumentC2);
-        imageCarteMonumentC3 = new JLabel(new ImageIcon(Art.getImage("mF3small")));
+        imageCarteMonumentC3 = new JLabel(new ImageIcon(Art.getImage("cartes/M3EP")));
         contenantJoueurC.add(imageCarteMonumentC3);
-        imageCarteMonumentC4 = new JLabel(new ImageIcon(Art.getImage("mF4small")));
+        imageCarteMonumentC4 = new JLabel(new ImageIcon(Art.getImage("cartes/M4EP")));
         contenantJoueurC.add(imageCarteMonumentC4);
 
         joueurC.add(contenantJoueurC);
@@ -272,13 +275,13 @@ public class Fenetre extends JFrame implements ItemListener {
 
         contenantJoueurD.add(infoJoueurD);
 
-        imageCarteMonumentD1 = new JLabel(new ImageIcon(Art.getImage("mF1small")));
+        imageCarteMonumentD1 = new JLabel(new ImageIcon(Art.getImage("cartes/M1EP")));
         contenantJoueurD.add(imageCarteMonumentD1);
-        imageCarteMonumentD2 = new JLabel(new ImageIcon(Art.getImage("mF2small")));
+        imageCarteMonumentD2 = new JLabel(new ImageIcon(Art.getImage("cartes/M2EP")));
         contenantJoueurD.add(imageCarteMonumentD2);
-        imageCarteMonumentD3 = new JLabel(new ImageIcon(Art.getImage("mF3small")));
+        imageCarteMonumentD3 = new JLabel(new ImageIcon(Art.getImage("cartes/M3EP")));
         contenantJoueurD.add(imageCarteMonumentD3);
-        imageCarteMonumentD4 = new JLabel(new ImageIcon(Art.getImage("mF4small")));
+        imageCarteMonumentD4 = new JLabel(new ImageIcon(Art.getImage("cartes/M4EP")));
         contenantJoueurD.add(imageCarteMonumentD4);
 
         joueurD.add(contenantJoueurD);
@@ -291,13 +294,14 @@ public class Fenetre extends JFrame implements ItemListener {
     }
 
     void initialiserCartes(Map<String, List<Carte>> pioche) {
+    	this.pioche = pioche;
 		this.nomCartes = new String[pioche.size()];
 
-		for (int cpt = 0; cpt < this.nomCartes.length; cpt++)
+		for (int cpt = 0; cpt < this.nomCartes.length; cpt++) {
 			this.nomCartes[cpt] = ((List<Carte>) pioche.values().toArray()[cpt]).get(0).getNom();
 
-		for (int cpt = 0; cpt < this.nomCartes.length; cpt++)
 			this.listePioche.addItem(this.nomCartes[cpt]);
+		}
 
 		this.setVisible(true);
 	}
@@ -305,8 +309,16 @@ public class Fenetre extends JFrame implements ItemListener {
     @Override
     public void itemStateChanged(ItemEvent event) {
         if (event.getStateChange() == ItemEvent.SELECTED) {
+        	String iden = null;
+        	String nom = event.getItem().toString();
+
+        	for (Map.Entry<String, List<Carte>> entry : this.pioche.entrySet())
+        		if (entry.getValue().size() > 0 && entry.getValue().get(0).getNom().equals(nom))
+        			iden = entry.getKey();
+
             // On affiche le nom de la carte par son String qui correspond au nom du fichier png
-            // imageCarte.setIcon(new ImageIcon(Art.getImage(event.getItem().toString())));
+            if (iden != null)
+            	imageCarte.setIcon(new ImageIcon(Art.getImage("cartes/" + iden)));
         }
     }
 }
