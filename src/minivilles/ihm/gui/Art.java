@@ -29,6 +29,11 @@ public class Art {
 		InputStream   is  = Art.class.getResourceAsStream("/res/images/" + name + ".png");
 		BufferedImage img = null;
 
+		if (is == null) {
+			System.out.println("L'image " + name + ".png n'a pas été trouvée dans le dossier ressources !");
+			return null;
+		}
+
 		try {
 			img = ImageIO.read(is);
 			Art.images.put(name, img);
