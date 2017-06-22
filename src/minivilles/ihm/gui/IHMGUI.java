@@ -11,66 +11,81 @@ import java.util.List;
 
 public class IHMGUI extends IHM {
 
-    private Fenetre fenetre;
-    private int nombreDeJoueurs;
+	private Fenetre fenetre;
+	private int nombreDeJoueurs;
+
+	private String menu;
 
 
-    public IHMGUI(Controleur ctrl) {
-        super(ctrl);
-        this.fenetre = new Fenetre(ctrl.getMetier());
-    }
+	public IHMGUI(Controleur ctrl) {
+		super(ctrl);
+		this.fenetre = new Fenetre(ctrl.getMetier());
+	}
 
-    @Override
-    public void afficherMenuPrincipal() {
+	@Override
+	public void afficherMenuPrincipal() {
+		this.menu = "principal";
+	}
 
-    }
+	@Override
+	public void afficherMenuAchat(Joueur joueur) {
+		this.menu = "achat";
+	}
 
-    @Override
-    public void afficherMenuAchat(Joueur joueur) {
+	@Override
+	public void afficherMenuRejouer() {
+		this.menu = "rejouer";
+	}
 
-    }
+	@Override
+	public void initialiserCartes(ArrayList<Carte> pioche) {
 
-    @Override
-    public void afficherMenuRejouer() {
-
-    }
-
-    @Override
-    public void initialiserCartes(ArrayList<Carte> pioche) {
-
-        this.fenetre.initialiserCartes(IHM.grouperCartes(pioche));
+	    this.fenetre.initialiserCartes(IHM.grouperCartes(pioche));
         fenetre.setPanelJoueurs(nombreDeJoueurs);
-    }
+	}
 
-    @Override
-    public int choixMenu() {
-        return 1;
-    }
+	@Override
+	public int choixMenu() {
+	    return this.choixMenu(1, Integer.MAX_VALUE);
+	}
 
-    @Override
-    public int choixMenu(int min, int max) {
-        return 0;
-    }
+	@Override
+	public int choixMenu(int min, int max) {
+		if (this.menu.equals("achat")) {
+			// On attends le clic sur un des boutons d'action de l'IHM
+			while (!this.fenetre.isAcheter() && !this.fenetre.isConstruire() && !this.fenetre.isPasserTour()) {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 
-    @Override
-    public String choixStringMenu() {
-        return null;
-    }
+			return this.fenetre.isAcheter() ? 1 : ((this.fenetre.isConstruire()) ? 2 : 3);
+		}
 
-    @Override
-    public int choixNbJoueurs() {
+		return 1;
+	}
 
-        Integer[] nb = {2, 3, 4};
-        nombreDeJoueurs = (Integer) JOptionPane.showInputDialog(fenetre,
-                "",
-                "Nombre de joueurs",
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                nb,
-                nb[0]);
+	@Override
+	public String choixStringMenu() {
+		return null;
+	}
 
-        return nombreDeJoueurs;
-    }
+	@Override
+	public int choixNbJoueurs() {
+
+		Integer[] nb = {2,3,4};
+		nombreDeJoueurs = (Integer) JOptionPane.showInputDialog(fenetre,
+				"",
+				"Nombre de joueurs",
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				nb,
+				nb[0]);
+
+		return nombreDeJoueurs;
+	}
 
     @Override
     public int choixNbDes() {
@@ -90,81 +105,79 @@ public class IHMGUI extends IHM {
         return "";
     }
 
-    @Override
-    public String choixCarteCentreAffaire(String joueur) {
-        return "";
-    }
+	@Override
+	public String choixCarteCentreAffaire(String joueur) {
+		return "";
+	}
 
-    @Override
-    public String choixJoueurCentreAffaire() {
-        return "";
-    }
+	@Override
+	public String choixJoueurCentreAffaire() {
+		return "";
+	}
 
-    @Override
-    public String choixJoueurChaineTV() {
-        return "";
-    }
+	@Override
+	public String choixJoueurChaineTV() {
+		return "";
+	}
 
-    @Override
-    public int getDe() {
-        return 0;
-    }
+	@Override
+	public int getDe() {
+		return 0;
+	}
 
-    @Override
-    public void afficherPlateau() {
+	@Override
+	public void afficherPlateau() {
 
-    }
+	}
 
-    @Override
-    public void afficherDebutTour(Joueur j) {
+	@Override
+	public void afficherDebutTour(Joueur j) {
 
-    }
+	}
 
-    @Override
-    public void afficherLigneCarte(ArrayList<Carte> listeCartes) {
+	@Override
+	public void afficherLigneCarte(ArrayList<Carte> listeCartes) {
 
-    }
+	}
 
-    @Override
-    public void afficherColonneCarte(ArrayList<Carte> listeCartes) {
+	@Override
+	public void afficherColonneCarte(ArrayList<Carte> listeCartes) {
 
-    }
+	}
 
-    @Override
-    public void afficherValeurDes(int de1, int de2) {
+	@Override
+	public void afficherValeurDes(int de1, int de2) {
 
-        System.out.println("lancer de");
+	    fenetre.getImageDeUn().setIcon(new ImageIcon(Art.getImage("des/3")));
 
-        fenetre.getImageDeUn().setIcon(new ImageIcon(Art.getImage("des/3")));
-
-        if (de2 != 0) {
+	    if(de2!=0){
             fenetre.getImageDeDeux().setIcon(new ImageIcon(Art.getImage("des/3")));
         }
 
-    }
+	}
 
-    @Override
-    public void afficherBilanTour(Joueur joueur, int piecesAv, int nbDes, int des, List<Carte> cartesLancees) {
+	@Override
+	public void afficherBilanTour(Joueur joueur, int piecesAv, int nbDes, int des, List<Carte> cartesLancees) {
 
-    }
+	}
 
-    @Override
-    public void afficherGagnant(Joueur gagnant) {
+	@Override
+	public void afficherGagnant(Joueur gagnant) {
 
-    }
+	}
 
-    @Override
-    public void afficherModeEvaluation() {
-        System.out.println("Mode évaluation activé !");
-    }
+	@Override
+	public void afficherModeEvaluation() {
+		System.out.println("Mode évaluation activé !");
+	}
 
-    @Override
-    public void afficherErreur(String erreur) {
-        JOptionPane.showMessageDialog(this.fenetre, erreur, "Erreur !", JOptionPane.ERROR_MESSAGE);
-    }
+	@Override
+	public void afficherErreur(String erreur) {
+		JOptionPane.showMessageDialog(this.fenetre, erreur, "Erreur !", JOptionPane.ERROR_MESSAGE);
+	}
 
-    @Override
-    public void nettoyerAffichage() {
+	@Override
+	public void nettoyerAffichage() {
 
-    }
+	}
 }
