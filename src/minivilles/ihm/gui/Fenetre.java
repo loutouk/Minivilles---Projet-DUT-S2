@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class Fenetre extends JFrame implements ItemListener, ActionListener {
 
-    private Metier metier;
+    private Metier metier; // pas très MVC-friendly
 
     private int nombreDeJoueurs;
     // Image affichée à côté de la réserve
