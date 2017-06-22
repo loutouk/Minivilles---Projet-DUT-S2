@@ -358,14 +358,14 @@ public class IHMConsole extends IHM {
 		this.afficherBoite("Valeurs des dés : " + (de1 + de2));
 	}
 
-	public void afficherBilanTour(Joueur joueur, int piecesAv, int nbDes, int des, List<Carte> cartesLancees) {
+	public void afficherBilanTour(Joueur joueur, int piecesAv, int nbDes, int de1, int de2, List<Carte> cartesLancees) {
 		System.out.println("-------------------------------");
 		System.out.println("|  BILAN DU TOUR (J" + joueur.getNum() + ")         |");
 		System.out.println("-------------------------------");
 
 		String labelDe = (nbDes > 1) ? "des dés" : "du dé  ";
 
-		System.out.println("| Valeur " + labelDe + " : " + String.format("%-10d", des) + " |");
+		System.out.println("| Valeur " + labelDe + " : " + String.format("%-10d", (de1 + de2)) + " |");
 		System.out.println("| Pièces avant   : " + String.format("%-10d", piecesAv) + " |");
 		System.out.println("|                             |");
 		System.out.println("| Batîments activés :         |");

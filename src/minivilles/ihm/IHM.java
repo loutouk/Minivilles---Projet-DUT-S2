@@ -111,7 +111,7 @@ public abstract class IHM{
 
 	public abstract void afficherValeurDes(int de1, int de2);
 
-	public abstract void afficherBilanTour(Joueur joueur, int piecesAv, int nbDes, int des, List<Carte> cartesLancees);
+	public abstract void afficherBilanTour(Joueur joueur, int piecesAv, int nbDes, int de1, int de2, List<Carte> cartesLancees);
 
 	public abstract void afficherGagnant(Joueur gagnant);
 

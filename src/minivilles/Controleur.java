@@ -152,7 +152,7 @@ public class Controleur {
 
 
 			// Affichage du bilan du tour
-			ihm.afficherBilanTour(joueur, pieceAvant, nombreDeDes, de1 + de2, cartesLancees);
+			ihm.afficherBilanTour(joueur, pieceAvant, nombreDeDes, de1, de2, cartesLancees);
 
 
 			// Bloque pour ihm gui

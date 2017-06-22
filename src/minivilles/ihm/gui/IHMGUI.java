@@ -157,8 +157,8 @@ public class IHMGUI extends IHM {
 	}
 
 	@Override
-	public void afficherBilanTour(Joueur joueur, int piecesAv, int nbDes, int des, List<Carte> cartesLancees) {
-
+	public void afficherBilanTour(Joueur joueur, int piecesAv, int nbDes, int de1, int de2, List<Carte> cartesLancees) {
+		this.afficherValeurDes(de1, de2);
 	}
 
 	@Override
