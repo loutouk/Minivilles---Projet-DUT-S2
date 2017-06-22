@@ -195,8 +195,9 @@ public class Metier {
 
 		if (joueur.getPieces() >= carte.getCout()) {
 			joueur.retirerPiece(carte.getCout());
-			this.piocher(id, joueur);
+			this.banque.credit(carte.getCout());
 
+			this.piocher(id, joueur);
 			return true;
 		}
 

@@ -18,10 +18,12 @@ public class MarcheDeFruitsEtLegumes extends Carte {
 		ArrayList<Carte> arCartes = metier.getJoueurCourant().getMain();
 		int cpt = 0;
 		int gain = 2;
-		for (Carte c : arCartes) {
-			if (c.getNom().equals("Champs de blé") || c.getNom().equals("Verger")) cpt++;
-		}
-		metier.getJoueurCourant().addPiece(cpt * gain);
-		metier.getBanque().retrait(cpt * gain);
+
+		for (Carte c : arCartes)
+			if (c.getNom().equals("Champs de blé") || c.getNom().equals("Verger"))
+				cpt++;
+
+		if (metier.getBanque().retrait(cpt * gain))
+			metier.getJoueurCourant().addPiece(cpt * gain);
 	}
 }

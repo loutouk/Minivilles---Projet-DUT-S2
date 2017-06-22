@@ -20,10 +20,12 @@ public class Superette extends Carte {
 		Carte carte = super.getJoueur().rechercherCarte("M2");
 		if (carte != null) {
 			Monument monument = (Monument) carte;
-			if (!monument.estEnConstruction()) gain++;
+
+			if (!monument.estEnConstruction())
+				gain++;
 		}
 
-		metier.getJoueurCourant().addPiece(gain);
-		metier.getBanque().retrait(gain);
+		if (metier.getBanque().retrait(gain))
+			metier.getJoueurCourant().addPiece(gain);
 	}
 }

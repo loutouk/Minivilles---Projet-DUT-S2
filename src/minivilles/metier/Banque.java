@@ -28,7 +28,14 @@ public class Banque {
 		return false;
 	}
 
+	public void credit(int nb) {
+		this.solde += nb;
+	}
+
 	public void setSolde(int nb) {
+		if (nb < 0)
+			throw new IllegalArgumentException("Le solde de la banque ne peut pas être négatif !");
+
 		this.solde = nb;
 	}
 

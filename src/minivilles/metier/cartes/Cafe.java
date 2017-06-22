@@ -1,6 +1,5 @@
 package minivilles.metier.cartes;
 
-import minivilles.metier.Joueur;
 import minivilles.metier.Metier;
 import minivilles.metier.cartes.monuments.Monument;
 

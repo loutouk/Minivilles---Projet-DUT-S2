@@ -30,7 +30,7 @@ public class Boulangerie extends Carte {
 			if (!monument.estEnConstruction()) gain++;
 		}
 
-		metier.getJoueurCourant().addPiece(gain);
-		metier.getBanque().retrait(gain);
+		if (metier.getBanque().retrait(gain))
+			metier.getJoueurCourant().addPiece(gain);
 	}
 }
