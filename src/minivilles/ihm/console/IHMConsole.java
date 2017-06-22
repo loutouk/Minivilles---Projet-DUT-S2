@@ -124,7 +124,7 @@ public class IHMConsole extends IHM {
 		return this.choixMenu(1, 6);
 	}
 
-	public String choixIdentifiantCarte() {
+	public String choixAchatBatiment() {
 		this.afficherBoite("Choisissez la carte à acheter\n(tapez -1 pour annuler)");
 		return this.choixStringMenu();
 	}
@@ -398,6 +398,10 @@ public class IHMConsole extends IHM {
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n");
 
 		CouleurConsole.RESET.print();
+	}
+
+	public void afficherErreur(String erreur) {
+		System.out.println(CouleurConsole.ROUGE + "   " + erreur + CouleurConsole.RESET + "\n");
 	}
 
 	private void afficherBoite(String titre, String... sousItems) {

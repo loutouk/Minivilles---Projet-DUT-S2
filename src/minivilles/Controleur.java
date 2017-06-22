@@ -49,6 +49,21 @@ public class Controleur {
 		return Controleur.metier;
 	}
 
+	public Joueur getGagnant() {
+		for (Joueur joueur : Controleur.metier.getJoueurs()) {
+			int nbMon = 0;
+
+			for (Carte monument : joueur.getMonuments())
+				if (!((Monument) monument).estEnConstruction())
+					nbMon++;
+
+			if (nbMon == 4) return joueur;
+		}
+
+		return null;
+	}
+
+
 	public void lancer() {
 		boolean quitter = false;
 		int choix;
@@ -149,30 +164,7 @@ public class Controleur {
 				ihm.nettoyerAffichage();
 				ihm.afficherLigneCarte(cartes);
 
-				Carte carte;
-				String choixIden;
-				boolean achatTermine = false;
-
-				do {
-					choixIden = ihm.choixIdentifiantCarte();
-					carte = (choix == 1) ? metier.rechercherCartePioche(choixIden) : joueur.rechercherCarte(choixIden);
-
-					if (choixIden.equals("-1"))
-						achatTermine = true;
-					else {
-						if (choix == 1 && carte != null && metier.acheter(choixIden, metier.getJoueurCourant()))
-							achatTermine = true;
-
-						if (choix == 2 && carte instanceof Monument) {
-							Monument monument = (Monument) carte;
-
-							if (metier.construireMonument(monument, joueur))
-								achatTermine = true;
-						}
-
-					}
-				}
-				while (!achatTermine);
+				this.achatBatiment(joueur, choix);
 			}
 
 			if (!rejouer) Controleur.metier.changerJoueurCourant();
@@ -182,19 +174,49 @@ public class Controleur {
 		Controleur.ihm.afficherGagnant(this.getGagnant());
 	}
 
-	public Joueur getGagnant() {
-		for (Joueur joueur : Controleur.metier.getJoueurs()) {
-			int nbMon = 0;
+	private void achatBatiment(Joueur joueur, int choix) {
+		Carte carte;
+		boolean achatTermine = false;
 
-			for (Carte monument : joueur.getMonuments())
-				if (!((Monument) monument).estEnConstruction())
-					nbMon++;
+		do {
+			String choixBat = ihm.choixAchatBatiment();
+			carte = (choix == 1) ? metier.rechercherCartePioche(choixBat) : joueur.rechercherCarte(choixBat);
 
-			if (nbMon == 4) return joueur;
+			if (choixBat.equals("-1"))
+				achatTermine = true;
+			else {
+				if (carte == null) {
+					ihm.afficherErreur("La carte \"" + choixBat + "\" n'existe pas !");
+					continue;
+				}
+
+				switch (choix) {
+					case 1:
+						if (metier.acheter(carte.getIdentifiant(), metier.getJoueurCourant()))
+							achatTermine = true;
+						else
+							ihm.afficherErreur("Vous n'avez pas assez de pièces pour acheter ce bâtiment !");
+
+						break;
+					case 2:
+						if (carte instanceof Monument) {
+							Monument monument = (Monument) carte;
+
+							if (metier.construireMonument(monument, joueur))
+								achatTermine = true;
+							else
+								ihm.afficherErreur("Vous n'avez pas assez de pièces pour acheter ce monument !");
+						} else {
+							ihm.afficherErreur("La carte sélectionnée n'est pas un monument.");
+						}
+
+						break;
+				}
+			}
 		}
-
-		return null;
+		while (!achatTermine);
 	}
+
 
 	private int lancerDe() {
 		return 1 + (int) (Math.random() * 6);

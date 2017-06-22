@@ -84,7 +84,7 @@ public class IHMGUI extends IHM {
 	}
 
 	@Override
-	public String choixIdentifiantCarte() {
+	public String choixAchatBatiment() {
 		return "";
 	}
 
@@ -146,6 +146,11 @@ public class IHMGUI extends IHM {
 	@Override
 	public void afficherModeEvaluation() {
 		System.out.println("Mode évaluation activé !");
+	}
+
+	@Override
+	public void afficherErreur(String erreur) {
+		JOptionPane.showMessageDialog(this.fenetre, erreur, "Erreur !", JOptionPane.ERROR_MESSAGE);
 	}
 
 	@Override
