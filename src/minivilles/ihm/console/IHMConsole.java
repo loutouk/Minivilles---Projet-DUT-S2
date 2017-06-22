@@ -353,8 +353,8 @@ public class IHMConsole extends IHM {
 		System.out.println(bord + "\n");
 	}
 
-	public void afficherValeurDes(int de) {
-		this.afficherBoite("Valeurs des dés : " + de);
+	public void afficherValeurDes(int de1, int de2) {
+		this.afficherBoite("Valeurs des dés : " + (de1 + de2));
 	}
 
 	public void afficherBilanTour(Joueur joueur, int piecesAv, int nbDes, int des, List<Carte> cartesLancees) {

@@ -109,7 +109,7 @@ public abstract class IHM{
 
 	public abstract void afficherColonneCarte(ArrayList<Carte> listeCartes);
 
-	public abstract void afficherValeurDes(int de);
+	public abstract void afficherValeurDes(int de1, int de2);
 
 	public abstract void afficherBilanTour(Joueur joueur, int piecesAv, int nbDes, int des, List<Carte> cartesLancees);
 
