@@ -16,6 +16,7 @@ import java.util.Map;
 
 public class Fenetre extends JFrame implements ItemListener {
 
+    private int nombreDeJoueurs;
     // Noms des cartes dans la réserve
     private JComboBox listePioche;
     // Image affichée à côté de la réserve
@@ -26,6 +27,11 @@ public class Fenetre extends JFrame implements ItemListener {
     private JComboBox construireMonumentListe;
     private JButton acheterBatimentButton;
     private JButton construireMonumenButton;
+
+    private JPanel joueurA;
+    private JPanel joueurB;
+    private JPanel joueurC;
+    private JPanel joueurD;
 
     private JButton passerTour;
     private JLabel infoCommandes;
@@ -39,11 +45,6 @@ public class Fenetre extends JFrame implements ItemListener {
     private JComboBox carteJoueurB;
     private JComboBox carteJoueurC;
     private JComboBox carteJoueurD;
-
-    private JComboBox monumentJoueurA;
-    private JComboBox monumentJoueurB;
-    private JComboBox monumentJoueurC;
-    private JComboBox monumentJoueurD;
 
     private JLabel tourDuJoueur;
 
@@ -95,13 +96,13 @@ public class Fenetre extends JFrame implements ItemListener {
         JPanel droite = new JPanel();
         //droite.setBorder(BorderFactory.createLineBorder(Color.black));
         JPanel partieBasse = new JPanel(new GridLayout(2,2));
-        JPanel joueurA = new JPanel();
+        joueurA = new JPanel();
         //joueurA.setBorder(BorderFactory.createLineBorder(Color.black));
-        JPanel joueurB = new JPanel();
+        joueurB = new JPanel();
         //joueurB.setBorder(BorderFactory.createLineBorder(Color.black));
-        JPanel joueurC = new JPanel();
+        joueurC = new JPanel();
         //joueurC.setBorder(BorderFactory.createLineBorder(Color.black));
-        JPanel joueurD = new JPanel();
+        joueurD = new JPanel();
         //joueurD.setBorder(BorderFactory.createLineBorder(Color.black));
         partieHaute.add(gauche);
         partieHaute.add(droite);
@@ -174,7 +175,7 @@ public class Fenetre extends JFrame implements ItemListener {
         // On colore la case du joueur courant
         contenantJoueurA.setBackground(Color.green);
 
-        JPanel infoJoueurA = new JPanel(new GridLayout(4,1));
+        JPanel infoJoueurA = new JPanel(new GridLayout(3,1));
 
         infoJoueurA.add(new JLabel("Joueur numéro 1"));
         pieceJoueurA = new JLabel("Pièces : 3");
@@ -182,9 +183,6 @@ public class Fenetre extends JFrame implements ItemListener {
 
         carteJoueurA = new JComboBox(nomCartes);
         infoJoueurA.add(carteJoueurA);
-
-        monumentJoueurA = new JComboBox(nomMonuments);
-        infoJoueurA.add(monumentJoueurA);
 
         contenantJoueurA.add(infoJoueurA);
 
@@ -203,7 +201,7 @@ public class Fenetre extends JFrame implements ItemListener {
         // Joueur B /////////////////////////////////////////////////////////////////////////
         JPanel contenantJoueurB = new JPanel();
 
-        JPanel infoJoueurB = new JPanel(new GridLayout(4,1));
+        JPanel infoJoueurB = new JPanel(new GridLayout(3,1));
 
         infoJoueurB.add(new JLabel("Joueur numéro 2"));
         pieceJoueurB = new JLabel("Pièces : 2");
@@ -211,9 +209,6 @@ public class Fenetre extends JFrame implements ItemListener {
 
         carteJoueurB = new JComboBox(nomCartes);
         infoJoueurB.add(carteJoueurB);
-
-        monumentJoueurB = new JComboBox(nomMonuments);
-        infoJoueurB.add(monumentJoueurB);
 
         contenantJoueurB.add(infoJoueurB);
 
@@ -232,7 +227,7 @@ public class Fenetre extends JFrame implements ItemListener {
         // Joueur C /////////////////////////////////////////////////////////////////////////
         JPanel contenantJoueurC = new JPanel();
 
-        JPanel infoJoueurC = new JPanel(new GridLayout(4,1));
+        JPanel infoJoueurC = new JPanel(new GridLayout(3,1));
 
         infoJoueurC.add(new JLabel("Joueur numéro 3"));
         pieceJoueurC = new JLabel("Pièces : 3");
@@ -240,9 +235,6 @@ public class Fenetre extends JFrame implements ItemListener {
 
         carteJoueurC = new JComboBox(nomCartes);
         infoJoueurC.add(carteJoueurC);
-
-        monumentJoueurC = new JComboBox(nomMonuments);
-        infoJoueurC.add(monumentJoueurC);
 
         contenantJoueurC.add(infoJoueurC);
 
@@ -256,12 +248,13 @@ public class Fenetre extends JFrame implements ItemListener {
         contenantJoueurC.add(imageCarteMonumentC4);
 
         joueurC.add(contenantJoueurC);
+        joueurC.setVisible(false);
         /////////////////////////////////////////////////////////////////////////////////////
 
         // Joueur D /////////////////////////////////////////////////////////////////////////
         JPanel contenantJoueurD = new JPanel();
 
-        JPanel infoJoueurD = new JPanel(new GridLayout(4,1));
+        JPanel infoJoueurD = new JPanel(new GridLayout(3,1));
 
         infoJoueurD.add(new JLabel("Joueur numéro 4"));
         pieceJoueurD = new JLabel("Pièces : 3");
@@ -269,9 +262,6 @@ public class Fenetre extends JFrame implements ItemListener {
 
         carteJoueurD = new JComboBox(nomCartes);
         infoJoueurD.add(carteJoueurD);
-
-        monumentJoueurD = new JComboBox(nomMonuments);
-        infoJoueurD.add(monumentJoueurD);
 
         contenantJoueurD.add(infoJoueurD);
 
@@ -285,6 +275,7 @@ public class Fenetre extends JFrame implements ItemListener {
         contenantJoueurD.add(imageCarteMonumentD4);
 
         joueurD.add(contenantJoueurD);
+        joueurD.setVisible(false);
         /////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -320,5 +311,10 @@ public class Fenetre extends JFrame implements ItemListener {
             if (iden != null)
             	imageCarte.setIcon(new ImageIcon(Art.getImage("cartes/" + iden)));
         }
+    }
+
+    public void setPanelJoueurs(int nombreDeJoueurs) {
+        if(nombreDeJoueurs>2) joueurC.setVisible(true);
+        if(nombreDeJoueurs>3) joueurD.setVisible(true);
     }
 }
