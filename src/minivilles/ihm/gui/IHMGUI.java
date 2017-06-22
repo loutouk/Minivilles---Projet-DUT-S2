@@ -9,13 +9,15 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IHMGUI extends IHM{
+public class IHMGUI extends IHM {
 
-	private JFrame fenetre;
+	private Fenetre fenetre;
+
 
 	public IHMGUI(Controleur ctrl) {
 		super(ctrl);
-		this.fenetre = new Fenetre();
+
+		SwingUtilities.invokeLater(() -> this.fenetre = new Fenetre());
 	}
 
 
@@ -35,8 +37,13 @@ public class IHMGUI extends IHM{
 	}
 
 	@Override
+	public void initialiserCartes(ArrayList<Carte> pioche) {
+		this.fenetre.initialiserCartes(IHM.grouperCartes(pioche));
+	}
+
+	@Override
 	public int choixMenu() {
-		return 0;
+		return 1;
 	}
 
 	@Override
@@ -51,7 +58,12 @@ public class IHMGUI extends IHM{
 
 	@Override
 	public int choixNbJoueurs() {
-		return 0;
+		JDialog.setDefaultLookAndFeelDecorated(true);
+		Object[] selectionValues = { 2, 3, 4 };
+		int initialSelection = 2;
+
+		return (int) JOptionPane.showInputDialog(null, "Combien de joueurs vont jouer ?",
+				"Nombre de joueurs", JOptionPane.QUESTION_MESSAGE, null, selectionValues, initialSelection);
 	}
 
 	@Override
@@ -66,22 +78,22 @@ public class IHMGUI extends IHM{
 
 	@Override
 	public String choixIdentifiantCarte() {
-		return null;
+		return "";
 	}
 
 	@Override
 	public String choixCarteCentreAffaire(String joueur) {
-		return null;
+		return "";
 	}
 
 	@Override
 	public String choixJoueurCentreAffaire() {
-		return null;
+		return "";
 	}
 
 	@Override
 	public String choixJoueurChaineTV() {
-		return null;
+		return "";
 	}
 
 	@Override
@@ -126,7 +138,7 @@ public class IHMGUI extends IHM{
 
 	@Override
 	public void afficherModeEvaluation() {
-
+		System.out.println("Mode évaluation activé !");
 	}
 
 	@Override

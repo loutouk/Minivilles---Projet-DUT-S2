@@ -11,6 +11,7 @@ public class Ferme extends Carte {
 	@Override
 	public void lancerEffet(Metier metier) {
 		int gain = 1;
+
 		this.getJoueur().addPiece(gain);
 		metier.getBanque().retrait(gain);
 	}

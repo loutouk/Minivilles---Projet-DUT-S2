@@ -13,8 +13,8 @@ import java.util.List;
 
 public class Controleur {
 
-	private IHM ihm;
-	private Metier metier;
+	private static IHM ihm;
+	private static Metier metier;
 
 	private boolean debugMode;
 
@@ -26,12 +26,13 @@ public class Controleur {
 		this(mode, false);
 	}
 	public Controleur(String mode, boolean debugMode) {
-		if (mode.equals("console"))
-			this.ihm = new IHMConsole(this);
-		else
-			this.ihm = new IHMGUI(this);
+		Controleur.metier = new Metier();
 
-		this.metier = new Metier(this.ihm);
+		if (mode.equals("console"))
+			Controleur.ihm = new IHMConsole(this);
+		else
+			Controleur.ihm = new IHMGUI(this);
+
 		this.debugMode = debugMode;
 	}
 
@@ -42,7 +43,7 @@ public class Controleur {
 	 * @return Le metier
 	 */
 	public Metier getMetier() {
-		return this.metier;
+		return Controleur.metier;
 	}
 
 	public void lancer() {
@@ -50,12 +51,12 @@ public class Controleur {
 		int choix;
 
 		if (this.debugMode)
-			this.ihm.afficherModeEvaluation();
+			ihm.afficherModeEvaluation();
 
 		while (!quitter) {
-			this.ihm.afficherMenuPrincipal();
+			ihm.afficherMenuPrincipal();
 
-			choix = this.ihm.choixMenu();
+			choix = ihm.choixMenu();
 
 			switch (choix) {
 				case 1:
@@ -73,9 +74,10 @@ public class Controleur {
 	}
 
 	private void initialiserPartie() {
-		int nbJoueurs = this.ihm.choixNbJoueurs();
+		int nbJoueurs = ihm.choixNbJoueurs();
+		metier.initialiserPlateau(nbJoueurs);
 
-		this.initialiserPlateau(nbJoueurs);
+		ihm.initialiserCartes(metier.getPioche());
 	}
 
 	private void lancerPartie() {
@@ -83,11 +85,11 @@ public class Controleur {
 			// Effet du ParcDattractions : on peut rejouer un tour si le jet de dés est un double
 			boolean rejouer;
 
-			Joueur joueur = this.metier.getJoueurCourant();
+			Joueur joueur = Controleur.metier.getJoueurCourant();
 			int pieceAvant = joueur.getPieces();
 
-			this.ihm.afficherDebutTour(joueur);
-			this.ihm.afficherPlateau();
+			ihm.afficherDebutTour(joueur);
+			ihm.afficherPlateau();
 
 			// Effet du monument Gare : deux jet de dés
 			int nombreDeCoups = 1;
@@ -96,7 +98,7 @@ public class Controleur {
 			int de2 = 0;
 
 			// Il peut lancer deux dés, on demande avant au joueur pour être sûr
-			if (nombreDeDes > 1) nombreDeDes = this.ihm.choixNbDes();
+			if (nombreDeDes > 1) nombreDeDes = ihm.choixNbDes();
 
 
 			for (int compteur = 0; compteur < nombreDeCoups * nombreDeDes; compteur++) {
@@ -104,7 +106,7 @@ public class Controleur {
 
 				// On lance le dé (ou on le défini, via le mode d'évaluation)
 				if (!this.debugMode) de = this.lancerDe();
-				else de = this.ihm.choixDebugDe();
+				else de = ihm.choixDebugDe();
 
 
 				if (de1 == 0) de1 = de;
@@ -115,8 +117,8 @@ public class Controleur {
 						nombreDeCoups == 1 &&
 						(compteur - 1) % nombreDeDes == 0) {
 
-					this.ihm.afficherValeurDes(de1 + de2);
-					this.ihm.afficherMenuRejouer();
+					ihm.afficherValeurDes(de1 + de2);
+					ihm.afficherMenuRejouer();
 
 					if (ihm.choixMenu() == 1) {
 						nombreDeCoups++;
@@ -128,42 +130,42 @@ public class Controleur {
 			}
 
 			// On lance les effets de toutes les cartes
-			List<Carte> cartesLancees = this.metier.lancerEffets(de1 + de2);
+			List<Carte> cartesLancees = metier.lancerEffets(de1 + de2);
 
 			rejouer = (de1 == de2 && !((Monument) (joueur.rechercherCarte("M3"))).estEnConstruction());
 
 
 			// Affichage du bilan du tour
-			this.ihm.afficherBilanTour(joueur, pieceAvant, nombreDeDes, de1 + de2, cartesLancees);
+			ihm.afficherBilanTour(joueur, pieceAvant, nombreDeDes, de1 + de2, cartesLancees);
 
 
-			this.ihm.afficherMenuAchat(joueur);
-			int choix = this.ihm.choixMenu();
+			ihm.afficherMenuAchat(joueur);
+			int choix = ihm.choixMenu();
 
 			if (choix == 1 || choix == 2) {
-				ArrayList<Carte> cartes = (choix == 1) ? this.metier.getPioche() : joueur.getMonuments();
+				ArrayList<Carte> cartes = (choix == 1) ? metier.getPioche() : joueur.getMonuments();
 
-				this.ihm.nettoyerAffichage();
-				this.ihm.afficherLigneCarte(cartes);
+				ihm.nettoyerAffichage();
+				ihm.afficherLigneCarte(cartes);
 
 				Carte carte;
 				String choixIden;
 				boolean achatTermine = false;
 
 				do {
-					choixIden = this.ihm.choixIdentifiantCarte();
-					carte = (choix == 1) ? this.metier.rechercherCartePioche(choixIden) : joueur.rechercherCarte(choixIden);
+					choixIden = ihm.choixIdentifiantCarte();
+					carte = (choix == 1) ? metier.rechercherCartePioche(choixIden) : joueur.rechercherCarte(choixIden);
 
 					if (choixIden.equals("-1"))
 						achatTermine = true;
 					else {
-						if (choix == 1 && carte != null && this.metier.acheter(choixIden, this.metier.getJoueurCourant()))
+						if (choix == 1 && carte != null && metier.acheter(choixIden, metier.getJoueurCourant()))
 							achatTermine = true;
 
 						if (choix == 2 && carte instanceof Monument) {
 							Monument monument = (Monument) carte;
 
-							if (this.metier.construireMonument(monument, joueur))
+							if (metier.construireMonument(monument, joueur))
 								achatTermine = true;
 						}
 
@@ -172,15 +174,15 @@ public class Controleur {
 				while (!achatTermine);
 			}
 
-			if (!rejouer) this.metier.changerJoueurCourant();
+			if (!rejouer) Controleur.metier.changerJoueurCourant();
 		}
 		while (this.getGagnant() == null);
 
-		this.ihm.afficherGagnant(this.getGagnant());
+		Controleur.ihm.afficherGagnant(this.getGagnant());
 	}
 
 	public Joueur getGagnant() {
-		for (Joueur joueur : this.metier.getJoueurs()) {
+		for (Joueur joueur : Controleur.metier.getJoueurs()) {
 			int nbMon = 0;
 
 			for (Carte monument : joueur.getMonuments())
@@ -197,9 +199,8 @@ public class Controleur {
 		return 1 + (int) (Math.random() * 6);
 	}
 
-	public void initialiserPlateau(int nbJoueurs) {
-		this.metier.initialiserPlateau(nbJoueurs);
-	}
+
+	public static IHM getIhm() { return ihm; }
 
 
 	public static void main(String[] a) {

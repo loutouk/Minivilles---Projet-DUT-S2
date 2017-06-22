@@ -1,10 +1,14 @@
 package minivilles.ihm.gui;
 
+import minivilles.metier.cartes.Carte;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by louis on 21/06/17.
@@ -65,10 +69,7 @@ public class Fenetre extends JFrame implements ItemListener {
     private JLabel imageDeUn;
     private JLabel imageDeDeux;
 
-    private String[] nomCartes = {"Champs de blé", "Ferme", "Boulangerie", "Café",
-            "Supérette", "Forêt", "Stade", "Chaîne de télévision", "Centre d'affaires",
-            "Fromagerie", "Fabrique de meubles", "Mine", "Restaurant", "Verger",
-            "Marché de fruits et légumes"};
+    private String[] nomCartes    = new String[0];
     private String[] nomMonuments = {"Gare", "Centre commercial", "Parc d'attractions", "Tour radio"};
 
     public Fenetre() {
@@ -114,7 +115,7 @@ public class Fenetre extends JFrame implements ItemListener {
         listePioche.setBorder(new EmptyBorder(5,5,5,5));
         nombreDeCarte = new JLabel("Nombre de cette carte dans la réserve : 6");
         nombreDeCarte.setBorder(new EmptyBorder(5,5,5,5));
-        imageCarte = new JLabel(new ImageIcon(Art.getImage("Champs de blé")));
+        imageCarte = new JLabel(new ImageIcon(Art.getImage("1")));
         contenantGauche.add(listePioche, BorderLayout.NORTH);
         contenantGauche.add(imageCarte, BorderLayout.CENTER);
         contenantGauche.add(nombreDeCarte, BorderLayout.SOUTH);
@@ -289,11 +290,23 @@ public class Fenetre extends JFrame implements ItemListener {
         pack();
     }
 
+    void initialiserCartes(Map<String, List<Carte>> pioche) {
+		this.nomCartes = new String[pioche.size()];
+
+		for (int cpt = 0; cpt < this.nomCartes.length; cpt++)
+			this.nomCartes[cpt] = ((List<Carte>) pioche.values().toArray()[cpt]).get(0).getNom();
+
+		for (int cpt = 0; cpt < this.nomCartes.length; cpt++)
+			this.listePioche.addItem(this.nomCartes[cpt]);
+
+		this.setVisible(true);
+	}
+
     @Override
     public void itemStateChanged(ItemEvent event) {
         if (event.getStateChange() == ItemEvent.SELECTED) {
             // On affiche le nom de la carte par son String qui correspond au nom du fichier png
-            imageCarte.setIcon(new ImageIcon(Art.getImage(event.getItem().toString())));
+            // imageCarte.setIcon(new ImageIcon(Art.getImage(event.getItem().toString())));
         }
     }
 }

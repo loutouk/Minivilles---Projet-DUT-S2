@@ -40,6 +40,11 @@ public class IHMConsole extends IHM {
 		this.afficherBoite("Voulez-vous rejouer ?", "Oui", "Non");
 	}
 
+	@Override
+	public void initialiserCartes(ArrayList<Carte> pioche) {
+		// On ne s'en sert pas en mode console.
+	}
+
 
 	/**
 	 * Retourne le choix de l'utilisateur pour le menu principal.

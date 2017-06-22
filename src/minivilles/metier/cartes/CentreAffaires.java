@@ -1,17 +1,24 @@
 package minivilles.metier.cartes;
-import minivilles.metier.*;
+
+import minivilles.Controleur;
+import minivilles.metier.Joueur;
+import minivilles.metier.Metier;
+
 public class CentreAffaires extends Carte {
 
 	public CentreAffaires () {
 		super("6:3", "Centre d'affaires", "Violet", 6, 7);
 	}
 
+
 	@Override
 	public void lancerEffet(Metier metier) {
 		int choixJoueur             = 0;
-		String idCarteEchange       = "";
-		String idCarteJoueurCourant = "";
-		Joueur joueurCible          = null;
+
+		String idCarteEchange;
+		String idCarteJoueurCourant;
+		Joueur joueurCible;
+
 		Joueur joueurCourant        = this.getJoueur();
 		Carte cCourant              = null;
 		Carte cCible                = null;
@@ -21,18 +28,17 @@ public class CentreAffaires extends Carte {
 		
 		while(choixJoueur < 1 || choixJoueur > nbJoueur) {
 			try{
-				choixJoueur = Integer.parseInt(metier.getIhm().choixJoueurCentreAffaire());
+				choixJoueur = Integer.parseInt(Controleur.getIhm().choixJoueurCentreAffaire());
 			} catch (NumberFormatException e) {
 				// saisie invalide
 			}
 		}
 
-		if(choixJoueur!=-1){
-
+		if (choixJoueur != -1){
 			joueurCible = metier.getListeJoueur().get(choixJoueur - 1);
 
 			while (!carteValideCible) {
-				idCarteEchange = metier.getIhm().choixCarteCentreAffaire("cible");
+				idCarteEchange = Controleur.getIhm().choixCarteCentreAffaire("cible");
 				for (Carte c : joueurCible.getMain()) {
 					if(c.getIdentifiant().equals(idCarteEchange) && !c.getCouleur().equals("VIOLET")) {
 						carteValideCible = true;
@@ -42,7 +48,7 @@ public class CentreAffaires extends Carte {
 			}
 
 			while (!carteValideCourant) {
-				idCarteJoueurCourant = metier.getIhm().choixCarteCentreAffaire("courant");
+				idCarteJoueurCourant = Controleur.getIhm().choixCarteCentreAffaire("courant");
 				for (Carte c : joueurCourant.getMain()) {
 					if(c.getIdentifiant().equals(idCarteJoueurCourant) && !c.getCouleur().equals("VIOLET")) {
 						carteValideCourant = true;
@@ -52,7 +58,6 @@ public class CentreAffaires extends Carte {
 			}
 
 			joueurCourant.echangerCarte(cCourant, cCible, joueurCible);
-
 		}
 
 	}

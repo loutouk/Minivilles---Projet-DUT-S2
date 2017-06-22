@@ -52,6 +52,9 @@ public abstract class IHM{
 	public abstract void afficherMenuRejouer();
 
 
+	public abstract void initialiserCartes(ArrayList<Carte> pioche);
+
+
 	/**
 	 * Retourne le choix de l'utilisateur pour le menu principal.
 	 * Si la saisie est incorrecte (<i>NumberFormatException</i> est levée),
@@ -119,7 +122,7 @@ public abstract class IHM{
 
 
 	protected static Map<String, List<Carte>> grouperCartes(ArrayList<Carte> listeCartes) {
-		Map<String, List<Carte>> cartes = new HashMap<>();
+		TreeMap<String, List<Carte>> cartes = new TreeMap<>(Comparator.comparingInt(IHM::idenEnEntier));
 
 		// On parcoure toutes les cartes pour les regrouper
 		for (Carte c : listeCartes) {
@@ -132,7 +135,27 @@ public abstract class IHM{
 		}
 
 		// On retourne un tableau trié
-		return new TreeMap<>(cartes);
+		return cartes;
+	}
+
+
+	private static int idenEnEntier(String iden) {
+		int p1, p2;
+
+		if (iden.contains(":")) {
+			String[] parts = iden.split(":");
+			p1 = Integer.valueOf(parts[0]);
+			p2 = Integer.valueOf(parts[1]);
+		} else if (iden.contains("-")) {
+			String[] parts = iden.split("-");
+			p1 = Integer.valueOf(parts[0]);
+			p2 = Integer.valueOf(parts[1]);
+		} else {
+			p1 = Integer.valueOf(iden);
+			p2 = 0;
+		}
+
+		return p1 * 10 + p2;
 	}
 
 }
