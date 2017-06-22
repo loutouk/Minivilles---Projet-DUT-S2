@@ -40,13 +40,13 @@ public class IHMGUI extends IHM {
 	@Override
 	public void initialiserCartes(ArrayList<Carte> pioche) {
 
-	    this.fenetre.initialiserCartes(IHM.grouperCartes(pioche));
-        fenetre.setPanelJoueurs(nombreDeJoueurs);
+		this.fenetre.initialiserCartes(IHM.grouperCartes(pioche));
+		fenetre.setPanelJoueurs(nombreDeJoueurs);
 	}
 
 	@Override
 	public int choixMenu() {
-	    return this.choixMenu(1, Integer.MAX_VALUE);
+		return this.choixMenu(1, Integer.MAX_VALUE);
 	}
 
 	@Override
@@ -75,7 +75,7 @@ public class IHMGUI extends IHM {
 	@Override
 	public int choixNbJoueurs() {
 
-		Integer[] nb = {2,3,4};
+		Integer[] nb = {2, 3, 4};
 		nombreDeJoueurs = (Integer) JOptionPane.showInputDialog(fenetre,
 				"",
 				"Nombre de joueurs",
@@ -87,23 +87,23 @@ public class IHMGUI extends IHM {
 		return nombreDeJoueurs;
 	}
 
-    @Override
-    public int choixNbDes() {
+	@Override
+	public int choixNbDes() {
 
-        // Dialog box qui choisi un ou deux de si la gare
-        return 1;
-    }
+		// Dialog box qui choisi un ou deux de si la gare
+		return 1;
+	}
 
-    @Override
-    public int choixDebugDe() {
-        return 1;
-    }
+	@Override
+	public int choixDebugDe() {
+		return 1;
+	}
 
-    @Override
-    public String choixAchatBatiment() {
-        // si le booleen achat est a vrai
-        return "";
-    }
+	@Override
+	public String choixAchatBatiment() {
+		// si le booleen achat est a vrai
+		return "";
+	}
 
 	@Override
 	public String choixCarteCentreAffaire(String joueur) {
@@ -148,12 +148,13 @@ public class IHMGUI extends IHM {
 	@Override
 	public void afficherValeurDes(int de1, int de2) {
 
-	    fenetre.getImageDeUn().setIcon(new ImageIcon(Art.getImage("des/3")));
+		fenetre.getImageDeUn().setIcon(new ImageIcon(Art.getImage("des/" + de1)));
 
-	    if(de2!=0){
-            fenetre.getImageDeDeux().setIcon(new ImageIcon(Art.getImage("des/3")));
-        }
-
+		if (de2 != 0) {
+			fenetre.getImageDeDeux().setIcon(new ImageIcon(Art.getImage("des/" + de2)));
+			this.fenetre.getImageDeDeux().setVisible(true);
+		} else
+			this.fenetre.getImageDeDeux().setVisible(false);
 	}
 
 	@Override
