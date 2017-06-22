@@ -17,8 +17,6 @@ import java.util.Map;
 public class Fenetre extends JFrame implements ItemListener {
 
     private int nombreDeJoueurs;
-    // Noms des cartes dans la réserve
-    private JComboBox listePioche;
     // Image affichée à côté de la réserve
     private JLabel imageCarte;
     // Nombre de carte de l'image précédente
@@ -115,13 +113,9 @@ public class Fenetre extends JFrame implements ItemListener {
 
         // Gauche ///////////////////////////////////////////////////////////////////////////
         JPanel contenantGauche = new JPanel(new BorderLayout());
-        listePioche = new JComboBox(nomCartes);
-        listePioche.addItemListener(this);
-        listePioche.setBorder(new EmptyBorder(5,5,5,5));
         nombreDeCarte = new JLabel("Nombre de cette carte dans la réserve : 6");
         nombreDeCarte.setBorder(new EmptyBorder(5,5,5,5));
         imageCarte = new JLabel(new ImageIcon(Art.getImage("cartes/1")));
-        contenantGauche.add(listePioche, BorderLayout.NORTH);
         contenantGauche.add(imageCarte, BorderLayout.CENTER);
         contenantGauche.add(nombreDeCarte, BorderLayout.SOUTH);
         gauche.add(contenantGauche);
@@ -290,8 +284,7 @@ public class Fenetre extends JFrame implements ItemListener {
 
 		for (int cpt = 0; cpt < this.nomCartes.length; cpt++) {
 			this.nomCartes[cpt] = ((List<Carte>) pioche.values().toArray()[cpt]).get(0).getNom();
-
-			this.listePioche.addItem(this.nomCartes[cpt]);
+			this.acheterBatimentListe.addItem(this.nomCartes[cpt]);
 		}
 
 		this.setVisible(true);
@@ -310,6 +303,20 @@ public class Fenetre extends JFrame implements ItemListener {
             // On affiche le nom de la carte par son String qui correspond au nom du fichier png
             if (iden != null)
             	imageCarte.setIcon(new ImageIcon(Art.getImage("cartes/" + iden)));
+
+            // Affichage des monuments
+
+            if(event.getItem().toString().equals("Gare"))
+                imageCarte.setIcon(new ImageIcon(Art.getImage("cartes/" + "M1")));
+            if(event.getItem().toString().equals("Centre commercial"))
+                imageCarte.setIcon(new ImageIcon(Art.getImage("cartes/" + "M2")));
+            if(event.getItem().toString().equals("Parc d'attractions"))
+                imageCarte.setIcon(new ImageIcon(Art.getImage("cartes/" + "M3")));
+            if(event.getItem().toString().equals("Tour radio"))
+                imageCarte.setIcon(new ImageIcon(Art.getImage("cartes/" + "M4")));
+
+            // On met à jour l'affichage du nombre de cette carte
+            // nombreDeCarte.setText();
         }
     }
 
