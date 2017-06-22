@@ -30,6 +30,8 @@ public class IHMGUI extends IHM {
 	@Override
 	public void afficherMenuAchat(Joueur joueur) {
 		this.menu = "achat";
+
+		this.fenetre.resetMenu();
 	}
 
 	@Override

@@ -396,6 +396,41 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
 
     }
 
+    public void changerCouleurJoueurCourant() {
+    	int joueurCourant = this.metier.getJoueurs().indexOf(this.metier.getJoueurCourant());
+
+    	switch (joueurCourant) {
+			case 0:
+				this.joueurA.setBackground(Color.GREEN);
+
+				this.joueurB.setBackground(null);
+				this.joueurC.setBackground(null);
+				this.joueurD.setBackground(null);
+				break;
+			case 1:
+				this.joueurB.setBackground(Color.GREEN);
+
+				this.joueurA.setBackground(null);
+				this.joueurC.setBackground(null);
+				this.joueurD.setBackground(null);
+				break;
+			case 2:
+				this.joueurC.setBackground(Color.GREEN);
+
+				this.joueurD.setBackground(null);
+				this.joueurA.setBackground(null);
+				this.joueurB.setBackground(null);
+				break;
+			case 3:
+				this.joueurD.setBackground(Color.GREEN);
+
+				this.joueurA.setBackground(null);
+				this.joueurB.setBackground(null);
+				this.joueurC.setBackground(null);
+				break;
+		}
+	}
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==passerTourButton){
@@ -404,6 +439,7 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
             passerTour=true;
             construire = false;
             acheter = false;
+
 
         } else if(e.getSource()==construireMonumenButton){
 
@@ -439,13 +475,5 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
 
     public boolean isAcheter() {
         return acheter;
-    }
-
-    public JComboBox getAcheterBatimentListe() {
-        return acheterBatimentListe;
-    }
-
-    public JComboBox getConstruireMonumentListe() {
-        return construireMonumentListe;
     }
 }
