@@ -6,6 +6,8 @@ import minivilles.metier.cartes.Carte;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ import java.util.Map;
  * Created by louis on 21/06/17.
  */
 
-public class Fenetre extends JFrame implements ItemListener {
+public class Fenetre extends JFrame implements ItemListener, ActionListener {
 
     private Metier metier;
 
@@ -35,7 +37,7 @@ public class Fenetre extends JFrame implements ItemListener {
     private JPanel joueurC;
     private JPanel joueurD;
 
-    private JButton passerTour;
+    private JButton passerTourButton;
     private JLabel infoCommandes;
 
     private JLabel pieceJoueurA;
@@ -84,8 +86,16 @@ public class Fenetre extends JFrame implements ItemListener {
 
     private Map<String, List<Carte>> pioche;
 
+    private boolean passerTour;
+    private boolean construire;
+    private boolean acheter;
+
 
     public Fenetre(Metier metier) {
+
+        passerTour=false;
+        acheter=false;
+        construire=false;
 
         this.metier = metier;
 
@@ -145,22 +155,25 @@ public class Fenetre extends JFrame implements ItemListener {
         acheterBatimentListe.addItemListener(this);
         boutons.add(acheterBatimentListe);
         acheterBatimentButton = new JButton("Acheter ce bâtiment");
+        acheterBatimentButton.addActionListener(this);
         boutons.add(acheterBatimentButton);
 
         construireMonumentListe = new JComboBox(nomMonuments);
         construireMonumentListe.addItemListener(this);
         boutons.add(construireMonumentListe);
         construireMonumenButton = new JButton("Construire ce monument");
+        construireMonumenButton.addActionListener(this);
         boutons.add(construireMonumenButton);
 
-        passerTour = new JButton("Passer");
+        passerTourButton = new JButton("Passer");
+        passerTourButton.addActionListener(this);
 
         infoCommandes = new JLabel("Informations sur les commandes");
 
         tourDuJoueur = new JLabel("Tour du joueur numéro ");
 
         boutons.add(tourDuJoueur);
-        boutons.add(passerTour);
+        boutons.add(passerTourButton);
 
         JPanel imageDe = new JPanel(new GridLayout(1, 2, 50, 50));
         imageDeUn = new JLabel(new ImageIcon(Art.getImage("des/1")));
@@ -290,9 +303,9 @@ public class Fenetre extends JFrame implements ItemListener {
         pack();
     }
 
-    private String[] majMainJoueur(int numeroJoueur) {
+    private String[] majMainJoueur(int numeroJoueur, JComboBox comboJoueur) {
 
-        ArrayList<Carte> tmp = metier.getJoueur(numeroJoueur).getMain();
+        ArrayList<Carte> tmp = metier.getJoueur(numeroJoueur-1).getMain();
 
         String[] main = new String[tmp.size()-4];
         int size = tmp.size();
@@ -312,7 +325,7 @@ public class Fenetre extends JFrame implements ItemListener {
         }
 
         DefaultComboBoxModel a = new DefaultComboBoxModel(main);
-        this.carteJoueurA.setModel(a);
+        comboJoueur.setModel(a);
 
         return main;
     }
@@ -368,8 +381,42 @@ public class Fenetre extends JFrame implements ItemListener {
     }
 
     public void setPanelJoueurs(int nombreDeJoueurs) {
-        if (nombreDeJoueurs > 2) joueurC.setVisible(true);
-        if (nombreDeJoueurs > 3) joueurD.setVisible(true);
-        majMainJoueur(1);
+
+        majMainJoueur(1, carteJoueurA);
+        majMainJoueur(2, carteJoueurB);
+
+        if (nombreDeJoueurs > 2){
+            joueurC.setVisible(true);
+            majMainJoueur(3, carteJoueurC);
+        }
+        if (nombreDeJoueurs > 3) {
+            joueurD.setVisible(true);
+            majMainJoueur(4, carteJoueurD);
+        }
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==passerTourButton){
+
+            System.out.println("passer tour");
+
+        } else if(e.getSource()==construireMonumenButton){
+
+            System.out.println("construire monument");
+
+        } else if(e.getSource()==acheterBatimentButton){
+
+            System.out.println("acheter batiment");
+        }
+    }
+
+    public JLabel getImageDeUn() {
+        return imageDeUn;
+    }
+
+    public JLabel getImageDeDeux() {
+        return imageDeDeux;
     }
 }

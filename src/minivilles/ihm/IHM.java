@@ -81,7 +81,7 @@ public abstract class IHM{
 
 	public abstract int choixDebugDe();
 
-	public abstract String choixIdentifiantCarte();
+	public abstract String choixAchatBatiment();
 
 	public abstract String choixCarteCentreAffaire(String joueur);
 
@@ -109,13 +109,15 @@ public abstract class IHM{
 
 	public abstract void afficherColonneCarte(ArrayList<Carte> listeCartes);
 
-	public abstract void afficherValeurDes(int de);
+	public abstract void afficherValeurDes(int de1, int de2);
 
 	public abstract void afficherBilanTour(Joueur joueur, int piecesAv, int nbDes, int des, List<Carte> cartesLancees);
 
 	public abstract void afficherGagnant(Joueur gagnant);
 
 	public abstract void afficherModeEvaluation();
+
+	public abstract void afficherErreur(String erreur);
 
 
 	public abstract void nettoyerAffichage();

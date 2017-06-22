@@ -20,7 +20,6 @@ public class IHMGUI extends IHM {
 		this.fenetre = new Fenetre(ctrl.getMetier());
 	}
 
-
 	@Override
 	public void afficherMenuPrincipal() {
 
@@ -45,7 +44,8 @@ public class IHMGUI extends IHM {
 
 	@Override
 	public int choixMenu() {
-		return 1;
+
+	    return 1;
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class IHMGUI extends IHM {
 	}
 
 	@Override
-	public String choixIdentifiantCarte() {
+	public String choixAchatBatiment() {
 		return "";
 	}
 
@@ -129,7 +129,13 @@ public class IHMGUI extends IHM {
 	}
 
 	@Override
-	public void afficherValeurDes(int de) {
+	public void afficherValeurDes(int de1, int de2) {
+
+	    fenetre.getImageDeUn().setIcon(new ImageIcon(Art.getImage("des/3")));
+
+	    if(de2!=0){
+            fenetre.getImageDeDeux().setIcon(new ImageIcon(Art.getImage("des/3")));
+        }
 
 	}
 
@@ -146,6 +152,11 @@ public class IHMGUI extends IHM {
 	@Override
 	public void afficherModeEvaluation() {
 		System.out.println("Mode évaluation activé !");
+	}
+
+	@Override
+	public void afficherErreur(String erreur) {
+		JOptionPane.showMessageDialog(this.fenetre, erreur, "Erreur !", JOptionPane.ERROR_MESSAGE);
 	}
 
 	@Override

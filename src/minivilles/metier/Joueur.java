@@ -3,7 +3,7 @@ package minivilles.metier;
 import minivilles.metier.cartes.Carte;
 import minivilles.metier.cartes.monuments.Monument;
 
-import java.util.*;
+import java.util.ArrayList;
 
 /**
  * Classe Joueur.
@@ -21,7 +21,7 @@ public class Joueur {
 	 */
 	public Joueur() {
 		this.num = ++autoInc;
-		this.pieces = 1000;
+		this.pieces = 3;
 		main = new ArrayList<>();
 	}
 
@@ -118,13 +118,16 @@ public class Joueur {
 
 	/**
 	 * Recherche une carte dans la main du joueur
+	 * par son identifiant ou son nom.
 	 *
-	 * @param id l'identifiant de la carte
+	 * @param rech La chaîne à utiliser pour la recherche
 	 * @return La carte trouvée, ou null
 	 */
-	public Carte rechercherCarte(String id) {
-		Carte recherche = null;
-		for (Carte c : main) if (c.getIdentifiant().equals(id)) recherche = c;
-		return recherche;
+	public Carte rechercherCarte(String rech) {
+		for (Carte carte : main)
+			if (carte.getIdentifiant().equals(rech) || carte.getNom().equalsIgnoreCase(rech))
+				return carte;
+
+		return null;
 	}
 }

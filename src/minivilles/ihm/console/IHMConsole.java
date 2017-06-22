@@ -56,6 +56,7 @@ public class IHMConsole extends IHM {
 	public int choixMenu() {
 		return this.choixMenu(1, this.nbItemsDernierMenu);
 	}
+
 	public int choixMenu(int min, int max) {
 		System.out.print("\n   choix : ");
 		CouleurConsole.JAUNE.print();
@@ -124,7 +125,7 @@ public class IHMConsole extends IHM {
 		return this.choixMenu(1, 6);
 	}
 
-	public String choixIdentifiantCarte() {
+	public String choixAchatBatiment() {
 		this.afficherBoite("Choisissez la carte à acheter\n(tapez -1 pour annuler)");
 		return this.choixStringMenu();
 	}
@@ -353,8 +354,8 @@ public class IHMConsole extends IHM {
 		System.out.println(bord + "\n");
 	}
 
-	public void afficherValeurDes(int de) {
-		this.afficherBoite("Valeurs des dés : " + de);
+	public void afficherValeurDes(int de1, int de2) {
+		this.afficherBoite("Valeurs des dés : " + (de1 + de2));
 	}
 
 	public void afficherBilanTour(Joueur joueur, int piecesAv, int nbDes, int des, List<Carte> cartesLancees) {
@@ -398,6 +399,10 @@ public class IHMConsole extends IHM {
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n");
 
 		CouleurConsole.RESET.print();
+	}
+
+	public void afficherErreur(String erreur) {
+		System.out.println(CouleurConsole.ROUGE + "   " + erreur + CouleurConsole.RESET + "\n");
 	}
 
 	private void afficherBoite(String titre, String... sousItems) {
