@@ -56,6 +56,7 @@ public class IHMConsole extends IHM {
 	public int choixMenu() {
 		return this.choixMenu(1, this.nbItemsDernierMenu);
 	}
+
 	public int choixMenu(int min, int max) {
 		System.out.print("\n   choix : ");
 		CouleurConsole.JAUNE.print();

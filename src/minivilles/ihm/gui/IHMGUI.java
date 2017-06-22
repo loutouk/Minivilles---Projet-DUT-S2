@@ -20,7 +20,6 @@ public class IHMGUI extends IHM {
 		this.fenetre = new Fenetre(ctrl.getMetier());
 	}
 
-
 	@Override
 	public void afficherMenuPrincipal() {
 
@@ -45,7 +44,8 @@ public class IHMGUI extends IHM {
 
 	@Override
 	public int choixMenu() {
-		return 1;
+
+	    return 1;
 	}
 
 	@Override
@@ -129,7 +129,13 @@ public class IHMGUI extends IHM {
 	}
 
 	@Override
-	public void afficherValeurDes(int de) {
+	public void afficherValeurDes(int de1, int de2) {
+
+	    fenetre.getImageDeUn().setIcon(new ImageIcon(Art.getImage("des/3")));
+
+	    if(de2!=0){
+            fenetre.getImageDeDeux().setIcon(new ImageIcon(Art.getImage("des/3")));
+        }
 
 	}
 
