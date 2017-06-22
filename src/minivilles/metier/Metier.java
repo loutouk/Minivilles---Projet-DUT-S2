@@ -6,10 +6,6 @@ import minivilles.metier.cartes.monuments.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by bl160661 on 09/06/17.
- */
-
 public class Metier {
 
 	private ArrayList<Carte> pioche;
@@ -22,7 +18,8 @@ public class Metier {
 		this.pioche = new ArrayList<>();
 		this.listeJoueur = new ArrayList<>();
 		this.banque = new Banque();
-		joueurCourant = null;
+
+		this.joueurCourant = null;
 	}
 
 
@@ -48,7 +45,7 @@ public class Metier {
 	}
 
 	/**
-	 * Retourne le joueur par son numéro
+	 * Retourne le joueur par sa place dans le jeu
 	 *
 	 * @return Le joueur en question
 	 */
@@ -93,41 +90,47 @@ public class Metier {
 
 	public void initialiserPlateau(int nbJoueurs, boolean sansCarteDepart) {
 
-		// Creation des joueurs
+		/*  Creation des joueurs  */
 		for (int cpt = 0; cpt < nbJoueurs; cpt++) listeJoueur.add(new Joueur());
 		joueurCourant = listeJoueur.get(0);
 
-		// Creation de la pioche de 108 cartes
+
+		/*  Creation de la pioche de 108 cartes  */
 
 		// Etablissements de departs, 2 sortes pour 8 cartes
-		for (int i = 0; i < 4; i++) pioche.add(new ChampsDeBle());
-		for (int i = 0; i < 4; i++) pioche.add(new Boulangerie());
+		for (int i = 0; i < 4; i++) {
+			pioche.add(new ChampsDeBle());
+			pioche.add(new Boulangerie());
+		}
 
 		// 3 sortes d'établissements spéciaux, pour 12 au total
-		for (int i = 0; i < 4; i++) pioche.add(new Stade());
-		for (int i = 0; i < 4; i++) pioche.add(new ChaineDeTelevision());
-		for (int i = 0; i < 4; i++) pioche.add(new CentreAffaires());
+		for (int i = 0; i < 4; i++) {
+			pioche.add(new Stade());
+			pioche.add(new ChaineDeTelevision());
+			pioche.add(new CentreAffaires());
+		}
 
 		// 10 sortes d'établissements de base, pour 60 au total
-		for (int i = 0; i < 6; i++) pioche.add(new Ferme());
-		for (int i = 0; i < 6; i++) pioche.add(new Cafe());
-		for (int i = 0; i < 6; i++) pioche.add(new Superette());
-		for (int i = 0; i < 6; i++) pioche.add(new Foret());
-		for (int i = 0; i < 6; i++) pioche.add(new Fromagerie());
-		for (int i = 0; i < 6; i++) pioche.add(new FabriqueMeuble());
-		for (int i = 0; i < 6; i++) pioche.add(new Mine());
-		for (int i = 0; i < 6; i++) pioche.add(new Restaurant());
-		for (int i = 0; i < 6; i++) pioche.add(new Verger());
-		for (int i = 0; i < 6; i++) pioche.add(new MarcheDeFruitsEtLegumes());
+		for (int i = 0; i < 6; i++) {
+			pioche.add(new Ferme());
+			pioche.add(new Cafe());
+			pioche.add(new Superette());
+			pioche.add(new Foret());
+			pioche.add(new Fromagerie());
+			pioche.add(new FabriqueMeuble());
+			pioche.add(new Mine());
+			pioche.add(new Restaurant());
+			pioche.add(new Verger());
+			pioche.add(new MarcheDeFruitsEtLegumes());
+		}
 
 
-		// Attributions des cartes
+		/*  Attributions des cartes  */
 		for (Joueur joueur : listeJoueur) {
-
 			// On pioche les cartes de départ
 			if (!sansCarteDepart) {
-				piocher("1", joueur);
-				piocher("2-3", joueur);
+				this.piocher("1", joueur);
+				this.piocher("2-3", joueur);
 			}
 
 			// On donne les monuments au joueurs
@@ -154,10 +157,12 @@ public class Metier {
 	public List<Carte> lancerEffets(int resultatDes) {
 		List<Carte> cartes = new ArrayList<>();
 
+		// On lance les effets de toutes les cartes de tous les joueurs
 		for (Joueur joueur : this.listeJoueur)
 			for (int cpt = 0; cpt < joueur.getMain().size(); cpt++) {
 				Carte c = joueur.getMain().get(cpt);
 
+				// Si l'effet a été lancé, on ajoute la carte à la liste des cartes activées
 				if (c.testEffet(this, resultatDes))
 					cartes.add(c);
 			}
@@ -218,9 +223,11 @@ public class Metier {
 	}
 
 	public Carte rechercherCartePioche(String id) {
-		Carte recherche = null;
-		for (Carte c : this.pioche) if (c.getIdentifiant().equals(id)) recherche = c;
-		return recherche;
+		for (Carte c : this.pioche)
+			if (c.getIdentifiant().equals(id))
+				return c;
+
+		return null;
 	}
 
 }

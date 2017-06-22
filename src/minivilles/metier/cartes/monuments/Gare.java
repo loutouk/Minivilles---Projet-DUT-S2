@@ -1,7 +1,5 @@
 package minivilles.metier.cartes.monuments;
 
-import minivilles.metier.Metier;
-
 /**
  * Classe <i>Gare</i>, qui hérite de {@link minivilles.metier.cartes.Carte}.
  * <p>
@@ -15,8 +13,4 @@ public class Gare extends Monument {
 		super("M1", "Gare", -1, 4);
 	}
 
-
-	public void lancerEffet(Metier metier) {
-		// Vous pouvez lancer deux dés
-	}
 }

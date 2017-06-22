@@ -1,7 +1,5 @@
 package minivilles.metier.cartes.monuments;
 
-import minivilles.metier.Metier;
-
 /**
  * Classe <i>TourRadio</i>, qui hérite de {@link minivilles.metier.cartes.monuments.Monument}.
  * <p>
@@ -16,8 +14,4 @@ public class TourRadio extends Monument {
 		super("M4", "Tour radio", -1, 22);
 	}
 
-
-	public void lancerEffet(Metier metier) {
-		// Une fois par tour vous pouvez choisir de relancer vos dés
-	}
 }

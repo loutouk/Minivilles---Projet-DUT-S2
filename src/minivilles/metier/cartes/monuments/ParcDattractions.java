@@ -1,7 +1,5 @@
 package minivilles.metier.cartes.monuments;
 
-import minivilles.metier.Metier;
-
 /**
  * Classe <i>ParcDattractions</i>, qui hérite de {@link minivilles.metier.cartes.monuments.Monument}.
  * <p>
@@ -16,8 +14,4 @@ public class ParcDattractions extends Monument {
 		super("M3", "Parc d'attractions", -1, 16);
 	}
 
-
-	public void lancerEffet(Metier metier) {
-		// Vous rejouer si votre jet de dés est un double
-	}
 }

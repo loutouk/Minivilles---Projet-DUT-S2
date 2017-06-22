@@ -1,19 +1,9 @@
 package minivilles.metier.cartes;
 
-import minivilles.metier.Metier;
-
-public class Foret extends Carte {
+public class Foret extends CarteGain {
 
 	public Foret() {
-		super("5", "Forêt", "bleu", 5, 3);
+		super("5", "Forêt", 5, 3, 1);
 	}
 
-
-	@Override
-	public void lancerEffet(Metier metier) {
-		int gain = 1;
-
-		if (metier.getBanque().retrait(gain))
-			this.getJoueur().addPiece(gain);
-	}
 }

@@ -1,7 +1,5 @@
 package minivilles.metier.cartes.monuments;
 
-import minivilles.metier.Metier;
-
 /**
  * Classe <i>CentreCommercial</i>, qui hérite de {@link minivilles.metier.cartes.monuments.Monument}.
  * <p>
@@ -16,8 +14,4 @@ public class CentreCommercial extends Monument {
 		super("M2", "Centre commercial", -1, 10);
 	}
 
-
-	public void lancerEffet(Metier metier) {
-		// Les cafés, restaurants et supérettes, boulangeries rapportent une pièce de plus
-	}
 }
