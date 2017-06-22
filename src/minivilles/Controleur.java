@@ -155,6 +155,7 @@ public class Controleur {
 			ihm.afficherBilanTour(joueur, pieceAvant, nombreDeDes, de1 + de2, cartesLancees);
 
 
+			// Bloque pour ihm gui
 			ihm.afficherMenuAchat(joueur);
 			int choix = ihm.choixMenu();
 

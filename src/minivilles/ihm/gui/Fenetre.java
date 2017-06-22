@@ -401,14 +401,20 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
         if(e.getSource()==passerTourButton){
 
             System.out.println("passer tour");
+            construire = false;
+            acheter = false;
 
         } else if(e.getSource()==construireMonumenButton){
 
             System.out.println("construire monument");
+            passerTour = false;
+            acheter = false;
 
         } else if(e.getSource()==acheterBatimentButton){
 
             System.out.println("acheter batiment");
+            construire = false;
+            passerTour = false;
         }
     }
 
@@ -418,5 +424,17 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
 
     public JLabel getImageDeDeux() {
         return imageDeDeux;
+    }
+
+    public boolean isPasserTour() {
+        return passerTour;
+    }
+
+    public boolean isConstruire() {
+        return construire;
+    }
+
+    public boolean isAcheter() {
+        return acheter;
     }
 }
