@@ -28,6 +28,10 @@ public class Banque {
 		return false;
 	}
 
+	public void setSolde(int nb) {
+		this.solde = nb;
+	}
+
 	public int getSolde() {
 		return solde;
 	}

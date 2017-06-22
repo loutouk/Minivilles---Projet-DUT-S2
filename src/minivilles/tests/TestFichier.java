@@ -36,6 +36,7 @@ public class TestFichier {
 
 		try {
 			Scanner sc = new Scanner(new FileReader(f));
+			boolean hashtag = false;
 			int nbJ = 0;
 
 			while (sc.hasNextLine()) {
@@ -44,9 +45,18 @@ public class TestFichier {
 
 				// Nouveau joueur dans le fichier
 				if (ligne.charAt(0) == '#') {
+					hashtag = true;
+
 					if (ligne.matches(JOUEUR_REGEX))
 						nbJ++;
 
+					continue;
+				}
+
+				// Gestion des pièces de la banque
+				// (doit se situer en haut du fichier)
+				if (!hashtag && ligne.startsWith("banque:")) {
+					this.ctrl.getMetier().getBanque().setSolde(Integer.valueOf(ligne.split(":")[1].trim()));
 					continue;
 				}
 
