@@ -1,5 +1,6 @@
 package minivilles.ihm.gui;
 
+import minivilles.metier.Metier;
 import minivilles.metier.cartes.Carte;
 
 import javax.swing.*;
@@ -7,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +17,8 @@ import java.util.Map;
  */
 
 public class Fenetre extends JFrame implements ItemListener {
+
+    private Metier metier;
 
     private int nombreDeJoueurs;
     // Image affichée à côté de la réserve
@@ -69,13 +73,21 @@ public class Fenetre extends JFrame implements ItemListener {
     private JLabel imageDeUn;
     private JLabel imageDeDeux;
 
-    private String[] nomCartes    = new String[0];
+    private String[] nomCarteJoueurA;
+    private String[] nomCarteJoueurB;
+    private String[] nomCarteJoueurC;
+    private String[] nomCarteJoueurD;
+
+    private String[] nomCartes = new String[0];
+
     private String[] nomMonuments = {"Gare", "Centre commercial", "Parc d'attractions", "Tour radio"};
 
     private Map<String, List<Carte>> pioche;
 
 
-    public Fenetre() {
+    public Fenetre(Metier metier) {
+
+        this.metier = metier;
 
         setTitle("Miniville");
         // Plein écran
@@ -85,7 +97,7 @@ public class Fenetre extends JFrame implements ItemListener {
         JPanel panelGlobal = new JPanel();
         BoxLayout globalLayout = new BoxLayout(panelGlobal, BoxLayout.PAGE_AXIS);
         panelGlobal.setLayout(globalLayout);
-        panelGlobal.setBorder(new EmptyBorder( 0, 0 ,0,0 ));
+        panelGlobal.setBorder(new EmptyBorder(0, 0, 0, 0));
         JPanel partieHaute = new JPanel(new FlowLayout());
         JPanel gauche = new JPanel();
         //gauche.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -93,7 +105,7 @@ public class Fenetre extends JFrame implements ItemListener {
         gauche.setLayout(gaucheLayout);
         JPanel droite = new JPanel();
         //droite.setBorder(BorderFactory.createLineBorder(Color.black));
-        JPanel partieBasse = new JPanel(new GridLayout(2,2));
+        JPanel partieBasse = new JPanel(new GridLayout(2, 2));
         joueurA = new JPanel();
         //joueurA.setBorder(BorderFactory.createLineBorder(Color.black));
         joueurB = new JPanel();
@@ -114,7 +126,7 @@ public class Fenetre extends JFrame implements ItemListener {
         // Gauche ///////////////////////////////////////////////////////////////////////////
         JPanel contenantGauche = new JPanel(new BorderLayout());
         nombreDeCarte = new JLabel("Nombre de cette carte dans la réserve : 6");
-        nombreDeCarte.setBorder(new EmptyBorder(5,5,5,5));
+        nombreDeCarte.setBorder(new EmptyBorder(5, 5, 5, 5));
         imageCarte = new JLabel(new ImageIcon(Art.getImage("cartes/1")));
         contenantGauche.add(imageCarte, BorderLayout.CENTER);
         contenantGauche.add(nombreDeCarte, BorderLayout.SOUTH);
@@ -127,7 +139,7 @@ public class Fenetre extends JFrame implements ItemListener {
         BoxLayout contenantDroitLayout = new BoxLayout(contenantDroit, BoxLayout.Y_AXIS);
         contenantDroit.setLayout(contenantDroitLayout);
 
-        JPanel boutons = new JPanel(new GridLayout(3,2,14,14));
+        JPanel boutons = new JPanel(new GridLayout(3, 2, 14, 14));
 
         acheterBatimentListe = new JComboBox(nomCartes);
         acheterBatimentListe.addItemListener(this);
@@ -150,11 +162,11 @@ public class Fenetre extends JFrame implements ItemListener {
         boutons.add(tourDuJoueur);
         boutons.add(passerTour);
 
-        JPanel imageDe = new JPanel(new GridLayout(1,2,50,50));
+        JPanel imageDe = new JPanel(new GridLayout(1, 2, 50, 50));
         imageDeUn = new JLabel(new ImageIcon(Art.getImage("des/1")));
-        imageDeUn.setBorder(new EmptyBorder(50,50,50,50));
+        imageDeUn.setBorder(new EmptyBorder(50, 50, 50, 50));
         imageDeDeux = new JLabel(new ImageIcon(Art.getImage("des/1")));
-        imageDeDeux.setBorder(new EmptyBorder(45,45,45,45));
+        imageDeDeux.setBorder(new EmptyBorder(45, 45, 45, 45));
         imageDe.add(imageDeUn);
         imageDe.add(imageDeDeux);
 
@@ -169,7 +181,7 @@ public class Fenetre extends JFrame implements ItemListener {
         // On colore la case du joueur courant
         contenantJoueurA.setBackground(Color.green);
 
-        JPanel infoJoueurA = new JPanel(new GridLayout(3,1));
+        JPanel infoJoueurA = new JPanel(new GridLayout(3, 1));
 
         infoJoueurA.add(new JLabel("Joueur numéro 1"));
         pieceJoueurA = new JLabel("Pièces : 3");
@@ -195,7 +207,7 @@ public class Fenetre extends JFrame implements ItemListener {
         // Joueur B /////////////////////////////////////////////////////////////////////////
         JPanel contenantJoueurB = new JPanel();
 
-        JPanel infoJoueurB = new JPanel(new GridLayout(3,1));
+        JPanel infoJoueurB = new JPanel(new GridLayout(3, 1));
 
         infoJoueurB.add(new JLabel("Joueur numéro 2"));
         pieceJoueurB = new JLabel("Pièces : 2");
@@ -221,7 +233,7 @@ public class Fenetre extends JFrame implements ItemListener {
         // Joueur C /////////////////////////////////////////////////////////////////////////
         JPanel contenantJoueurC = new JPanel();
 
-        JPanel infoJoueurC = new JPanel(new GridLayout(3,1));
+        JPanel infoJoueurC = new JPanel(new GridLayout(3, 1));
 
         infoJoueurC.add(new JLabel("Joueur numéro 3"));
         pieceJoueurC = new JLabel("Pièces : 3");
@@ -248,7 +260,7 @@ public class Fenetre extends JFrame implements ItemListener {
         // Joueur D /////////////////////////////////////////////////////////////////////////
         JPanel contenantJoueurD = new JPanel();
 
-        JPanel infoJoueurD = new JPanel(new GridLayout(3,1));
+        JPanel infoJoueurD = new JPanel(new GridLayout(3, 1));
 
         infoJoueurD.add(new JLabel("Joueur numéro 4"));
         pieceJoueurD = new JLabel("Pièces : 3");
@@ -278,50 +290,86 @@ public class Fenetre extends JFrame implements ItemListener {
         pack();
     }
 
+    private String[] majMainJoueur(int numeroJoueur) {
+
+        ArrayList<Carte> tmp = metier.getJoueur(numeroJoueur).getMain();
+
+        String[] main = new String[tmp.size()-4];
+        int size = tmp.size();
+        for(int cpt = 0; cpt < size; cpt++) {
+            String nom = tmp.get(cpt).getNom();
+            if(!tmp.get(cpt).getCouleur().equals("MARRON")) {
+                int occu = 1;
+                for (int cpt2 = cpt + 1; cpt2 < size; cpt2++) {
+                    if (tmp.get(cpt2).getNom().equals(nom)) {
+                        occu++;
+                        tmp.remove(cpt2);
+                        size--;
+                    }
+                }
+                main[cpt] = tmp.get(cpt).getNom() + " x" + occu;
+            }
+        }
+
+        DefaultComboBoxModel a = new DefaultComboBoxModel(main);
+        this.carteJoueurA.setModel(a);
+
+        return main;
+    }
+
     void initialiserCartes(Map<String, List<Carte>> pioche) {
-    	this.pioche = pioche;
-		this.nomCartes = new String[pioche.size()];
 
-		for (int cpt = 0; cpt < this.nomCartes.length; cpt++) {
-			this.nomCartes[cpt] = ((List<Carte>) pioche.values().toArray()[cpt]).get(0).getNom();
-			this.acheterBatimentListe.addItem(this.nomCartes[cpt]);
-		}
+        this.pioche = pioche;
+        this.nomCartes = new String[pioche.size()];
 
-		this.setVisible(true);
-	}
+        for (int cpt = 0; cpt < this.nomCartes.length; cpt++) {
+            this.nomCartes[cpt] = ((List<Carte>) pioche.values().toArray()[cpt]).get(0).getNom();
+            this.acheterBatimentListe.addItem(this.nomCartes[cpt]);
+        }
+
+        this.setVisible(true);
+    }
 
     @Override
     public void itemStateChanged(ItemEvent event) {
         if (event.getStateChange() == ItemEvent.SELECTED) {
-        	String iden = null;
-        	String nom = event.getItem().toString();
+            String iden = null;
+            String nom = event.getItem().toString();
 
-        	for (Map.Entry<String, List<Carte>> entry : this.pioche.entrySet())
-        		if (entry.getValue().size() > 0 && entry.getValue().get(0).getNom().equals(nom))
-        			iden = entry.getKey();
+            for (Map.Entry<String, List<Carte>> entry : this.pioche.entrySet())
+                if (entry.getValue().size() > 0 && entry.getValue().get(0).getNom().equals(nom))
+                    iden = entry.getKey();
+
+
+            nombreDeCarte.setText("");
 
             // On affiche le nom de la carte par son String qui correspond au nom du fichier png
-            if (iden != null)
-            	imageCarte.setIcon(new ImageIcon(Art.getImage("cartes/" + iden)));
+            if (iden != null) {
+                imageCarte.setIcon(new ImageIcon(Art.getImage("cartes/" + iden)));
+                // On met à jour l'affichage du nombre de cette carte
+                nombreDeCarte.setText("Il reste " + String.valueOf(pioche.get(iden).size()) + " cartes "
+                        + event.getItem().toString());
+            }
+
 
             // Affichage des monuments
 
-            if(event.getItem().toString().equals("Gare"))
+            if (event.getItem().toString().equals("Gare"))
                 imageCarte.setIcon(new ImageIcon(Art.getImage("cartes/" + "M1")));
-            if(event.getItem().toString().equals("Centre commercial"))
+            if (event.getItem().toString().equals("Centre commercial"))
                 imageCarte.setIcon(new ImageIcon(Art.getImage("cartes/" + "M2")));
-            if(event.getItem().toString().equals("Parc d'attractions"))
+            if (event.getItem().toString().equals("Parc d'attractions"))
                 imageCarte.setIcon(new ImageIcon(Art.getImage("cartes/" + "M3")));
-            if(event.getItem().toString().equals("Tour radio"))
+            if (event.getItem().toString().equals("Tour radio"))
                 imageCarte.setIcon(new ImageIcon(Art.getImage("cartes/" + "M4")));
 
-            // On met à jour l'affichage du nombre de cette carte
-            // nombreDeCarte.setText();
+
         }
     }
 
     public void setPanelJoueurs(int nombreDeJoueurs) {
-        if(nombreDeJoueurs>2) joueurC.setVisible(true);
-        if(nombreDeJoueurs>3) joueurD.setVisible(true);
+        if (nombreDeJoueurs > 2) joueurC.setVisible(true);
+        if (nombreDeJoueurs > 3) joueurD.setVisible(true);
+        majMainJoueur(1);
     }
 }

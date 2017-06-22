@@ -12,12 +12,12 @@ import java.util.List;
 public class IHMGUI extends IHM {
 
 	private Fenetre fenetre;
-	private int nombreDeJoueurs=0;
+	private int nombreDeJoueurs;
 
 
 	public IHMGUI(Controleur ctrl) {
 		super(ctrl);
-		SwingUtilities.invokeLater(() -> this.fenetre = new Fenetre());
+		this.fenetre = new Fenetre(ctrl.getMetier());
 	}
 
 
@@ -38,7 +38,9 @@ public class IHMGUI extends IHM {
 
 	@Override
 	public void initialiserCartes(ArrayList<Carte> pioche) {
-		this.fenetre.initialiserCartes(IHM.grouperCartes(pioche));
+
+	    this.fenetre.initialiserCartes(IHM.grouperCartes(pioche));
+        fenetre.setPanelJoueurs(nombreDeJoueurs);
 	}
 
 	@Override
@@ -58,14 +60,15 @@ public class IHMGUI extends IHM {
 
 	@Override
 	public int choixNbJoueurs() {
-		JDialog.setDefaultLookAndFeelDecorated(true);
-		Object[] selectionValues = { 2, 3, 4 };
-		int initialSelection = 2;
 
-		nombreDeJoueurs = (int) JOptionPane.showInputDialog(null, "Combien de joueurs vont jouer ?",
-				"Nombre de joueurs", JOptionPane.QUESTION_MESSAGE, null, selectionValues, initialSelection);
-
-		fenetre.setPanelJoueurs(nombreDeJoueurs);
+		Integer[] nb = {2,3,4};
+		nombreDeJoueurs = (Integer) JOptionPane.showInputDialog(fenetre,
+				"",
+				"Nombre de joueurs",
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				nb,
+				nb[0]);
 
 		return nombreDeJoueurs;
 	}

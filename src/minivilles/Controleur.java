@@ -30,8 +30,11 @@ public class Controleur {
 
 		if (mode.equals("console"))
 			Controleur.ihm = new IHMConsole(this);
-		else
+		else{
 			Controleur.ihm = new IHMGUI(this);
+			System.out.println("mode gui ");
+		}
+
 
 		this.debugMode = debugMode;
 	}
@@ -76,7 +79,6 @@ public class Controleur {
 	private void initialiserPartie() {
 		int nbJoueurs = ihm.choixNbJoueurs();
 		metier.initialiserPlateau(nbJoueurs);
-
 		ihm.initialiserCartes(metier.getPioche());
 	}
 
