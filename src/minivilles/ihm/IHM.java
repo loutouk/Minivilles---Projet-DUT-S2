@@ -150,6 +150,8 @@ public abstract class IHM{
 			String[] parts = iden.split("-");
 			p1 = Integer.valueOf(parts[0]);
 			p2 = Integer.valueOf(parts[1]);
+
+			if (p2 > 9) p2 = 9;
 		} else {
 			if (iden.charAt(0) == 'M') {
 				p1 = 1000;
