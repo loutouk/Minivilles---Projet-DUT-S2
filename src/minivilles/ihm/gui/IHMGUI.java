@@ -101,7 +101,8 @@ public class IHMGUI extends IHM {
 
 	@Override
 	public String choixAchatBatiment() {
-        return fenetre.getAcheterBatimentListe().toString();
+
+        return fenetre.getAcheterBatimentListe().getSelectedItem().toString();
 	}
 
 	@Override
