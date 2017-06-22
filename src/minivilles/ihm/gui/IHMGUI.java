@@ -101,8 +101,7 @@ public class IHMGUI extends IHM {
 
 	@Override
 	public String choixAchatBatiment() {
-		// si le booleen achat est a vrai
-		return "";
+        return fenetre.getAcheterBatimentListe().toString();
 	}
 
 	@Override

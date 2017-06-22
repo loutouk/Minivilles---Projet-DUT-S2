@@ -440,4 +440,12 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
     public boolean isAcheter() {
         return acheter;
     }
+
+    public JComboBox getAcheterBatimentListe() {
+        return acheterBatimentListe;
+    }
+
+    public JComboBox getConstruireMonumentListe() {
+        return construireMonumentListe;
+    }
 }
