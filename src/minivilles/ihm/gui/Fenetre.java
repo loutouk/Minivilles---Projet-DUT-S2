@@ -401,18 +401,21 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
         if(e.getSource()==passerTourButton){
 
             System.out.println("passer tour");
+            passerTour=true;
             construire = false;
             acheter = false;
 
         } else if(e.getSource()==construireMonumenButton){
 
             System.out.println("construire monument");
+            construire=true;
             passerTour = false;
             acheter = false;
 
         } else if(e.getSource()==acheterBatimentButton){
 
             System.out.println("acheter batiment");
+            acheter=true;
             construire = false;
             passerTour = false;
         }

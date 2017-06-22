@@ -133,6 +133,8 @@ public class IHMGUI extends IHM {
     @Override
     public void afficherValeurDes(int de1, int de2) {
 
+        System.out.println("lancer de");
+
         fenetre.getImageDeUn().setIcon(new ImageIcon(Art.getImage("des/3")));
 
         if (de2 != 0) {
