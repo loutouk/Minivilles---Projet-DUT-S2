@@ -26,6 +26,9 @@ public class Art {
 		if (Art.images == null)           Art.images = new HashMap<>();
 		if (Art.images.containsKey(name)) return Art.images.get(name);
 
+		// Les : ne sont pas supportés par Windows
+		name = name.replaceAll(":", "_");
+
 		InputStream   is  = Art.class.getResourceAsStream("/res/images/" + name + ".png");
 		BufferedImage img = null;
 
