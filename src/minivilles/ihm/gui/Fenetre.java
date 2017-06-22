@@ -13,6 +13,7 @@ import java.util.Map;
 /**
  * Created by louis on 21/06/17.
  */
+
 public class Fenetre extends JFrame implements ItemListener {
 
     // Noms des cartes dans la réserve
@@ -123,7 +124,6 @@ public class Fenetre extends JFrame implements ItemListener {
         /////////////////////////////////////////////////////////////////////////////////////
 
 
-
         // Droite ///////////////////////////////////////////////////////////////////////////
         JPanel contenantDroit = new JPanel();
         BoxLayout contenantDroitLayout = new BoxLayout(contenantDroit, BoxLayout.Y_AXIS);
@@ -153,9 +153,9 @@ public class Fenetre extends JFrame implements ItemListener {
         boutons.add(passerTour);
 
         JPanel imageDe = new JPanel(new GridLayout(1,2,50,50));
-        imageDeUn = new JLabel(new ImageIcon(Art.getImage("un")));
+        imageDeUn = new JLabel(new ImageIcon(Art.getImage("des/1")));
         imageDeUn.setBorder(new EmptyBorder(50,50,50,50));
-        imageDeDeux = new JLabel(new ImageIcon(Art.getImage("un")));
+        imageDeDeux = new JLabel(new ImageIcon(Art.getImage("des/1")));
         imageDeDeux.setBorder(new EmptyBorder(45,45,45,45));
         imageDe.add(imageDeUn);
         imageDe.add(imageDeDeux);
@@ -202,7 +202,7 @@ public class Fenetre extends JFrame implements ItemListener {
 
         JPanel infoJoueurB = new JPanel(new GridLayout(4,1));
 
-        infoJoueurB.add(new JLabel("Joueur numéro 1"));
+        infoJoueurB.add(new JLabel("Joueur numéro 2"));
         pieceJoueurB = new JLabel("Pièces : 2");
         infoJoueurB.add(pieceJoueurB);
 
