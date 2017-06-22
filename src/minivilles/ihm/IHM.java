@@ -151,8 +151,13 @@ public abstract class IHM{
 			p1 = Integer.valueOf(parts[0]);
 			p2 = Integer.valueOf(parts[1]);
 		} else {
-			p1 = Integer.valueOf(iden);
-			p2 = 0;
+			if (iden.charAt(0) == 'M') {
+				p1 = 1000;
+				p2 = Integer.valueOf(String.valueOf(iden.charAt(1)));
+			} else {
+				p1 = Integer.valueOf(iden);
+				p2 = 0;
+			}
 		}
 
 		return p1 * 10 + p2;

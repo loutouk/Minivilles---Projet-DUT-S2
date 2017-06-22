@@ -100,7 +100,6 @@ public class Controleur {
 			// Il peut lancer deux dés, on demande avant au joueur pour être sûr
 			if (nombreDeDes > 1) nombreDeDes = ihm.choixNbDes();
 
-
 			for (int compteur = 0; compteur < nombreDeCoups * nombreDeDes; compteur++) {
 				int de;
 
