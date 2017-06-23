@@ -18,9 +18,13 @@ public class TestFichier {
 
 
 	public TestFichier() {
-		this.ctrl = new Controleur("console", true);
+		this.initialiserControleur();
 	}
 
+
+	private void initialiserControleur() {
+		// TODO
+	}
 
 	private void analyserFichier(File f) throws Exception {
 		int nbJoueur = this.getNbJoueurs(f);
@@ -123,6 +127,7 @@ public class TestFichier {
 
 		return nb;
 	}
+
 
 
 	public static void main(String[] args) throws Exception {

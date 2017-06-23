@@ -1,16 +1,12 @@
-package minivilles.ihm.gui;
+package minivilles.net;
 
-import minivilles.ihm.IHM;
 import minivilles.Controleur;
-import minivilles.metier.Joueur;
-import minivilles.metier.cartes.Carte;
-import minivilles.metier.cartes.monuments.Monument;
-import java.net.*;
-import java.io.*;
-import java.util.*;
 
-public class Client
-{
+import java.io.*;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class Client {
 	private Socket socket;
 	private ClientThread thread;
 	private InputStream streamIn;
@@ -22,57 +18,49 @@ public class Client
 
 	private Scanner sc = new Scanner(System.in);
 
-	public Client(String ip)
-	{
-		try
-		{
-			socket = new Socket(ip,55555);
+	public Client(String ip) {
+		try {
+			socket = new Socket(ip, 55555);
 			buffRead = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			streamOut = this.socket.getOutputStream();
 			printWrite = new PrintWriter(streamOut, true);
 			Controleur ctrl = new Controleur("gui");
 			System.out.print("Your username : ");
 			String username = sc.nextLine();
-			while(username.equals(""))
-			{
+
+			while (username.equals("")) {
 				System.out.print("Your username : ");
 				username = sc.nextLine();
 			}
-			printWrite.println("!username "+username);
+
+			printWrite.println("!username " + username);
 
 
 			thread = new ClientThread(this, socket);
 			this.run();
+		} catch (IOException ioe) {
+			System.out.println("Server accept error: " + ioe);
 		}
-		catch(IOException ioe)
-        {
-            System.out.println("Server accept error: " + ioe);
-        }
 
 	}
 
-	public void run()
-	{
-		while(true)
-		{
+	public void run() {
+		while (true) {
 			String input = sc.nextLine();
-			if(!input.equals("")) printWrite.println(input);
+			if (!input.equals("")) printWrite.println(input);
 		}
 	}
 
-	public void handle(String msg)
-	{
+	public void handle(String msg) {
 		System.out.println(msg);
 	}
 
-	public void stop()
-	{
+	public void stop() {
 		System.out.println("Vous avez été déconnecté");
 		System.exit(0);
 	}
 
-	public static void main(String[] a)
-	{
+	public static void main(String[] a) {
 		new Client(a[0]);
 	}
 }
