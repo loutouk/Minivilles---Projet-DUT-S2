@@ -72,9 +72,7 @@ public class Controleur {
 			ihm.afficherModeEvaluation();
 
 		while (!quitter) {
-			ihm.afficherMenuPrincipal();
-
-			choix = ihm.choixMenu();
+			choix = ihm.choixMenuPrincipal();
 
 			switch (choix) {
 				case 1:
@@ -93,8 +91,9 @@ public class Controleur {
 
 	private void initialiserPartie() {
 		int nbJoueurs = ihm.choixNbJoueurs();
+
 		metier.initialiserPlateau(nbJoueurs);
-		ihm.initialiserCartes(metier.getPioche());
+		ihm.initialiserPlateau(metier.getPioche());
 	}
 
 	private void lancerPartie() {
@@ -105,8 +104,8 @@ public class Controleur {
 			Joueur joueur = Controleur.metier.getJoueurCourant();
 			int pieceAvant = joueur.getPieces();
 
-			ihm.afficherDebutTour(joueur);
-			ihm.afficherPlateau();
+			ihm.nouveauTour(joueur);
+			ihm.afficherPlateau(metier.getPioche(), metier.getBanque(), metier.getListeJoueur());
 
 			// Effet du monument Gare : deux jet de dés
 			int nombreDeCoups = 1;
@@ -133,10 +132,9 @@ public class Controleur {
 						nombreDeCoups == 1 &&
 						(compteur - 1) % nombreDeDes == 0) {
 
-					ihm.afficherValeurDes(de1, de2);
-					ihm.afficherMenuRejouer();
+					ihm.afficherDes(de1, de2);
 
-					if (ihm.choixMenu() == 1) {
+					if (ihm.choixRejouerTour() == 1) {
 						nombreDeCoups++;
 
 						de1 = 0;
@@ -155,18 +153,26 @@ public class Controleur {
 			ihm.afficherBilanTour(joueur, pieceAvant, nombreDeDes, de1, de2, cartesLancees);
 
 
-			// Bloque pour ihm gui
-			ihm.afficherMenuAchat(joueur);
-			int choix = ihm.choixMenu();
+			// Menu d'achat de batîment
+			boolean achatFini = false;
 
-			if (choix == 1 || choix == 2) {
-				ArrayList<Carte> cartes = (choix == 1) ? metier.getPioche() : joueur.getMonuments();
+			do {
 
-				ihm.nettoyerAffichage();
-				ihm.afficherLigneCarte(cartes);
+				int choix = ihm.choixAchatMenu(joueur);
 
-				this.achatBatiment(joueur, choix);
-			}
+				if (choix == 1 || choix == 2) {
+					ArrayList<Carte> cartes = (choix == 1) ? metier.getPioche() : joueur.getMonuments();
+
+					ihm.nettoyerAffichage();
+					ihm.afficherLigneCarte(cartes);
+
+					// On ouvre le menu spécifique d'achat de batîment
+					if (this.achatBatiment(joueur, choix))
+						achatFini = true;
+				}
+				else achatFini = true;
+
+			} while (!achatFini);
 
 			if (!rejouer) Controleur.metier.changerJoueurCourant();
 		}
@@ -175,16 +181,24 @@ public class Controleur {
 		Controleur.ihm.afficherGagnant(this.getGagnant());
 	}
 
-	private void achatBatiment(Joueur joueur, int choix) {
+	private boolean achatBatiment(Joueur joueur, int choix) {
 		Carte carte;
 		boolean achatTermine = false;
 
 		do {
-			String choixBat = ihm.choixAchatBatiment();
-			carte = (choix == 1) ? metier.rechercherCartePioche(choixBat) : joueur.rechercherCarte(choixBat);
+			String choixBat;
+
+			// On personnalise la recherche suivant le choix
+			if (choix == 1) {
+				choixBat = ihm.choixAchatBatiment();
+				carte = metier.rechercherCartePioche(choixBat);
+			} else {
+				choixBat = ihm.choixAchatMonument();
+				carte = joueur.rechercherCarte(choixBat);
+			}
 
 			if (choixBat.equals("-1"))
-				achatTermine = true;
+				return false;
 			else {
 				if (carte == null) {
 					ihm.afficherErreur("La carte \"" + choixBat + "\" n'existe pas !");
@@ -216,6 +230,8 @@ public class Controleur {
 			}
 		}
 		while (!achatTermine);
+
+		return true;
 	}
 
 

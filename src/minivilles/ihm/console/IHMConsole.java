@@ -2,6 +2,7 @@ package minivilles.ihm.console;
 
 import minivilles.Controleur;
 import minivilles.ihm.IHM;
+import minivilles.metier.Banque;
 import minivilles.metier.Joueur;
 import minivilles.metier.cartes.Carte;
 import minivilles.metier.cartes.monuments.Monument;
@@ -18,88 +19,13 @@ public class IHMConsole extends IHM {
 	}
 
 
-	public void afficherMenuPrincipal() {
-		this.nettoyerAffichage();
-
-		this.afficherBoite(
-				"menu principal",
-				"jouer", "quitter"
-		);
-	}
-
-	public void afficherMenuAchat(Joueur joueur) {
-		this.afficherBoite(
-				"menu de construction (" + joueur.getPieces() + " pièces)",
-				"Acheter une carte de la réserve",
-				"Construire un monument",
-				"Passer mon tour"
-		);
-	}
-
-	public void afficherMenuRejouer() {
-		this.afficherBoite("Voulez-vous rejouer ?", "Oui", "Non");
-	}
-
 	@Override
-	public void initialiserCartes(ArrayList<Carte> pioche) {
-		// On ne s'en sert pas en mode console.
+	public void initialiserPlateau(ArrayList<Carte> pioche) {
+		// On ne s'en sert pas en mode console
+		// car il n'y a pas de plateau.
+		// (il est affiché autrepart)
 	}
 
-
-	/**
-	 * Retourne le choix de l'utilisateur pour le menu principal.
-	 * Si la saisie est incorrecte (<i>NumberFormatException</i> est levée),
-	 * la fonction se rappelle elle-même.
-	 *
-	 * @return le choix de l'utilisateur.
-	 */
-	public int choixMenu() {
-		return this.choixMenu(1, this.nbItemsDernierMenu);
-	}
-
-	public int choixMenu(int min, int max) {
-		System.out.print("\n   choix : ");
-		CouleurConsole.JAUNE.print();
-
-		Scanner sc = new Scanner(System.in);
-
-		int menu;
-
-		try {
-			menu = sc.nextInt();
-			CouleurConsole.RESET.print();
-		} catch (NumberFormatException | InputMismatchException ignored) {
-			this.messageCouleur("Veuillez entrer un nombre valide.", CouleurConsole.ROUGE);
-
-			sc.nextLine();
-			return this.choixMenu(min, max);
-		}
-
-		if (menu < min || menu > max) {
-			this.messageCouleur("Choix invalide", CouleurConsole.ROUGE);
-
-			sc.nextLine();
-			return this.choixMenu(min, max);
-		}
-
-		// On scan dans le vide comme on a changé de type
-		sc.nextLine();
-		System.out.println();
-		return menu;
-	}
-
-	public String choixStringMenu() {
-		System.out.print("\n   choix : ");
-		CouleurConsole.JAUNE.print();
-
-		Scanner sc = new Scanner(System.in);
-		String in = sc.nextLine();
-
-		System.out.println();
-		CouleurConsole.RESET.print();
-
-		return in;
-	}
 
 	/**
 	 * Retourne le choix de l'utilisateur concernant le nombre de joueurs.
@@ -115,6 +41,17 @@ public class IHMConsole extends IHM {
 		return this.choixMenu(2, 4);
 	}
 
+	public int choixMenuPrincipal() {
+		this.nettoyerAffichage();
+
+		this.afficherBoite(
+				"menu principal",
+				"jouer", "quitter"
+		);
+
+		return this.choixMenu();
+	}
+
 	public int choixNbDes() {
 		this.afficherBoite("Combien de dé(s) voulez-vous lancer ?", "1", "2");
 		return this.choixMenu();
@@ -125,9 +62,29 @@ public class IHMConsole extends IHM {
 		return this.choixMenu(1, 6);
 	}
 
+	public int choixAchatMenu(Joueur joueur) {
+		this.afficherBoite(
+				"menu de construction (" + joueur.getPieces() + " pièces)",
+				"Acheter une carte de la réserve",
+				"Construire un monument",
+				"Passer mon tour"
+		);
+
+		return this.choixMenu();
+	}
+
+	public int choixRejouerTour() {
+		this.afficherBoite("Voulez-vous rejouer ?", "Oui", "Non");
+		return this.choixMenu();
+	}
+
+
 	public String choixAchatBatiment() {
-		this.afficherBoite("Choisissez la carte à acheter\n(tapez -1 pour annuler)");
-		return this.choixStringMenu();
+		return this.choixCarte();
+	}
+
+	public String choixAchatMonument() {
+		return this.choixCarte();
 	}
 
 	public String choixCarteCentreAffaire(String joueur) {
@@ -159,36 +116,18 @@ public class IHMConsole extends IHM {
 		return sc.nextLine();
 	}
 
-	public int getDe() {
-		System.out.print("\nEntrez un nombre pour le dé : ");
-
-		Scanner sc = new Scanner(System.in);
-
-		int menu = -1;
-
-		try {
-			menu = sc.nextInt();
-		} catch (NumberFormatException | InputMismatchException ignored) {
-			System.out.println("Veuillez entrer un nombre valide.");
-		}
-
-		// On scan dans le vide comme on a change de type
-		sc.nextLine();
-		return menu;
-	}
-
 
 	/**
 	 * Créé une représentation textuelle du plateau.
 	 * On affiche la réserve la banque et les villes des joueurs.
 	 */
-	public void afficherPlateau() {
+	public void afficherPlateau(List<Carte> pioche, Banque banque, List<Joueur> listeJoueur) {
 		this.nettoyerAffichage();
 
 		// Affichage de la réserve de carte, 5 par 3 à l'horizontal
 		// Pour les 15 piles, on affiche la carte supérieure si il en reste au moins une dans la pile
 		ArrayList<Carte> reserve = new ArrayList<>();
-		for (Carte c : this.ctrl.getMetier().getPioche()) {
+		for (Carte c : pioche) {
 			if (!c.getIdentifiant().equals("M1") &&
 					!c.getIdentifiant().equals("M2") &&
 					!c.getIdentifiant().equals("M3") &&
@@ -204,7 +143,7 @@ public class IHMConsole extends IHM {
 		this.retarderAffichage(1500);
 
 		// Affichage des joueurs 2 par 2 à l'horizontal
-		for (Joueur j : ctrl.getMetier().getListeJoueur()) {
+		for (Joueur j : listeJoueur) {
 			System.out.println("\n###############");
 			System.out.println("# " + String.format("%-11s", "Joueur " + j.getNum()) + " #");
 			System.out.println("# " + String.format("%-11s", j.getPieces() + " pièces") + " #");
@@ -220,7 +159,7 @@ public class IHMConsole extends IHM {
 		System.out.println("\n\n");
 	}
 
-	public void afficherDebutTour(Joueur j) {
+	public void nouveauTour(Joueur j) {
 		this.nettoyerAffichage();
 
 		this.afficherBoite("Début du tour du joueur " + j.getNum());
@@ -354,7 +293,7 @@ public class IHMConsole extends IHM {
 		System.out.println(bord + "\n");
 	}
 
-	public void afficherValeurDes(int de1, int de2) {
+	public void afficherDes(int de1, int de2) {
 		this.afficherBoite("Valeurs des dés : " + (de1 + de2));
 	}
 
@@ -491,6 +430,64 @@ public class IHMConsole extends IHM {
 
 	private String ucfirst(String chaine) {
 		return chaine.substring(0, 1).toUpperCase() + chaine.substring(1).toLowerCase();
+	}
+
+
+	/**
+	 * Retourne le choix de l'utilisateur pour le menu principal.
+	 * Si la saisie est incorrecte (<i>NumberFormatException</i> est levée),
+	 * la fonction se rappelle elle-même.
+	 *
+	 * @return le choix de l'utilisateur.
+	 */
+	private int choixMenu() {
+		return this.choixMenu(1, this.nbItemsDernierMenu);
+	}
+
+	private int choixMenu(int min, int max) {
+		System.out.print("\n   choix : ");
+		CouleurConsole.JAUNE.print();
+
+		Scanner sc = new Scanner(System.in);
+
+		int menu;
+
+		try {
+			menu = sc.nextInt();
+			CouleurConsole.RESET.print();
+		} catch (NumberFormatException | InputMismatchException ignored) {
+			this.messageCouleur("Veuillez entrer un nombre valide.", CouleurConsole.ROUGE);
+
+			sc.nextLine();
+			return this.choixMenu(min, max);
+		}
+
+		if (menu < min || menu > max) {
+			this.messageCouleur("Choix invalide", CouleurConsole.ROUGE);
+
+			sc.nextLine();
+			return this.choixMenu(min, max);
+		}
+
+		// On scan dans le vide comme on a changé de type
+		sc.nextLine();
+		System.out.println();
+		return menu;
+	}
+
+	private String choixCarte() {
+		this.afficherBoite("Choisissez la carte à acheter\n(tapez -1 pour annuler)");
+
+		System.out.print("\n   choix : ");
+		CouleurConsole.JAUNE.print();
+
+		Scanner sc = new Scanner(System.in);
+		String in = sc.nextLine();
+
+		System.out.println();
+		CouleurConsole.RESET.print();
+
+		return in;
 	}
 
 }

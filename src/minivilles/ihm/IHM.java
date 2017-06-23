@@ -1,6 +1,7 @@
 package minivilles.ihm;
 
 import minivilles.Controleur;
+import minivilles.metier.Banque;
 import minivilles.metier.Joueur;
 import minivilles.metier.cartes.Carte;
 
@@ -30,7 +31,7 @@ import java.util.*;
  * @see minivilles.metier.Joueur
  * @see minivilles.metier.Banque
  */
-public abstract class IHM{
+public abstract class IHM {
 
 	protected Controleur ctrl;
 
@@ -45,28 +46,7 @@ public abstract class IHM{
 	}
 
 
-	public abstract void afficherMenuPrincipal();
-
-	public abstract void afficherMenuAchat(Joueur joueur);
-
-	public abstract void afficherMenuRejouer();
-
-
-	public abstract void initialiserCartes(ArrayList<Carte> pioche);
-
-
-	/**
-	 * Retourne le choix de l'utilisateur pour le menu principal.
-	 * Si la saisie est incorrecte (<i>NumberFormatException</i> est levée),
-	 * la fonction se rappelle elle-même.
-	 *
-	 * @return le choix de l'utilisateur.
-	 */
-	public abstract int choixMenu();
-
-	public abstract int choixMenu(int min, int max);
-
-	public abstract String choixStringMenu();
+	public abstract void initialiserPlateau(ArrayList<Carte> pioche);
 
 	/**
 	 * Retourne le choix de l'utilisateur concernant le nombre de joueurs.
@@ -77,11 +57,19 @@ public abstract class IHM{
 	 */
 	public abstract int choixNbJoueurs();
 
+	public abstract int choixMenuPrincipal();
+
 	public abstract int choixNbDes();
 
 	public abstract int choixDebugDe();
 
+	public abstract int choixAchatMenu(Joueur joueur);
+
+	public abstract int choixRejouerTour();
+
 	public abstract String choixAchatBatiment();
+
+	public abstract String choixAchatMonument();
 
 	public abstract String choixCarteCentreAffaire(String joueur);
 
@@ -89,16 +77,14 @@ public abstract class IHM{
 
 	public abstract String choixJoueurChaineTV();
 
-	public abstract int getDe();
-
 
 	/**
 	 * Créé une représentation textuelle du plateau.
 	 * On affiche la réserve la banque et les villes des joueurs.
 	 */
-	public abstract void afficherPlateau();
+	public abstract void afficherPlateau(List<Carte> pioche, Banque banque, List<Joueur> listeJoueur);
 
-	public abstract void afficherDebutTour(Joueur j);
+	public abstract void nouveauTour(Joueur j);
 
 	/**
 	 * Affiche les cartes ligne par ligne.
@@ -109,7 +95,7 @@ public abstract class IHM{
 
 	public abstract void afficherColonneCarte(ArrayList<Carte> listeCartes);
 
-	public abstract void afficherValeurDes(int de1, int de2);
+	public abstract void afficherDes(int de1, int de2);
 
 	public abstract void afficherBilanTour(Joueur joueur, int piecesAv, int nbDes, int de1, int de2, List<Carte> cartesLancees);
 
@@ -123,7 +109,8 @@ public abstract class IHM{
 	public abstract void nettoyerAffichage();
 
 
-	protected static Map<String, List<Carte>> grouperCartes(ArrayList<Carte> listeCartes) {
+
+	public static Map<String, List<Carte>> grouperCartes(ArrayList<Carte> listeCartes) {
 		TreeMap<String, List<Carte>> cartes = new TreeMap<>(Comparator.comparingInt(IHM::idenEnEntier));
 
 		// On parcoure toutes les cartes pour les regrouper
@@ -131,7 +118,7 @@ public abstract class IHM{
 			String iden = c.getIdentifiant();
 
 			if (!cartes.containsKey(iden))
-				cartes.put(iden, new ArrayList<Carte>());
+				cartes.put(iden, new ArrayList<>());
 
 			cartes.get(iden).add(c);
 		}
@@ -139,7 +126,6 @@ public abstract class IHM{
 		// On retourne un tableau trié
 		return cartes;
 	}
-
 
 	private static int idenEnEntier(String iden) {
 		int p1, p2;
