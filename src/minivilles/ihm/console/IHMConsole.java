@@ -26,6 +26,13 @@ public class IHMConsole extends IHM {
 		// (il est affiché autrepart)
 	}
 
+	@Override
+	public void majPlateau(List<Joueur> joueurs) {
+		// On ne s'en sert pas en mode console
+		// car il n'y a pas de plateau.
+		// (il est affiché autrepart)
+	}
+
 
 	/**
 	 * Retourne le choix de l'utilisateur concernant le nombre de joueurs.
@@ -74,7 +81,7 @@ public class IHMConsole extends IHM {
 	}
 
 	public int choixRejouerTour() {
-		this.afficherBoite("Vous avez la tour Radio.\nVoulez-vous rejouer ?", "Oui", "Non");
+		this.afficherBoite("Vous avez la tour Radio.\nVoulez-vous relancer les dés ?", "Oui", "Non");
 		return this.choixMenu();
 	}
 
@@ -87,7 +94,7 @@ public class IHMConsole extends IHM {
 		return this.choixCarte();
 	}
 
-	public String choixCarteCentreAffaire(String joueur) {
+	public String choixCarteCentreAffaire(String joueur, List<Carte> cartesEchangeables) {
 		System.out.println("\n-- Choisissez la carte " + joueur + " à échanger qui ne soit pas violette");
 		System.out.print("   > son identifiant : ");
 
@@ -96,7 +103,7 @@ public class IHMConsole extends IHM {
 		return sc.nextLine();
 	}
 
-	public String choixJoueurCentreAffaire() {
+	public String choixJoueurCentreAffaire(List<Joueur> listeJoueur, Joueur joueurCourant) {
 		System.out.println("\n-- Choisissez le joueur avec qui échanger une carte");
 		System.out.println("   (tapez -1 pour annuler)");
 		System.out.print("   > son identifiant : ");
@@ -106,7 +113,7 @@ public class IHMConsole extends IHM {
 		return sc.nextLine();
 	}
 
-	public String choixJoueurChaineTV() {
+	public String choixJoueurChaineTV(List<Joueur> listeJoueur, Joueur joueurCourant) {
 		System.out.println("\n-- Choisissez le joueur à qui voler 5 pièces");
 		System.out.println("   (tapez -1 pour annuler)");
 		System.out.print("   > son identifiant : ");
@@ -323,6 +330,12 @@ public class IHMConsole extends IHM {
 		this.retarderAffichage(2000);
 	}
 
+	public void afficherRejouerEffet() {
+		System.out.println();
+		this.afficherBoite("Vous avez obtenu un double !\nVous pouvez jouer 2x.");
+		System.out.println();
+	}
+
 	public void afficherGagnant(Joueur gagnant) {
 		System.out.println();
 		this.afficherBoite("Le joueur #" + gagnant.getNum() + " gagne !");
@@ -415,10 +428,10 @@ public class IHMConsole extends IHM {
 
 	@Override
 	public boolean choixChargerPartie() {
-		Scanner sc = new Scanner(System.in);
 		this.nettoyerAffichage();
 		this.afficherBoite("Charger une partie existante ?", "Oui", "Non");
-		return sc.nextLine().equalsIgnoreCase("1") ? true : false;
+
+		return this.choixMenu() == 1;
 	}
 
 	private void messageCouleur(String message, CouleurConsole couleur) {

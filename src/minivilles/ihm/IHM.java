@@ -48,6 +48,8 @@ public abstract class IHM {
 
 	public abstract void initialiserPlateau(ArrayList<Carte> pioche, int nbJoueurs);
 
+	public abstract void majPlateau(List<Joueur> joueurs);
+
 	/**
 	 * Retourne le choix de l'utilisateur concernant le nombre de joueurs.
 	 * Si la saisie est incorrecte (<i>NumberFormatException</i> est levée),
@@ -71,11 +73,11 @@ public abstract class IHM {
 
 	public abstract String choixAchatMonument();
 
-	public abstract String choixCarteCentreAffaire(String joueur);
+	public abstract String choixCarteCentreAffaire(String joueur, List<Carte> cartesEchangeables);
 
-	public abstract String choixJoueurCentreAffaire();
+	public abstract String choixJoueurCentreAffaire(List<Joueur> listeJoueur, Joueur joueurCourant);
 
-	public abstract String choixJoueurChaineTV();
+	public abstract String choixJoueurChaineTV(List<Joueur> listeJoueur, Joueur joueurCourant);
 
 
 	/**
@@ -98,6 +100,8 @@ public abstract class IHM {
 	public abstract void afficherDes(int de1, int de2);
 
 	public abstract void afficherBilanTour(Joueur joueur, int piecesAv, int nbDes, int de1, int de2, List<Carte> cartesLancees);
+
+	public abstract void afficherRejouerEffet();
 
 	public abstract void afficherGagnant(Joueur gagnant);
 

@@ -248,42 +248,6 @@ public abstract class Carte implements Serializable {
 
 	@Override
 	public String toString() {
-		/*
-		String retS = "";
-		int largeur;
-		if (this.couleurEffet.length() < this.texteEffet.length()) {
-			largeur = this.texteEffet.length() + 5;
-		} else {
-			largeur = this.couleurEffet.length() + 5;
-		}
-
-		retS += String.format("%0" + largeur + "d", 0).replace("0", "=");
-		retS += "\n";
-		retS += "|" + String.format("%" + (largeur - 2) + "s", this.declencheur) + "|";
-		retS += "\n";
-		retS += "|" + String.format("%" + -(largeur - 2) + "s", this.nom) + "|";
-		retS += "\n";
-
-		for (int i = 0; i < 3; i++) {
-			retS += "|" + String.format("%0" + (largeur - 2) + "d", 0).replace("0", " ") + "|";
-			retS += "\n";
-		}
-		retS += "|" + String.format("%" + (largeur - 2) + "s", this.couleurEffet) + "|";
-
-		retS += "\n";
-
-		retS += "|" + String.format("%" + (largeur - 2) + "s", this.texteEffet) + "|";
-
-		retS += "\n";
-
-		retS += "|" + String.format("%" + -(largeur - 2) + "s", "Coût de construction : " + this.cout) + "|";
-
-		retS += "\n";
-
-		retS += String.format("%0" + largeur + "d", 0).replace("0", "=");
-
-		return retS;
-		*/
 		return this.getIdentifiant() + " - " + this.getNom();
 	}
 }

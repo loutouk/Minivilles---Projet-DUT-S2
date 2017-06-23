@@ -9,7 +9,7 @@ public class ChaineDeTelevision extends Carte {
 	public ChaineDeTelevision() {
 		super(
 				"6:2", "Chaîne de télévision",
-				"Spécial", 6, 7
+				"Violet", 6, 7
 		);
 	}
 
@@ -22,20 +22,24 @@ public class ChaineDeTelevision extends Carte {
 		Joueur joueurCible;
 		
 		
-		while(choixJoueur < 1 || choixJoueur > nbJoueur) {
-			choixJoueur = Integer.parseInt(Controleur.getIhm().choixJoueurChaineTV());
+		while(choixJoueur != -1 && (choixJoueur < 1 || choixJoueur > nbJoueur)) {
+			choixJoueur = Integer.parseInt(
+					Controleur.getIhm().choixJoueurChaineTV(metier.getListeJoueur(), metier.getJoueurCourant())
+			);
 		}
 		
-		joueurCible = metier.getListeJoueur().get(choixJoueur - 1);
-		
-		if(joueurCible.getPieces() >= don) {
-			joueurCible.retirerPiece(don);
-			joueurCourant.addPiece(don);
-		}
-		else {
-			don = joueurCible.getPieces();
-			joueurCible.retirerPiece(don);
-			joueurCourant.addPiece(don);
+		if (choixJoueur != -1) {
+			joueurCible = metier.getListeJoueur().get(choixJoueur - 1);
+
+			if(joueurCible.getPieces() >= don) {
+				joueurCible.retirerPiece(don);
+				joueurCourant.addPiece(don);
+			}
+			else {
+				don = joueurCible.getPieces();
+				joueurCible.retirerPiece(don);
+				joueurCourant.addPiece(don);
+			}
 		}
 	}
 }

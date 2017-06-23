@@ -91,20 +91,21 @@ public class Controleur {
 
 	private void initialiserPartie() {
 		boolean chargerPartie = ihm.choixChargerPartie();
-		if(chargerPartie){
+
+		if (chargerPartie) {
 			Metier temporaire = Sauvegarde.getInstance().charger();
+
 			// Si pas de fichier sauvegarde
-			if(temporaire==null){
+			if (temporaire == null) {
 				chargerPartie = false;
 				ihm.afficherErreur("Pas de fichier sauvegarde existant ! Création d'une nouvelle partie...");
 			}
 			// Chargement réussi, on charge le métier sérialisé
-			if(temporaire!=null) metier = temporaire;
+			else metier = temporaire;
 		}
-		if(!chargerPartie){
-			int nbJoueurs = ihm.choixNbJoueurs();
-			metier.initialiserPlateau(nbJoueurs);
-		}
+
+		if (!chargerPartie)
+			metier.initialiserPlateau(ihm.choixNbJoueurs());
 
 		ihm.initialiserPlateau(metier.getPioche(), metier.getJoueurs().size());
 	}
@@ -136,6 +137,7 @@ public class Controleur {
 				if (!this.debugMode) de = this.lancerDe();
 				else de = ihm.choixDebugDe();
 
+				de = 6;
 
 				if (de1 == 0) de1 = de;
 				else de2 = de;
@@ -161,9 +163,12 @@ public class Controleur {
 
 			rejouer = (de1 == de2 && !((Monument) (joueur.rechercherCarte("M3"))).estEnConstruction());
 
+			// Affichage de l'effet pour rejouer le tour
+			if (rejouer) ihm.afficherRejouerEffet();
 
 			// Affichage du bilan du tour
 			ihm.afficherBilanTour(joueur, pieceAvant, nombreDeDes, de1, de2, cartesLancees);
+			ihm.majPlateau(metier.getListeJoueur());
 
 
 			// Menu d'achat de batîment

@@ -13,7 +13,6 @@ import java.util.List;
 public class IHMGUI extends IHM {
 
 	private Fenetre fenetre;
-	private int nombreDeJoueurs;
 
 	private boolean attenteMenu;
 
@@ -29,18 +28,20 @@ public class IHMGUI extends IHM {
 		this.fenetre.majPioche(IHM.grouperCartes(pioche));
 		this.fenetre.initialiserPanelsJoueurs(nbJoueurs);
 
-		this.nombreDeJoueurs = nbJoueurs;
-
-
 		this.fenetre.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.fenetre.setVisible(true);
 		this.fenetre.pack();
 	}
 
 	@Override
-	public int choixNbJoueurs() {
+	public void majPlateau(List<Joueur> joueurs) {
+		this.fenetre.majInfoJoueurs(joueurs);
+	}
 
+	@Override
+	public int choixNbJoueurs() {
 		Integer[] nb = {2, 3, 4};
+
 		Integer nbJ = (Integer) JOptionPane.showInputDialog(this.fenetre,
 				"",
 				"Minivilles : nombre de joueurs",
@@ -91,7 +92,7 @@ public class IHMGUI extends IHM {
 	@Override
 	public int choixRejouerTour() {
 		int dialogResult = JOptionPane.showConfirmDialog (
-				null, "Vous avez la tour Radio.\nVoulez-vous rejouer ?", "Effet de la tour Radio", JOptionPane.YES_NO_OPTION
+				null, "Vous avez la tour Radio.\nVoulez-vous relancer vos dés ?", "Effet de la tour Radio", JOptionPane.YES_NO_OPTION
 		);
 
 		return (dialogResult == JOptionPane.YES_OPTION) ? 1 : 2;
@@ -122,18 +123,44 @@ public class IHMGUI extends IHM {
 	}
 
 	@Override
-	public String choixCarteCentreAffaire(String joueur) {
-		return "";
+	public String choixCarteCentreAffaire(String labelJoueur, List<Carte> cartesEchangeables) {
+		List<String> nomsCartes = new ArrayList<>();
+
+		for (Carte carte : cartesEchangeables)
+			nomsCartes.add(carte.getNom());
+
+		Object selection = JOptionPane.showInputDialog(null, "Choisissez la carte à échanger avec le joueur " + labelJoueur + ":\nOu cliquez sur annuler.",
+				"Effet de la carte Centre d'affaires", JOptionPane.QUESTION_MESSAGE, null, nomsCartes.toArray(), null);
+
+		return (selection != null) ? selection.toString() : "-1";
 	}
 
 	@Override
-	public String choixJoueurCentreAffaire() {
-		return "";
+	public String choixJoueurCentreAffaire(List<Joueur> joueurs, Joueur joueurCourant) {
+		List<String> nomsJoueurs = new ArrayList<>();
+
+		for (Joueur joueur : joueurs)
+			if (!joueur.equals(joueurCourant))
+				nomsJoueurs.add("Joueur " + joueur.getNum());
+
+		Object selection = JOptionPane.showInputDialog(null, "Choisissez le joueur avec qui échanger une carte :\nOu cliquez sur annuler.",
+				"Effet de la carte Centre d'affaires", JOptionPane.QUESTION_MESSAGE, null, nomsJoueurs.toArray(), null);
+
+		return (selection != null) ? selection.toString().replace("Joueur ", "") : "-1";
 	}
 
 	@Override
-	public String choixJoueurChaineTV() {
-		return "";
+	public String choixJoueurChaineTV(List<Joueur> joueurs, Joueur joueurCourant) {
+		List<String> nomsJoueurs = new ArrayList<>();
+
+		for (Joueur joueur : joueurs)
+			if (!joueur.equals(joueurCourant))
+				nomsJoueurs.add("Joueur " + joueur.getNum());
+
+		Object selection = JOptionPane.showInputDialog(null, "Choisissez le joueur à qui voler 5 pièces :\nOu cliquez sur annuler.",
+				"Effet de la carte Chaîne de télévision", JOptionPane.QUESTION_MESSAGE, null, nomsJoueurs.toArray(), null);
+
+		return (selection != null) ? selection.toString().replace("Joueur ", "") : "-1";
 	}
 
 	@Override
@@ -175,6 +202,11 @@ public class IHMGUI extends IHM {
 	public void afficherBilanTour(Joueur joueur, int piecesAv, int nbDes, int de1, int de2, List<Carte> cartesLancees) {
 		this.afficherDes(de1, de2);
 		this.fenetre.majInfoJoueur(joueur);
+	}
+
+	@Override
+	public void afficherRejouerEffet() {
+		this.boiteDeDialogue("Effet du monument Parc d'attractions", "Vous avez obtenu un double !\nVous pouvez jouer 2x.", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	@Override
