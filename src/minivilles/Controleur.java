@@ -217,6 +217,11 @@ public class Controleur {
 						if (carte instanceof Monument) {
 							Monument monument = (Monument) carte;
 
+							if (!monument.estEnConstruction()) {
+								ihm.afficherErreur("Vous possédez déjà ce monument !");
+								continue;
+							}
+
 							if (metier.construireMonument(monument, joueur))
 								achatTermine = true;
 							else
