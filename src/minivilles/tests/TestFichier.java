@@ -1,6 +1,7 @@
 package minivilles.tests;
 
 import minivilles.Controleur;
+import minivilles.ihm.console.CouleurConsole;
 import minivilles.metier.Joueur;
 import minivilles.metier.cartes.Carte;
 import minivilles.metier.cartes.monuments.Monument;
@@ -23,7 +24,41 @@ public class TestFichier {
 
 
 	private void initialiserControleur() {
-		// TODO
+		boolean ok;
+		Scanner sc = new Scanner(System.in);
+
+		do {
+
+			CouleurConsole.VERT.print();
+			System.out.println("-----------------------------------");
+			System.out.println("|     PROGRAMME D'EVALUATION      |");
+			System.out.println("-----------------------------------");
+			System.out.println("|                                 |");
+			System.out.println("|  1. Mode console monoposte      |");
+			System.out.println("|  2. Mode GUI     monoposte      |");
+			System.out.println("|  3. Mode console en réseau      |");
+			System.out.println("|  4. Mode GUI     en réseau      |");
+			System.out.println("|                                 |");
+			System.out.println("-----------------------------------");
+			CouleurConsole.RESET.print();
+
+			System.out.print  ("\n   choix : " + CouleurConsole.JAUNE);
+			int choix = sc.nextInt();
+			sc.nextLine();
+
+			ok = choix >= 1 && choix <= 4;
+
+			// Création du bon controleur
+			if (ok) {
+				this.nettoyerAffichage();
+				this.ctrl = new Controleur(
+						(choix == 2 || choix == 4) ? "gui" : "console",
+						true
+				);
+			} else
+				System.out.print(CouleurConsole.ROUGE + "   Choix invalide !\n\n");
+		}
+		while (!ok);
 	}
 
 	private void analyserFichier(File f) throws Exception {
@@ -106,6 +141,11 @@ public class TestFichier {
 			ex.printStackTrace();
 		}
 
+		// On initialise le plateau en IHM
+		Controleur.getIhm().initialiserPlateau(
+				this.ctrl.getMetier().getPioche(),
+				nbJoueur
+		);
 
 		this.ctrl.lancer();
 	}
@@ -126,6 +166,17 @@ public class TestFichier {
 		}
 
 		return nb;
+	}
+
+	private void nettoyerAffichage() {
+		// Clean de la console en fonction du système d'exploitation
+		try {
+			if (System.getProperty("os.name").contains("Windows"))
+				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+			else {
+				System.out.print("\033[H\033[2J");
+			}
+		} catch (final Exception ignored) {}
 	}
 
 

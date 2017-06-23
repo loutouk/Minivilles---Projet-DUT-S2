@@ -1,16 +1,12 @@
-package minivilles.ihm.gui;
+package minivilles.net;
 
-import minivilles.ihm.IHM;
-import minivilles.metier.Joueur;
-import minivilles.metier.cartes.Carte;
-import minivilles.metier.cartes.monuments.Monument;
 import minivilles.Controleur;
-import java.net.*;
+
 import java.io.*;
+import java.net.Socket;
 
 
-public class ServThread extends Thread
-{
+public class ServThread extends Thread {
 	private Socket socket;
 	private Serveur myServ;
 
@@ -22,76 +18,70 @@ public class ServThread extends Thread
 	private PrintWriter printWrite;
 
 	private String username = null;
-	public ServThread(Serveur myServ, Socket socket)
-	{
+
+
+	public ServThread(Serveur myServ, Socket socket) {
 		this.socket = socket;
 		this.myServ = myServ;
 		this.launch();
 	}
 
-	public void run()
-	{
-		printWrite.println("Tu es bien connecté ["+this.socket.getRemoteSocketAddress()+"]");
 
-		while(socket != null)
-		{
+	public void run() {
+		printWrite.println("Tu es bien connecté [" + this.socket.getRemoteSocketAddress() + "]");
 
-			try
-			{
-			
+		while (socket != null) {
+
+			try {
+
 				ObjectInputStream ois;
 				ois = new ObjectInputStream(socket.getInputStream());
 				Controleur ctrl = (Controleur) ois.readObject();
-				if(ctrl!=null) myServ.handle(ctrl,this);
+				if (ctrl != null) myServ.handle(ctrl, this);
 				System.out.println(ctrl);
-				
+
+			} catch (IOException ioe) {
+				System.out.println("Server accept error: " + ioe);
+			} catch (ClassNotFoundException ce) {
+				System.out.println("Class not found : " + ce);
 			}
-			catch(IOException ioe)
-            {
-                System.out.println("Server accept error: " + ioe); 
-            }
-            catch(ClassNotFoundException ce) { System.out.println("Class not found : " + ce);}
 		}
 
 	}
 
-	public void command(String msg)
-	{
+	public void command(String msg) {
 		String[] command = msg.split(" ", 2);
 
-		switch(command[0])
-		{
-			case "!username" : this.username = command[1];
+		switch (command[0]) {
+			case "!username":
+				this.username = command[1];
 		}
 	}
 
-	public void send(Controleur ctrl)
-    {
-    
+	public void send(Controleur ctrl) {
+
 		try {
 			ObjectOutputStream oos;
 			oos = new ObjectOutputStream(streamOut);
 			oos.writeObject(ctrl);
-		} catch(IOException ioe)
-		     {
-		         System.out.println("Server accept error: " + ioe); stop();
-		     }
+		} catch (IOException ioe) {
+			System.out.println("Server accept error: " + ioe);
+			stop();
+		}
 	}
-	public void launch()
-	{
-		try
-		{
+
+	public void launch() {
+		try {
 			streamIn = this.socket.getInputStream();
 			streamInRead = new InputStreamReader(streamIn);
 			buffRead = new BufferedReader(streamInRead);
 
 			streamOut = this.socket.getOutputStream();
 			printWrite = new PrintWriter(streamOut, true);
+		} catch (IOException ioe) {
+			System.out.println("Server accept error: " + ioe);
+			stop();
 		}
-		catch(IOException ioe)
-        {
-            System.out.println("Server accept error: " + ioe); stop();
-        }
 
 	}
 }
