@@ -2,6 +2,7 @@ package minivilles.ihm.gui;
 
 import minivilles.Controleur;
 import minivilles.ihm.IHM;
+import minivilles.metier.Banque;
 import minivilles.metier.Joueur;
 import minivilles.metier.cartes.Carte;
 
@@ -14,69 +15,26 @@ public class IHMGUI extends IHM {
 	private Fenetre fenetre;
 	private int nombreDeJoueurs;
 
-	private String menu;
+	private boolean attenteMenu;
 
 
 	public IHMGUI(Controleur ctrl) {
 		super(ctrl);
-		this.fenetre = new Fenetre(ctrl.getMetier());
+		this.fenetre = new Fenetre();
 	}
 
-	@Override
-	public void afficherMenuPrincipal() {
-		this.menu = "principal";
-	}
 
 	@Override
-	public void afficherMenuAchat(Joueur joueur) {
-		this.menu = "achat";
-	}
-
-	@Override
-	public void afficherMenuRejouer() {
-		this.menu = "rejouer";
-	}
-
-	@Override
-	public void initialiserCartes(ArrayList<Carte> pioche) {
-
-		this.fenetre.initialiserCartes(IHM.grouperCartes(pioche));
-		fenetre.setPanelJoueurs(nombreDeJoueurs);
-	}
-
-	@Override
-	public int choixMenu() {
-		return this.choixMenu(1, Integer.MAX_VALUE);
-	}
-
-	@Override
-	public int choixMenu(int min, int max) {
-		if (this.menu.equals("achat")) {
-			// On attends le clic sur un des boutons d'action de l'IHM
-			while (!this.fenetre.isAcheter() && !this.fenetre.isConstruire() && !this.fenetre.isPasserTour()) {
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-
-			return this.fenetre.isAcheter() ? 1 : ((this.fenetre.isConstruire()) ? 2 : 3);
-		}
-
-		return 1;
-	}
-
-	@Override
-	public String choixStringMenu() {
-		return null;
+	public void initialiserPlateau(ArrayList<Carte> pioche) {
+		this.fenetre.majPioche(IHM.grouperCartes(pioche));
+		this.fenetre.initialiserPanelsJoueurs(nombreDeJoueurs);
 	}
 
 	@Override
 	public int choixNbJoueurs() {
 
 		Integer[] nb = {2, 3, 4};
-		nombreDeJoueurs = (Integer) JOptionPane.showInputDialog(fenetre,
+		this.nombreDeJoueurs = (Integer) JOptionPane.showInputDialog(fenetre,
 				"",
 				"Nombre de joueurs",
 				JOptionPane.QUESTION_MESSAGE,
@@ -84,7 +42,13 @@ public class IHMGUI extends IHM {
 				nb,
 				nb[0]);
 
-		return nombreDeJoueurs;
+		return this.nombreDeJoueurs;
+	}
+
+	@Override
+	public int choixMenuPrincipal() {
+		// Dans l'interface graphique, on lance forcément le jeu.
+		return 1;
 	}
 
 	@Override
@@ -100,9 +64,39 @@ public class IHMGUI extends IHM {
 	}
 
 	@Override
-	public String choixAchatBatiment() {
+	public int choixAchatMenu(Joueur joueur) {
+		System.out.println("menu de sélection");
+		this.attenteClicMenu();
+		return this.fenetre.isAcheter() ? 1 : ((this.fenetre.isConstruire()) ? 2 : 3);
+	}
 
-        return fenetre.getAcheterBatimentListe().getSelectedItem().toString();
+	@Override
+	public int choixRejouerTour() {
+		return 0;
+	}
+
+	@Override
+	public String choixAchatBatiment() {
+		if (this.attenteMenu) {
+			this.attenteMenu = false;
+			return "-1";
+		}
+
+		this.attenteMenu = true;
+
+		return fenetre.getAcheterBatimentListe().getSelectedItem().toString();
+	}
+
+	@Override
+	public String choixAchatMonument() {
+		if (this.attenteMenu) {
+			this.attenteMenu = false;
+			return "-1";
+		}
+
+		this.attenteMenu = true;
+
+		return fenetre.getConstruireMonumentListe().getSelectedItem().toString();
 	}
 
 	@Override
@@ -121,33 +115,31 @@ public class IHMGUI extends IHM {
 	}
 
 	@Override
-	public int getDe() {
-		return 0;
+	public void afficherPlateau(List<Carte> pioche, Banque banque, List<Joueur> listeJoueur) {
+		this.fenetre.majPioche(IHM.grouperCartes((ArrayList<Carte>) pioche));
+		this.fenetre.majInfoJoueurs(listeJoueur);
 	}
 
 	@Override
-	public void afficherPlateau() {
+	public void nouveauTour(Joueur j) {
+		this.attenteMenu = false;
 
-	}
-
-	@Override
-	public void afficherDebutTour(Joueur j) {
-
+		this.fenetre.getTourLabel().setText("Tour: joueur " + j.getNum());
+		this.fenetre.nouveauJoueurCourant(j);
 	}
 
 	@Override
 	public void afficherLigneCarte(ArrayList<Carte> listeCartes) {
-
 	}
 
 	@Override
 	public void afficherColonneCarte(ArrayList<Carte> listeCartes) {
-
 	}
 
 	@Override
-	public void afficherValeurDes(int de1, int de2) {
+	public void afficherDes(int de1, int de2) {
 
+		fenetre.getImageDeUn().setVisible(true);
 		fenetre.getImageDeUn().setIcon(new ImageIcon(Art.getImage("des/" + de1)));
 
 		if (de2 != 0) {
@@ -159,7 +151,8 @@ public class IHMGUI extends IHM {
 
 	@Override
 	public void afficherBilanTour(Joueur joueur, int piecesAv, int nbDes, int de1, int de2, List<Carte> cartesLancees) {
-		this.afficherValeurDes(de1, de2);
+		this.afficherDes(de1, de2);
+		this.fenetre.majInfoJoueur(joueur);
 	}
 
 	@Override
@@ -179,7 +172,21 @@ public class IHMGUI extends IHM {
 
 	@Override
 	public void nettoyerAffichage() {
+		// Inutile de nettoyer l'affichage en mode graphique.
+	}
 
+
+	private void attenteClicMenu() {
+		this.fenetre.resetMenu();
+
+		// On attends le clic sur un des boutons d'action de l'IHM
+		while (!this.fenetre.isAcheter() && !this.fenetre.isConstruire() && !this.fenetre.isPasserTour()) {
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override

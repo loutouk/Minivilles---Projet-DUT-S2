@@ -22,7 +22,7 @@ public class Joueur implements Serializable {
 	 */
 	public Joueur() {
 		this.num = ++autoInc;
-		this.pieces = 3;
+		this.pieces = 1000;
 		main = new ArrayList<>();
 	}
 
