@@ -104,8 +104,9 @@ public class Controleur {
 		if(!chargerPartie){
 			int nbJoueurs = ihm.choixNbJoueurs();
 			metier.initialiserPlateau(nbJoueurs);
-			ihm.initialiserPlateau(metier.getPioche());
 		}
+
+		ihm.initialiserPlateau(metier.getPioche(), metier.getJoueurs().size());
 	}
 
 	private void lancerPartie() {

@@ -46,7 +46,7 @@ public abstract class IHM {
 	}
 
 
-	public abstract void initialiserPlateau(ArrayList<Carte> pioche);
+	public abstract void initialiserPlateau(ArrayList<Carte> pioche, int nbJoueurs);
 
 	/**
 	 * Retourne le choix de l'utilisateur concernant le nombre de joueurs.

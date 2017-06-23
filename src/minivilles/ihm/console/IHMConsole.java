@@ -7,9 +7,7 @@ import minivilles.metier.Joueur;
 import minivilles.metier.cartes.Carte;
 import minivilles.metier.cartes.monuments.Monument;
 
-import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 public class IHMConsole extends IHM {
 
@@ -22,7 +20,7 @@ public class IHMConsole extends IHM {
 
 
 	@Override
-	public void initialiserPlateau(ArrayList<Carte> pioche) {
+	public void initialiserPlateau(ArrayList<Carte> pioche, int nbJoueurs) {
 		// On ne s'en sert pas en mode console
 		// car il n'y a pas de plateau.
 		// (il est affiché autrepart)
@@ -76,7 +74,7 @@ public class IHMConsole extends IHM {
 	}
 
 	public int choixRejouerTour() {
-		this.afficherBoite("Voulez-vous rejouer ?", "Oui", "Non");
+		this.afficherBoite("Vous avez la tour Radio.\nVoulez-vous rejouer ?", "Oui", "Non");
 		return this.choixMenu();
 	}
 

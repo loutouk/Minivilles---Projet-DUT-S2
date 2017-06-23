@@ -25,24 +25,32 @@ public class IHMGUI extends IHM {
 
 
 	@Override
-	public void initialiserPlateau(ArrayList<Carte> pioche) {
+	public void initialiserPlateau(ArrayList<Carte> pioche, int nbJoueurs) {
 		this.fenetre.majPioche(IHM.grouperCartes(pioche));
-		this.fenetre.initialiserPanelsJoueurs(nombreDeJoueurs);
+		this.fenetre.initialiserPanelsJoueurs(nbJoueurs);
+
+		this.nombreDeJoueurs = nbJoueurs;
+
+
+		this.fenetre.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.fenetre.setVisible(true);
+		this.fenetre.pack();
 	}
 
 	@Override
 	public int choixNbJoueurs() {
 
 		Integer[] nb = {2, 3, 4};
-		this.nombreDeJoueurs = (Integer) JOptionPane.showInputDialog(fenetre,
+		Integer nbJ = (Integer) JOptionPane.showInputDialog(this.fenetre,
 				"",
-				"Nombre de joueurs",
+				"Minivilles : nombre de joueurs",
 				JOptionPane.QUESTION_MESSAGE,
 				null,
 				nb,
 				nb[0]);
 
-		return this.nombreDeJoueurs;
+		if (nbJ == null) System.exit(0);
+		return nbJ;
 	}
 
 	@Override
@@ -53,9 +61,19 @@ public class IHMGUI extends IHM {
 
 	@Override
 	public int choixNbDes() {
+		Integer[] nb = {1, 2};
 
-		// Dialog box qui choisi un ou deux de si la gare
-		return 1;
+		Integer choix = (Integer) JOptionPane.showInputDialog(this.fenetre,
+				"Combien de dés voulez-vous lancer ?",
+				"Nombre de dés à lancer",
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				nb,
+				nb[0]);
+
+		if (choix == null) return nb[0];
+
+		return choix;
 	}
 
 	@Override
@@ -72,7 +90,11 @@ public class IHMGUI extends IHM {
 
 	@Override
 	public int choixRejouerTour() {
-		return 0;
+		int dialogResult = JOptionPane.showConfirmDialog (
+				null, "Vous avez la tour Radio.\nVoulez-vous rejouer ?", "Effet de la tour Radio", JOptionPane.YES_NO_OPTION
+		);
+
+		return (dialogResult == JOptionPane.YES_OPTION) ? 1 : 2;
 	}
 
 	@Override
@@ -157,17 +179,27 @@ public class IHMGUI extends IHM {
 
 	@Override
 	public void afficherGagnant(Joueur gagnant) {
+		this.boiteDeDialogue(
+				"Partie terminée !",
+				"Le joueur " + gagnant.getNum() + " est le grand gagnant !\nBravo à lui !",
+				JOptionPane.INFORMATION_MESSAGE
+		);
 
+		System.exit(0);
 	}
 
 	@Override
 	public void afficherModeEvaluation() {
-		System.out.println("Mode évaluation activé !");
+		this.boiteDeDialogue(
+				"Minivilles : mode évaluation",
+				"Mode évaluation activé !\nCe dernier n'est pas représentatif d'une partie classique.",
+				JOptionPane.WARNING_MESSAGE
+		);
 	}
 
 	@Override
 	public void afficherErreur(String erreur) {
-		JOptionPane.showMessageDialog(this.fenetre, erreur, "Erreur !", JOptionPane.ERROR_MESSAGE);
+		this.boiteDeDialogue("Erreur !", erreur, JOptionPane.ERROR_MESSAGE);
 	}
 
 	@Override
@@ -189,8 +221,17 @@ public class IHMGUI extends IHM {
 		}
 	}
 
+	private void boiteDeDialogue(String titre, String message, int typeMessage) {
+		JOptionPane.showMessageDialog(this.fenetre, message, titre, typeMessage);
+	}
+
+
 	@Override
 	public boolean choixChargerPartie() {
-		return false;
+		int dialogResult = JOptionPane.showConfirmDialog (
+				null, "Voulez-vous charger une partie existante ?", "Minivilles : chargement d'une partie", JOptionPane.YES_NO_OPTION
+		);
+
+		return dialogResult == JOptionPane.YES_OPTION;
 	}
 }

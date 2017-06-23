@@ -54,7 +54,6 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
         this.construire = false;
 
         setTitle("Miniville");
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(3);
 
         JPanel panelGlobal = new JPanel();
@@ -133,8 +132,7 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
         /////////////////////////////////////////////////////////////////////////////////////
 
         add(panelGlobal);
-        setVisible(true);
-        pack();
+        setVisible(false);
     }
 
 
@@ -205,6 +203,16 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
 			if (c instanceof Monument) continue;
 
 			liste.addItem(c.getNom() + "  x" + nb);
+		}
+
+		// Mise à jour des monuments du joueur
+		for (int cpt = 0; cpt < 4; cpt++) {
+			JLabel labelMonument = (JLabel) contenantP.getComponent(cpt + 1);
+			Monument monument = (Monument) cartesJ.get("M" + (cpt + 1)).get(0);
+
+			String labelEc = (monument.estEnConstruction()) ? "EP" : "P";
+
+			labelMonument.setIcon(new ImageIcon(Art.getImage("cartes/M" + (cpt + 1) + labelEc)));
 		}
 	}
 
