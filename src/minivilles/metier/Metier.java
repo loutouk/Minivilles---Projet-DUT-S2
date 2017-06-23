@@ -3,6 +3,7 @@ package minivilles.metier;
 import minivilles.metier.cartes.*;
 import minivilles.metier.cartes.monuments.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * Created by bl160661 on 09/06/17.
  */
 
-public class Metier {
+public class Metier implements Serializable{
 
 	private ArrayList<Carte> pioche;
 	private ArrayList<Joueur> listeJoueur;

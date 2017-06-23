@@ -167,4 +167,5 @@ public abstract class IHM{
 		return p1 * 10 + p2;
 	}
 
+    public abstract boolean choixChargerPartie();
 }

@@ -7,6 +7,7 @@ import minivilles.metier.Joueur;
 import minivilles.metier.Metier;
 import minivilles.metier.cartes.Carte;
 import minivilles.metier.cartes.monuments.Monument;
+import minivilles.utilitaire.Sauvegarde;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,6 @@ public class Controleur {
 			Controleur.ihm = new IHMConsole(this);
 		else{
 			Controleur.ihm = new IHMGUI(this);
-			System.out.println("mode gui ");
 		}
 
 
@@ -92,9 +92,22 @@ public class Controleur {
 	}
 
 	private void initialiserPartie() {
-		int nbJoueurs = ihm.choixNbJoueurs();
-		metier.initialiserPlateau(nbJoueurs);
-		ihm.initialiserCartes(metier.getPioche());
+		boolean chargerPartie = ihm.choixChargerPartie();
+		if(chargerPartie){
+			Metier temporaire = Sauvegarde.getInstance().charger();
+			// Si pas de fichier sauvegarde
+			if(temporaire==null){
+				chargerPartie = false;
+				ihm.afficherErreur("Pas de fichier sauvegarde existant ! Création d'une nouvelle partie...");
+			}
+			// Chargement réussi, on charge le métier sérialisé
+			if(temporaire!=null) metier = temporaire;
+		}
+		if(!chargerPartie){
+			int nbJoueurs = ihm.choixNbJoueurs();
+			metier.initialiserPlateau(nbJoueurs);
+			ihm.initialiserCartes(metier.getPioche());
+		}
 	}
 
 	private void lancerPartie() {
@@ -167,6 +180,9 @@ public class Controleur {
 
 				this.achatBatiment(joueur, choix);
 			}
+
+			//Sauvegarde
+			Sauvegarde.getInstance().sauvegarder(metier);
 
 			if (!rejouer) Controleur.metier.changerJoueurCourant();
 		}

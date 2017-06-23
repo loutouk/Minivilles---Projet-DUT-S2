@@ -6,7 +6,9 @@ import minivilles.metier.Joueur;
 import minivilles.metier.cartes.Carte;
 import minivilles.metier.cartes.monuments.Monument;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class IHMConsole extends IHM {
 
@@ -472,6 +474,14 @@ public class IHMConsole extends IHM {
 				System.out.flush();
 			}
 		} catch (final Exception ignored) {}
+	}
+
+	@Override
+	public boolean choixChargerPartie() {
+		Scanner sc = new Scanner(System.in);
+		this.nettoyerAffichage();
+		this.afficherBoite("Charger une partie existante ?", "Oui", "Non");
+		return sc.nextLine().equalsIgnoreCase("1") ? true : false;
 	}
 
 	private void messageCouleur(String message, CouleurConsole couleur) {

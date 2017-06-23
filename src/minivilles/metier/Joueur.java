@@ -3,14 +3,15 @@ package minivilles.metier;
 import minivilles.metier.cartes.Carte;
 import minivilles.metier.cartes.monuments.Monument;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Classe Joueur.
  * Un joueur est caractérisé par un numéro auto-incrémenté, un nombre de pièces, et une main.
  */
-public class Joueur {
-	private static int autoInc = 0;
+public class Joueur implements Serializable {
+	private transient static int autoInc = 0;
 	private int num;
 	private int pieces;
 	private ArrayList<Carte> main;

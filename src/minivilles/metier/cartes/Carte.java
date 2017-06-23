@@ -4,6 +4,8 @@ import minivilles.metier.Joueur;
 import minivilles.metier.Metier;
 import minivilles.metier.cartes.monuments.Monument;
 
+import java.io.Serializable;
+
 /**
  * Classe abstraite <i>Carte</i>.
  * <p>
@@ -49,7 +51,7 @@ import minivilles.metier.cartes.monuments.Monument;
  * par un appel à la méthode {@link #testEffet(Metier, int)}. Si l'effet doit effectivement être activé,
  * il est lancé par la méthode {@link #testEffet(Metier, int)} elle-même.
  */
-public abstract class Carte {
+public abstract class Carte implements Serializable {
 
 	private String identifiant;
 	private String nom;

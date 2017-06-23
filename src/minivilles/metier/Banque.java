@@ -1,14 +1,15 @@
 package minivilles.metier;
 
+import java.io.Serializable;
+
 /**
  * Classe Banque, caractérisée par un solde.
  * Les joueurs, lorsqu'ils sont amenés à le faire, peuvent piocher dans ce solde,
  * qui est initialisé par défaut à 1000 pièces.
  */
-public class Banque {
+public class Banque implements Serializable {
 
 	private int solde;
-
 
 	public Banque() {
 		this.solde = 1000;

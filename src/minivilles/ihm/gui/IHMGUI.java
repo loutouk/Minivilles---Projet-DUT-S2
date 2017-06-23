@@ -181,4 +181,9 @@ public class IHMGUI extends IHM {
 	public void nettoyerAffichage() {
 
 	}
+
+	@Override
+	public boolean choixChargerPartie() {
+		return false;
+	}
 }
