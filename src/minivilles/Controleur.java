@@ -143,6 +143,13 @@ public class Controleur {
 
 		// Démarrage du client et connexion au serveur
 		do {
+			if (hote == null) {
+				this.initialiserReseau();
+				return;
+			}
+
+			if (hote.isEmpty()) hote = "localhost";
+
 			this.client = Client.nouveauClient(this, hote);
 
 			if (this.client == null) {

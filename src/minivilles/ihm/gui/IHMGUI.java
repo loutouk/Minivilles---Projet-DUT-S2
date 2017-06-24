@@ -44,18 +44,15 @@ public class IHMGUI extends IHM {
 				null, "Mode réseau actif.\nVoulez-vous créer une partie ?", "Minivilles : connexion à une partie", JOptionPane.YES_NO_OPTION
 		);
 
+		// Bouton fermer
+		if (dialogResult < 0) System.exit(0);
+
 		return dialogResult == JOptionPane.YES_OPTION;
 	}
 
 	public String choixServeurHote() {
-		Object result;
-
-		do {
-			result = JOptionPane.showInputDialog(this.fenetre, "Adresse de connexion de la partie :");
-		}
-		while (result == null);
-
-		return result.toString();
+		Object result = JOptionPane.showInputDialog(this.fenetre, "Adresse de connexion de la partie :");
+		return (result != null) ? result.toString() : null;
 	}
 
 	@Override
