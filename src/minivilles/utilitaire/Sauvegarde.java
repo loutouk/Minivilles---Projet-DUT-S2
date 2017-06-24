@@ -5,8 +5,15 @@ import minivilles.metier.Metier;
 import java.io.*;
 
 /**
- * Created by louis on 23/06/17.
+ * Sauvegarde.java
+ * Sérialise (sauvegarde) et désérialise (charge) le fichier save, ce qui permet de récupérer une instance de Metier
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
  */
+
 public class Sauvegarde {
     private static Sauvegarde ourInstance = new Sauvegarde();
 
