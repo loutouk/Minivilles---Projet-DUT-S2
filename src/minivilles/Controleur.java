@@ -383,6 +383,7 @@ public class Controleur {
 	 *
 	 * @param joueur le joueur courant
 	 * @param choix saisie du joueur, acheter, construire ou passer
+     * @ return Le succès de l'achat
 	 */
 	private boolean achatBatiment(Joueur joueur, int choix) {
 		Carte carte;
@@ -480,7 +481,7 @@ public class Controleur {
 
 	/**
 	 * Point d'entrée du programme, prend le mode d'affichage, et le réseau en paramètre
-	 * Usage : java Controleur [gui] [net]
+     * @param a Usage : java Controleur [gui] [net]
 	 */
 	public static void main(String[] a) {
 		String mode = "console";

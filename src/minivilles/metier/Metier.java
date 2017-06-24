@@ -73,6 +73,7 @@ public class Metier implements Serializable {
 	/**
 	 * Retourne le joueur par son numéro
 	 *
+     * @param indice la position (numéro) du joueur, en partant de 0
 	 * @return Le joueur en question
 	 */
 	public Joueur getJoueur(int indice) {
