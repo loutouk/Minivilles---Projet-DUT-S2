@@ -8,7 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by bl160661 on 09/06/17.
+ * Metier.java
+ * Classe métier du programme, c'est le moteur qui contient la boucle de jeu.
+ * @see Controleur.java
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
  */
 
 public class Metier implements Serializable {
