@@ -53,7 +53,8 @@ public class TestFichier {
 				this.nettoyerAffichage();
 				this.ctrl = new Controleur(
 						(choix == 2 || choix == 4) ? "gui" : "console",
-						true
+						true,
+						(choix == 3 || choix == 4)
 				);
 			} else
 				System.out.print(CouleurConsole.ROUGE + "   Choix invalide !\n\n");
