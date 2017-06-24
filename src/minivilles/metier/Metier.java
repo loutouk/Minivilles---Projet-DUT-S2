@@ -34,14 +34,29 @@ public class Metier implements Serializable {
 	}
 
 
+	/**
+	 * Retourne le joueur à qui il appartient de jouer
+	 *
+	 * @return Le joueur courant
+	 */
 	public Joueur getJoueurCourant() {
 		return joueurCourant;
 	}
 
+	/**
+	 * Retourne la pioche, également appelée la réserve, qui contient les bâtiments
+	 *
+	 * @return La pioche
+	 */
 	public ArrayList<Carte> getPioche() {
 		return pioche;
 	}
 
+	/**
+	 * Retourne la liste des joueurs de la partie
+	 *
+	 * @return Les joueurs
+	 */
 	public ArrayList<Joueur> getListeJoueur() {
 		return listeJoueur;
 	}
@@ -99,6 +114,14 @@ public class Metier implements Serializable {
 		this.initialiserPlateau(nbJoueurs, false);
 	}
 
+	/**
+	 * Si le joueur a créé une nouvelle partie
+	 * Créé toutes les cartes du jeu, monuments et bâtiments, ainsi que la banque
+	 * Distribue les cartes de base aux joueurs ainsi que leurs monuments, créé la réserve
+	 *
+	 * @param nbJoueurs le nombre de joueur de la partie
+	 * @param sansCarteDepart Utilisé pour le mode de test d'évaluation
+	 */
 	public void initialiserPlateau(int nbJoueurs, boolean sansCarteDepart) {
 
 		// Creation des joueurs
@@ -159,6 +182,12 @@ public class Metier implements Serializable {
 
 	}
 
+	/**
+	 * Pour tous les joueurs, appelle une méthode qui va tester si les effets de leurs cartes ont lieux de se déclencher
+	 *
+	 * @param resultatDes le nombre obtenu aux dés
+	 * @return La liste des cartes
+	 */
 	public List<Carte> lancerEffets(int resultatDes) {
 		List<Carte> cartes = new ArrayList<>();
 
@@ -197,6 +226,13 @@ public class Metier implements Serializable {
 		return false;
 	}
 
+	/**
+	 * Affecte la carte correspondant à l'identifiant au joueur
+	 *
+	 * @param id le nom ou bien l'identifiant de la carte
+	 * @param joueur le joueur courant
+	 * @return Le succès de l'achat
+	 */
 	public boolean acheter(String id, Joueur joueur) {
 		Carte carte = this.rechercherCartePioche(id);
 		if (carte == null) return false;
@@ -211,6 +247,13 @@ public class Metier implements Serializable {
 		return false;
 	}
 
+	/**
+	 * Passe l'état du monument du joueur de l'état en construction à construit
+	 *
+	 * @param monument la carte de type Monument
+	 * @param joueur le joueur courant
+	 * @return Le succès de la construction
+	 */
 	public boolean construireMonument(Monument monument, Joueur joueur) {
 		if (monument == null) return false;
 
@@ -225,6 +268,12 @@ public class Metier implements Serializable {
 	}
 
 
+	/**
+	 * Recherche une carte par son nom ou identifiant dans la réserve
+	 *
+	 * @param rech l'identifiant ou le nom de la carte
+	 * @return La carte trouvée, null sinon
+	 */
 	public Carte rechercherCartePioche(String rech) {
 		for (Carte carte : this.pioche)
 			if (carte.getIdentifiant().equals(rech) || carte.getNom().equalsIgnoreCase(rech))
