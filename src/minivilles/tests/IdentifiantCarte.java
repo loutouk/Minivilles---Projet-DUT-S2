@@ -3,7 +3,7 @@ package minivilles.tests;
 import minivilles.metier.cartes.*;
 
 /**
- * TestFichier.java
+ * IdentifiantCarte.java
  * Utilisé pour l'évaluation
  * @author Richard Blondel
  * @author Valentin Dulong
