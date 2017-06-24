@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * Fenetre.java
  * JFrame de la classe IHMGUI
- * @see IHMGUI.java
+ * @see {@link minivilles.ihm.gui.IHMGUI}
  * @author Richard Blondel
  * @author Valentin Dulong
  * @author Maxime Malgorn
