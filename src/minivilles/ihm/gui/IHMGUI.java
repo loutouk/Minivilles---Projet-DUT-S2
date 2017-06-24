@@ -10,6 +10,17 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * IHMGUI.java
+ * Version GUI de l'IHM
+ * @see IHM.java
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
+ */
+
 public class IHMGUI extends IHM {
 
 	private Fenetre fenetre;
