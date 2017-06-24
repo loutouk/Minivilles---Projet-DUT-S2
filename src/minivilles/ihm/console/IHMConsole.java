@@ -9,6 +9,17 @@ import minivilles.metier.cartes.monuments.Monument;
 
 import java.util.*;
 
+/**
+ * IHMConsole.java
+ * Version CUI de l'IHM
+ * @see IHM.java
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
+ */
+
 public class IHMConsole extends IHM {
 
 	private int nbItemsDernierMenu;
