@@ -31,6 +31,11 @@ import java.util.*;
  * @see minivilles.metier.Metier
  * @see minivilles.metier.Joueur
  * @see minivilles.metier.Banque
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
  */
 public abstract class IHM {
 

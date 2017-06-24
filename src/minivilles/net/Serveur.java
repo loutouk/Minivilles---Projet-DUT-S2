@@ -6,6 +6,16 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * Serveur.java
+ * Une seule instance gérer par le Client qui a configuré la partie. Architecture client - serveur classique
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
+ */
+
 public class Serveur extends Thread {
 
 	private ServerSocket ss;

@@ -2,6 +2,16 @@ package minivilles.tests;
 
 import minivilles.metier.cartes.*;
 
+/**
+ * IdentifiantCarte.java
+ * Utilisé pour l'évaluation
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
+ */
+
 public enum IdentifiantCarte {
 
 	CHAMPS_DE_BLE("1", ChampsDeBle.class),

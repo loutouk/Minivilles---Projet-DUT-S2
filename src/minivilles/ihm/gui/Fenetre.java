@@ -12,6 +12,17 @@ import java.awt.event.*;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Fenetre.java
+ * JFrame de la classe IHMGUI
+ * @see IHMGUI.java
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
+ */
+
 public class Fenetre extends JFrame implements ItemListener, ActionListener, ComponentListener, WindowFocusListener {
 
     // Image affichée à côté de la réserve

@@ -11,6 +11,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * TestFichier.java
+ * Utilisé pour l'évaluation
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
+ */
+
 public class TestFichier {
 
 	private static final String JOUEUR_REGEX = "^#J[0-9]#$";

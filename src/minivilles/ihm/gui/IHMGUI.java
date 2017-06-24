@@ -10,6 +10,17 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * IHMGUI.java
+ * Version GUI de l'IHM
+ * @see IHM.java
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
+ */
+
 public class IHMGUI extends IHM {
 
 	private Fenetre fenetre;
@@ -44,18 +55,15 @@ public class IHMGUI extends IHM {
 				null, "Mode réseau actif.\nVoulez-vous créer une partie ?", "Minivilles : connexion à une partie", JOptionPane.YES_NO_OPTION
 		);
 
+		// Bouton fermer
+		if (dialogResult < 0) System.exit(0);
+
 		return dialogResult == JOptionPane.YES_OPTION;
 	}
 
 	public String choixServeurHote() {
-		Object result;
-
-		do {
-			result = JOptionPane.showInputDialog(this.fenetre, "Adresse de connexion de la partie :");
-		}
-		while (result == null);
-
-		return result.toString();
+		Object result = JOptionPane.showInputDialog(this.fenetre, "Adresse de connexion de la partie :");
+		return (result != null) ? result.toString() : null;
 	}
 
 	@Override

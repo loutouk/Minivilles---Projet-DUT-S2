@@ -7,6 +7,12 @@ import minivilles.metier.cartes.monuments.Monument;
 import java.io.Serializable;
 
 /**
+ * Carte.java
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
  * Classe abstraite <i>Carte</i>.
  * <p>
  * Toutes les autres classes qui représentent les cartes du jeu sont amenées à
@@ -51,6 +57,7 @@ import java.io.Serializable;
  * par un appel à la méthode {@link #testEffet(Metier, int)}. Si l'effet doit effectivement être activé,
  * il est lancé par la méthode {@link #testEffet(Metier, int)} elle-même.
  */
+
 public abstract class Carte implements Serializable {
 
 	private String identifiant;
