@@ -8,6 +8,7 @@ import java.net.Socket;
 
 public class Serveur extends Thread {
 
+	private ServerSocket ss;
 	private ServeurThread[] tabClient = new ServeurThread[4];
 	private int nbClientsConnected = 0;
 
@@ -22,10 +23,10 @@ public class Serveur extends Thread {
 
 	public void run() {
 		try {
-			ServerSocket ss = new ServerSocket(55555);
+			this.ss = new ServerSocket(55555);
 
 			while (true) {
-				this.socket = ss.accept();
+				this.socket = this.ss.accept();
 
 				this.tabClient[nbClientsConnected] = new ServeurThread(this, this.socket);
 				this.tabClient[nbClientsConnected].start();
@@ -50,6 +51,10 @@ public class Serveur extends Thread {
 
 	public void setMetier(Metier metier) {
 		this.metier = metier;
+	}
+
+	public boolean estLance() {
+		return this.ss != null && !this.ss.isClosed() && this.ss.isBound();
 	}
 
 

@@ -107,6 +107,7 @@ public class Controleur {
 		}
 	}
 
+
 	private void initialiserReseau() {
 		boolean estServeur = ihm.choixEstServeur();
 		String hote = "localhost";
@@ -115,17 +116,30 @@ public class Controleur {
 			// Démarrage du serveur, si le joueur veut en créer un
 			this.serveur = new Serveur(metier);
 			this.serveur.start();
+
+			// On attends que le serveur se lance
+			while (!this.serveur.estLance()) {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 		} else {
 			hote = ihm.choixServeurHote();
 		}
 
-		// Démarrage du client
-		this.client = Client.nouveauClient(this, hote);
+		// Démarrage du client et connexion au serveur
+		do {
+			this.client = Client.nouveauClient(this, hote);
 
-		if (this.client == null) {
-			ihm.afficherErreur("Aucune partie n'est lancée à l'adresse " + hote + " !");
-			System.exit(0);
+			if (this.client == null) {
+				ihm.afficherErreur("Aucune partie n'est lancée à l'adresse " + hote + " !");
+
+				hote = ihm.choixServeurHote();
+			}
 		}
+		while (this.client == null);
 	}
 
 	private void connexionReseau() {
@@ -164,6 +178,8 @@ public class Controleur {
 	private void attenteMajServeur() {
 		if (!this.netMode || this.client == null) return;
 
+		this.client.resetMajsServeur();
+
 		while (!this.client.isNouvelleMajServeur()) {
 			try {
 				Thread.sleep(500);
@@ -173,6 +189,7 @@ public class Controleur {
 		}
 	}
 
+
 	private void initialiserPartie() {
 		// Si on est connecté à un serveur,
 		// ce dernier initialise la partie directement.
@@ -181,15 +198,17 @@ public class Controleur {
 		boolean chargerPartie = ihm.choixChargerPartie();
 
 		if (chargerPartie) {
-			Metier temporaire = Sauvegarde.getInstance().charger();
+			Metier sauvegarde = Sauvegarde.getInstance().charger();
 
 			// Si pas de fichier sauvegarde
-			if (temporaire == null) {
+			if (sauvegarde == null) {
 				chargerPartie = false;
 				ihm.afficherErreur("Pas de fichier sauvegarde existant ! Création d'une nouvelle partie...");
 			}
 			// Chargement réussi, on charge le métier sérialisé
-			else metier = temporaire;
+			else {
+				metier = sauvegarde;
+			}
 		}
 
 		if (!chargerPartie)
@@ -300,7 +319,8 @@ public class Controleur {
 		if (!rejouer) Controleur.metier.changerJoueurCourant();
 
 		// Envoi du métier au serveur pour mettre à jour le jeu des autres joueurs
-		this.client.envoiMetier(metier);
+		if (this.client != null)
+			this.client.envoiMetier(Controleur.metier);
 	}
 
 	private boolean achatBatiment(Joueur joueur, int choix) {
@@ -361,16 +381,26 @@ public class Controleur {
 		return true;
 	}
 
-
 	private int lancerDe() {
 		return 1 + (int) (Math.random() * 6);
 	}
 
+	/**
+	 * Appelée lorsque le serveur envoie le métier à tous les joueurs.
+	 * Elle remplace le métier courant par celui du serveur.
+	 *
+	 * @param metierServeur Le métier envoyé par le serveur
+	 */
 	public void majDepuisServeur(Metier metierServeur) {
-		metier = metierServeur;
-		ihm.majTotale(metier);
+		Controleur.metier = metierServeur;
+		ihm.majTotale(Controleur.metier);
 	}
 
+	/**
+	 * Méthode appelée lorsque le serveur envoi le numéro de joueur de ce controleur
+	 *
+	 * @param numJoueur Le numéro calculé par le serveur
+	 */
 	public void setMonNumJoueur(int numJoueur) {
 		this.monNumJoueur = numJoueur;
 	}

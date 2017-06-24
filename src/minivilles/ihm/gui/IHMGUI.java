@@ -33,6 +33,7 @@ public class IHMGUI extends IHM {
 		this.fenetre.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.fenetre.setVisible(true);
 		this.fenetre.pack();
+		this.fenetre.setLocationRelativeTo(null);
 	}
 
 	@Override
@@ -100,7 +101,19 @@ public class IHMGUI extends IHM {
 
 	@Override
 	public int choixDebugDe() {
-		return 1;
+		Integer[] nb = {1, 2, 3, 4, 5, 6};
+
+		Integer choix = (Integer) JOptionPane.showInputDialog(this.fenetre,
+				"Mode d'évaluation activé.\nChoisissez la valeur du dé.",
+				"Mode évaluation : valeur du dé",
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				nb,
+				nb[0]);
+
+		if (choix == null) return this.choixDebugDe();
+
+		return choix;
 	}
 
 	@Override
@@ -208,7 +221,7 @@ public class IHMGUI extends IHM {
 		dialog.pack();
 		dialog.setLocationRelativeTo(null);
 
-		this.fenetre.setVisible(false);
+		this.fenetre.activerBoutons(false);
 		dialog.setVisible(true);
 
 		this.loaderNetDialog = dialog;
@@ -220,7 +233,7 @@ public class IHMGUI extends IHM {
 
 		this.loaderNetDialog.setVisible(false);
 		this.loaderNetDialog.dispose();
-		this.fenetre.setVisible(true);
+		this.fenetre.activerBoutons(true);
 
 		this.loaderNetDialog = null;
 	}

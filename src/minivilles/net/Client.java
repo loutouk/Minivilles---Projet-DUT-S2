@@ -27,6 +27,10 @@ public class Client {
 		return ctrl;
 	}
 
+	public void resetMajsServeur() {
+		this.nouvelleMajServeur = false;
+	}
+
 	public boolean isNouvelleMajServeur() {
 		boolean maj = this.nouvelleMajServeur;
 

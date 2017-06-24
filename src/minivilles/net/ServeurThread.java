@@ -33,11 +33,10 @@ public class ServeurThread extends Thread {
 
 		this.send(this.server.getNbClientsConnected());
 
-
 		// On attends qu'il envoie son propre métier
 		while (this.socket != null) {
 			try {
-				Metier metier = (Metier) this.in.readObject();
+				Metier metier = (Metier) this.in.readUnshared();
 
 				if (metier != null) {
 					this.server.setMetier(metier);
@@ -55,16 +54,17 @@ public class ServeurThread extends Thread {
 
 	}
 
-	public void send(Object obj) {
+	void send(Object obj) {
 		try {
 			this.out.writeUnshared(obj);
+			this.out.reset();
 		} catch (IOException ioe) {
 			System.out.println("Server write error: " + ioe);
 			stop();
 		}
 	}
 
-	public void launch() {
+	private void launch() {
 		try {
 			this.out = new ObjectOutputStream(this.socket.getOutputStream());
 			this.in = new ObjectInputStream(this.socket.getInputStream());

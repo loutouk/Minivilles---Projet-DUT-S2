@@ -29,7 +29,7 @@ public class ClientThread extends Thread {
 		// On attends que le serveur nous envoie le métier enregistré
 		while (this.socket != null) {
 			try {
-				Object inObj = this.in.readObject();
+				Object inObj = this.in.readUnshared();
 
 				// Le serveur envoie le numéro de joueur du client
 				if (inObj instanceof Integer) {
@@ -70,6 +70,7 @@ public class ClientThread extends Thread {
 	public void envoiMetier(Metier metier) {
 		try {
 			this.out.writeUnshared(metier);
+			this.out.reset();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
