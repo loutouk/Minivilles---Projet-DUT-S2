@@ -8,6 +8,15 @@ import minivilles.metier.cartes.monuments.Monument;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @see Carte.java
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
+ */
+
 public class CentreAffaires extends Carte {
 
 	public CentreAffaires () {

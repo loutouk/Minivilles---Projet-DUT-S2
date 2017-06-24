@@ -4,6 +4,15 @@ import minivilles.Controleur;
 import minivilles.metier.Joueur;
 import minivilles.metier.Metier;
 
+/**
+ * @see Carte.java
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
+ */
+
 public class ChaineDeTelevision extends Carte {
 
 	public ChaineDeTelevision() {
