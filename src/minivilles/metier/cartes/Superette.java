@@ -3,6 +3,15 @@ package minivilles.metier.cartes;
 import minivilles.metier.Metier;
 import minivilles.metier.cartes.monuments.Monument;
 
+/**
+ * @see Carte.java
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
+ */
+
 public class Superette extends Carte {
 
 	public Superette() {

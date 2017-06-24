@@ -6,6 +6,11 @@ package minivilles.metier.cartes.monuments;
  * Cette classe définit la carte <i>Gare</i> ainsi que son effet.
  *
  * @see minivilles.metier.cartes.Carte
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
  */
 public class Gare extends Monument {
 

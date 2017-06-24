@@ -7,6 +7,11 @@ package minivilles.metier.cartes.monuments;
  *
  * @see minivilles.metier.cartes.Carte
  * @see minivilles.metier.cartes.monuments.Monument
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
  */
 public class ParcDattractions extends Monument {
 
