@@ -1,8 +1,14 @@
 ./minivilles/Controleur.java
 ./minivilles/ihm/IHM.java
+./minivilles/ihm/console/CouleurConsole.java
+./minivilles/ihm/console/IHMConsole.java
+./minivilles/ihm/gui/Art.java
+./minivilles/ihm/gui/Fenetre.java
+./minivilles/ihm/gui/IHMGui.java
 ./minivilles/metier/Banque.java
 ./minivilles/metier/Joueur.java
 ./minivilles/metier/Metier.java
+./minivilles/metier/cartes/CarteGain.java
 ./minivilles/metier/cartes/Carte.java
 ./minivilles/metier/cartes/Boulangerie.java
 ./minivilles/metier/cartes/Cafe.java
@@ -24,4 +30,9 @@
 ./minivilles/metier/cartes/monuments/Gare.java
 ./minivilles/metier/cartes/monuments/ParcDattractions.java
 ./minivilles/metier/cartes/monuments/TourRadio.java
+./minivilles/net/ClientThread.java
+./minivilles/net/Client.java
+./minivilles/net/ServeurThread.java
+./minivilles/net/Serveur.java
+./minivilles/utilitaire/Sauvegarde.java
 
