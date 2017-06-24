@@ -4,7 +4,7 @@
 ./minivilles/ihm/console/IHMConsole.java
 ./minivilles/ihm/gui/Art.java
 ./minivilles/ihm/gui/Fenetre.java
-./minivilles/ihm/gui/IHMGui.java
+./minivilles/ihm/gui/IHMGUI.java
 ./minivilles/metier/Banque.java
 ./minivilles/metier/Joueur.java
 ./minivilles/metier/Metier.java
