@@ -170,7 +170,7 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
 		return acheterBatimentListe;
 	}
 
-	public JComboBox getConstruireMonumentListe() {
+	JComboBox getConstruireMonumentListe() {
 		return construireMonumentListe;
 	}
 
@@ -230,8 +230,16 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
         this.setVisible(true);
     }
 
-	void initialiserPanelsJoueurs(int nbJoueurs) {
+	void majPanelsJoueurs(int nbJoueurs) {
+    	// On supprime d'abord les anciens panels
+		if (this.joueurPanels != null)
+			for (JPanel panel : this.joueurPanels)
+				if (panel != null)
+					panel.getParent().remove(panel);
+
+
     	this.joueurPanels = new JPanel[nbJoueurs];
+
 
 		for (int cpt = 0; cpt < nbJoueurs; cpt++) {
 			JPanel panelJo = new JPanel();
@@ -268,11 +276,18 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
 	}
 
 
-    public void nouveauJoueurCourant(Joueur joueur) {
+    void nouveauJoueurCourant(Joueur joueur) {
+    	if (this.joueurPanels == null) return;
+
     	for (int cpt = 1; cpt <= this.joueurPanels.length; cpt++)
     		this.joueurPanels[cpt - 1].setBackground((joueur.getNum() == cpt) ? Color.ORANGE : null);
 	}
 
+	void activerBoutons(boolean me) {
+    	this.acheterBatimentButton.setEnabled(me);
+    	this.construireMonumenButton.setEnabled(me);
+    	this.passerTourButton.setEnabled(me);
+	}
 
     @Override
     public void actionPerformed(ActionEvent e) {

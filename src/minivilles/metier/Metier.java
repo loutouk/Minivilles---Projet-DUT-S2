@@ -11,7 +11,7 @@ import java.util.List;
  * Created by bl160661 on 09/06/17.
  */
 
-public class Metier implements Serializable{
+public class Metier implements Serializable {
 
 	private ArrayList<Carte> pioche;
 	private ArrayList<Joueur> listeJoueur;

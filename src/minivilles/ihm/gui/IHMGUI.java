@@ -7,6 +7,7 @@ import minivilles.metier.Joueur;
 import minivilles.metier.cartes.Carte;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class IHMGUI extends IHM {
 	private Fenetre fenetre;
 
 	private boolean attenteMenu;
+	private JDialog loaderNetDialog;
 
 
 	public IHMGUI(Controleur ctrl) {
@@ -26,7 +28,7 @@ public class IHMGUI extends IHM {
 	@Override
 	public void initialiserPlateau(ArrayList<Carte> pioche, int nbJoueurs) {
 		this.fenetre.majPioche(IHM.grouperCartes(pioche));
-		this.fenetre.initialiserPanelsJoueurs(nbJoueurs);
+		this.fenetre.majPanelsJoueurs(nbJoueurs);
 
 		this.fenetre.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.fenetre.setVisible(true);
@@ -36,6 +38,25 @@ public class IHMGUI extends IHM {
 	@Override
 	public void majPlateau(List<Joueur> joueurs) {
 		this.fenetre.majInfoJoueurs(joueurs);
+	}
+
+	public boolean choixEstServeur() {
+		int dialogResult = JOptionPane.showConfirmDialog (
+				null, "Mode réseau actif.\nVoulez-vous créer une partie ?", "Minivilles : connexion à une partie", JOptionPane.YES_NO_OPTION
+		);
+
+		return dialogResult == JOptionPane.YES_OPTION;
+	}
+
+	public String choixServeurHote() {
+		Object result;
+
+		do {
+			result = JOptionPane.showInputDialog(this.fenetre, "Adresse de connexion de la partie :");
+		}
+		while (result == null);
+
+		return result.toString();
 	}
 
 	@Override
@@ -170,11 +191,47 @@ public class IHMGUI extends IHM {
 	}
 
 	@Override
-	public void nouveauTour(Joueur j) {
+	public void afficherAttenteReseau(String message) {
+		JDialog dialog = new JDialog();
+		ImageIcon loader = new ImageIcon(Art.class.getResource("/res/images/loader.gif"));
+		JLabel label = new JLabel(message, loader, JLabel.CENTER);
+
+		label.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 20));
+
+		dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		dialog.getContentPane().setBackground(Color.WHITE);
+		dialog.setTitle(message);
+		dialog.setAlwaysOnTop(true);
+		dialog.setUndecorated(true);
+		dialog.setResizable(false);
+		dialog.add(label);
+		dialog.pack();
+		dialog.setLocationRelativeTo(null);
+
+		this.fenetre.setVisible(false);
+		dialog.setVisible(true);
+
+		this.loaderNetDialog = dialog;
+	}
+
+	@Override
+	public void finAttenteReseau() {
+		if (this.loaderNetDialog == null) return;
+
+		this.loaderNetDialog.setVisible(false);
+		this.loaderNetDialog.dispose();
+		this.fenetre.setVisible(true);
+
+		this.loaderNetDialog = null;
+	}
+
+	@Override
+	public void nouveauTour(Joueur j, boolean vous) {
 		this.attenteMenu = false;
 
 		this.fenetre.getTourLabel().setText("Tour: joueur " + j.getNum());
 		this.fenetre.nouveauJoueurCourant(j);
+		this.fenetre.activerBoutons(vous);
 	}
 
 	@Override
@@ -261,7 +318,7 @@ public class IHMGUI extends IHM {
 	@Override
 	public boolean choixChargerPartie() {
 		int dialogResult = JOptionPane.showConfirmDialog (
-				null, "Voulez-vous charger une partie existante ?", "Minivilles : chargement d'une partie", JOptionPane.YES_NO_OPTION
+				null, "Voulez-vous charger la dernière partie sauvegardée ?", "Minivilles : chargement d'une partie", JOptionPane.YES_NO_OPTION
 		);
 
 		return dialogResult == JOptionPane.YES_OPTION;

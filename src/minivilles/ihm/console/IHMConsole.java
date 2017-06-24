@@ -33,6 +33,28 @@ public class IHMConsole extends IHM {
 		// (il est affiché autrepart)
 	}
 
+	public boolean choixEstServeur() {
+		this.nettoyerAffichage();
+		this.afficherBoite("Mode réseau actif.\nVoulez-vous créer une partie ?", "Créer une partie", "Se connecter à une autre partie");
+
+		return this.choixMenu() == 1;
+	}
+
+	public String choixServeurHote() {
+		this.nettoyerAffichage();
+		this.afficherBoite("Adresse hôte de la partie");
+
+		System.out.print("\n   adresse de connexion : ");
+		CouleurConsole.JAUNE.print();
+
+		Scanner sc = new Scanner(System.in);
+		String in = sc.nextLine();
+
+		System.out.println();
+		CouleurConsole.RESET.print();
+
+		return in;
+	}
 
 	/**
 	 * Retourne le choix de l'utilisateur concernant le nombre de joueurs.
@@ -166,7 +188,13 @@ public class IHMConsole extends IHM {
 		System.out.println("\n\n");
 	}
 
-	public void nouveauTour(Joueur j) {
+	public void afficherAttenteReseau(String message) {
+		this.afficherBoite(message);
+	}
+
+	public void finAttenteReseau() { /*  Ne sert à rien ici  */ }
+
+	public void nouveauTour(Joueur j, boolean vous) {
 		this.nettoyerAffichage();
 
 		this.afficherBoite("Début du tour du joueur " + j.getNum());
@@ -429,7 +457,7 @@ public class IHMConsole extends IHM {
 	@Override
 	public boolean choixChargerPartie() {
 		this.nettoyerAffichage();
-		this.afficherBoite("Charger une partie existante ?", "Oui", "Non");
+		this.afficherBoite("Charger la dernière partie sauvegardée ?", "Oui", "Non");
 
 		return this.choixMenu() == 1;
 	}

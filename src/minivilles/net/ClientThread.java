@@ -1,24 +1,24 @@
 package minivilles.net;
 
-import java.io.BufferedReader;
+import minivilles.metier.Metier;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class ClientThread extends Thread {
 
-	private Socket socket = null;
-	private Client myClient = null;
+	private Socket socket;
+	private Client client;
 
-	private InputStream streamIn;
-	private InputStreamReader streamInRead;
-	private BufferedReader buffRead;
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
 
 
-	public ClientThread(Client myClient, Socket socket) {
+	ClientThread(Client myClient, Socket socket) {
 		this.socket = socket;
-		this.myClient = myClient;
+		this.client = myClient;
 
 		this.launch();
 		this.start();
@@ -26,29 +26,53 @@ public class ClientThread extends Thread {
 
 
 	public void run() {
-
-		while (true) {
+		// On attends que le serveur nous envoie le métier enregistré
+		while (this.socket != null) {
 			try {
-				String msg = buffRead.readLine();
-				if (msg == null) {
-					myClient.stop();
+				Object inObj = this.in.readObject();
+
+				// Le serveur envoie le numéro de joueur du client
+				if (inObj instanceof Integer) {
+					this.client.getControleur().setMonNumJoueur((Integer) inObj);
+					continue;
 				}
-				myClient.handle(msg);
+
+				// Le serveur envoie le métier
+				if (inObj instanceof Metier) {
+					Metier metier = (Metier) inObj;
+
+					this.client.nouvelleMajServeur = true;
+					this.client.getControleur().majDepuisServeur(metier);
+				}
+
 			} catch (IOException ioe) {
-				System.out.println("Server accept error: " + ioe);
+				System.out.println("\nConnexion au serveur perdue !\n");
+
+				this.socket = null;
+				this.interrupt();
+
+				System.exit(0);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
 			}
 		}
 	}
 
-	public void launch() {
+	private void launch() {
 		try {
-			streamIn = this.socket.getInputStream();
-			streamInRead = new InputStreamReader(streamIn);
-			buffRead = new BufferedReader(streamInRead);
+			this.out = new ObjectOutputStream(this.socket.getOutputStream());
+			this.in = new ObjectInputStream(socket.getInputStream());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
 
+	public void envoiMetier(Metier metier) {
+		try {
+			this.out.writeUnshared(metier);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -3,6 +3,7 @@ package minivilles.ihm;
 import minivilles.Controleur;
 import minivilles.metier.Banque;
 import minivilles.metier.Joueur;
+import minivilles.metier.Metier;
 import minivilles.metier.cartes.Carte;
 
 import java.util.*;
@@ -50,6 +51,17 @@ public abstract class IHM {
 
 	public abstract void majPlateau(List<Joueur> joueurs);
 
+	public void majTotale(Metier metier) {
+		this.initialiserPlateau(metier.getPioche(), metier.getJoueurs().size());
+		this.majPlateau(metier.getJoueurs());
+	}
+
+	public abstract boolean choixEstServeur();
+
+	public abstract String choixServeurHote();
+
+	public abstract boolean choixChargerPartie();
+
 	/**
 	 * Retourne le choix de l'utilisateur concernant le nombre de joueurs.
 	 * Si la saisie est incorrecte (<i>NumberFormatException</i> est levée),
@@ -86,7 +98,11 @@ public abstract class IHM {
 	 */
 	public abstract void afficherPlateau(List<Carte> pioche, Banque banque, List<Joueur> listeJoueur);
 
-	public abstract void nouveauTour(Joueur j);
+	public abstract void afficherAttenteReseau(String message);
+
+	public abstract void finAttenteReseau();
+
+	public abstract void nouveauTour(Joueur j, boolean vous);
 
 	/**
 	 * Affiche les cartes ligne par ligne.
@@ -157,5 +173,4 @@ public abstract class IHM {
 		return p1 * 10 + p2;
 	}
 
-    public abstract boolean choixChargerPartie();
 }

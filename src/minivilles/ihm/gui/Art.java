@@ -26,10 +26,19 @@ public class Art {
 		if (Art.images == null)           Art.images = new HashMap<>();
 		if (Art.images.containsKey(name)) return Art.images.get(name);
 
+		String ext = "png";
+
+		if (name.contains(".")) {
+			String[] parts = name.split("\\.");
+
+			name = parts[0];
+			ext = parts[1];
+		}
+
 		// Les : ne sont pas supportés par Windows
 		name = name.replaceAll(":", "_");
 
-		InputStream   is  = Art.class.getResourceAsStream("/res/images/" + name + ".png");
+		InputStream   is  = Art.class.getResourceAsStream("/res/images/" + name + "." + ext);
 		BufferedImage img = null;
 
 		try {
