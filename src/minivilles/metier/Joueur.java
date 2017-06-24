@@ -7,9 +7,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Classe Joueur.
+ * Joueur.java
  * Un joueur est caractérisé par un numéro auto-incrémenté, un nombre de pièces, et une main.
+ * Les joueurs, lorsqu'ils sont amenés à le faire, peuvent piocher dans ce solde,
+ * qui est initialisé par défaut à 1000 pièces.
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
  */
+
 public class Joueur implements Serializable {
 	private transient static int autoInc = 0;
 	private int num;
