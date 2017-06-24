@@ -8,14 +8,11 @@ import minivilles.metier.cartes.monuments.Monument;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.util.List;
 import java.util.Map;
 
-public class Fenetre extends JFrame implements ItemListener, ActionListener {
+public class Fenetre extends JFrame implements ItemListener, ActionListener, ComponentListener, WindowFocusListener {
 
     // Image affichée à côté de la réserve
     private JLabel imageCarte;
@@ -31,12 +28,13 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
     private JPanel[] joueurPanels;
 
     private JButton passerTourButton;
-    private JLabel infoCommandes;
 
-    private JLabel tourDuJoueur;
+	private JLabel tourDuJoueur;
 
     private JLabel imageDeUn;
     private JLabel imageDeDeux;
+
+    private JDialog dialog;
 
     private String[] nomCartes = new String[0];
 
@@ -108,8 +106,6 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
         passerTourButton = new JButton("Passer");
         passerTourButton.addActionListener(this);
 
-        infoCommandes = new JLabel("Informations sur les commandes");
-
         tourDuJoueur = new JLabel("Partie non commencée");
 
         boutons.add(tourDuJoueur);
@@ -132,6 +128,10 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
         /////////////////////////////////////////////////////////////////////////////////////
 
         add(panelGlobal);
+
+        addComponentListener(this);
+        addWindowFocusListener(this);
+
         setVisible(false);
     }
 
@@ -172,6 +172,36 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
 
 	JComboBox getConstruireMonumentListe() {
 		return construireMonumentListe;
+	}
+
+
+	void openDialog(String message, String imageIcon) {
+		this.dialog = new JDialog();
+		ImageIcon loader = new ImageIcon(Art.class.getResource(imageIcon));
+		JLabel label = new JLabel(message, loader, JLabel.CENTER);
+
+		label.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 20));
+
+		dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		dialog.getContentPane().setBackground(Color.WHITE);
+		dialog.setTitle(message);
+		dialog.setAlwaysOnTop(true);
+		dialog.setUndecorated(true);
+		dialog.setResizable(false);
+		dialog.add(label);
+		dialog.pack();
+		dialog.setLocationRelativeTo(this);
+
+		dialog.setVisible(true);
+	}
+
+	void removeDialog() {
+    	if (this.dialog == null) return;
+
+    	this.dialog.setVisible(false);
+    	this.dialog.dispose();
+
+    	this.dialog = null;
 	}
 
 
@@ -234,8 +264,10 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
     	// On supprime d'abord les anciens panels
 		if (this.joueurPanels != null)
 			for (JPanel panel : this.joueurPanels)
-				if (panel != null)
+				if (panel != null) {
+					panel.setVisible(false);
 					panel.getParent().remove(panel);
+				}
 
 
     	this.joueurPanels = new JPanel[nbJoueurs];
@@ -276,6 +308,7 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
 	}
 
 
+
     void nouveauJoueurCourant(Joueur joueur) {
     	if (this.joueurPanels == null) return;
 
@@ -288,6 +321,7 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
     	this.construireMonumenButton.setEnabled(me);
     	this.passerTourButton.setEnabled(me);
 	}
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -350,4 +384,31 @@ public class Fenetre extends JFrame implements ItemListener, ActionListener {
 		}
 	}
 
+
+	@Override
+	public void componentResized(ComponentEvent componentEvent) {
+	}
+
+	@Override
+	public void componentMoved(ComponentEvent componentEvent) {
+		if (this.dialog != null) this.dialog.setLocationRelativeTo(this);
+	}
+
+	@Override
+	public void componentShown(ComponentEvent componentEvent) {
+	}
+
+	@Override
+	public void componentHidden(ComponentEvent componentEvent) {
+	}
+
+	@Override
+	public void windowGainedFocus(WindowEvent windowEvent) {
+		if (this.dialog != null) this.dialog.setAlwaysOnTop(true);
+	}
+
+	@Override
+	public void windowLostFocus(WindowEvent windowEvent) {
+		if (this.dialog != null) this.dialog.setAlwaysOnTop(false);
+	}
 }

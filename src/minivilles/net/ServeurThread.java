@@ -43,8 +43,6 @@ public class ServeurThread extends Thread {
 					server.handle(metier, this);
 				}
 			} catch (IOException ioe) {
-				System.out.println("Server read error: " + ioe);
-
 				this.socket = null;
 				this.interrupt();
 			} catch (ClassNotFoundException ce) {
@@ -62,6 +60,10 @@ public class ServeurThread extends Thread {
 			System.out.println("Server write error: " + ioe);
 			stop();
 		}
+	}
+
+	void fermer() throws IOException {
+		this.socket.close();
 	}
 
 	private void launch() {

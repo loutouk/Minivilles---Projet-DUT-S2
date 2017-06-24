@@ -48,8 +48,6 @@ public class Controleur {
 
 		this.debugMode = debugMode;
 		this.netMode = netMode;
-
-		if (netMode) this.initialiserReseau();
 	}
 
 
@@ -82,8 +80,11 @@ public class Controleur {
 		boolean quitter = false;
 		int choix = 1;
 
+		// On lance les modes de jeu spéciaux
 		if (this.debugMode)
 			ihm.afficherModeEvaluation();
+		if (this.netMode)
+			this.initialiserReseau();
 
 		while (!quitter) {
 			if (!this.netMode)
@@ -236,7 +237,13 @@ public class Controleur {
 		}
 		while (this.getGagnant() == null);
 
+
+		// On affiche le gagnant à l'écran
 		Controleur.ihm.afficherGagnant(this.getGagnant());
+
+		// On ferme les connexion au réseau car le jeu est terminé
+		if ( this.client != null) this.client.fermerConnexion();
+		if (this.serveur != null) this.serveur.fermer();
 	}
 
 	private void jouerTour(Joueur joueur) {

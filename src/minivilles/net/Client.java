@@ -43,6 +43,13 @@ public class Client {
 	}
 
 
+	public void fermerConnexion() {
+		try {
+			this.socket.close();
+		} catch (IOException ignored) {
+		}
+	}
+
 	public static Client nouveauClient(Controleur ctrl, String ip) {
 		try {
 			return new Client(ctrl, ip);

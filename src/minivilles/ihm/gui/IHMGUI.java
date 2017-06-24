@@ -7,7 +7,6 @@ import minivilles.metier.Joueur;
 import minivilles.metier.cartes.Carte;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +15,6 @@ public class IHMGUI extends IHM {
 	private Fenetre fenetre;
 
 	private boolean attenteMenu;
-	private JDialog loaderNetDialog;
 
 
 	public IHMGUI(Controleur ctrl) {
@@ -205,42 +203,22 @@ public class IHMGUI extends IHM {
 
 	@Override
 	public void afficherAttenteReseau(String message) {
-		JDialog dialog = new JDialog();
-		ImageIcon loader = new ImageIcon(Art.class.getResource("/res/images/loader.gif"));
-		JLabel label = new JLabel(message, loader, JLabel.CENTER);
-
-		label.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 20));
-
-		dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		dialog.getContentPane().setBackground(Color.WHITE);
-		dialog.setTitle(message);
-		dialog.setAlwaysOnTop(true);
-		dialog.setUndecorated(true);
-		dialog.setResizable(false);
-		dialog.add(label);
-		dialog.pack();
-		dialog.setLocationRelativeTo(null);
-
 		this.fenetre.activerBoutons(false);
-		dialog.setVisible(true);
-
-		this.loaderNetDialog = dialog;
+		this.fenetre.openDialog(message, "/res/images/loader.gif");
 	}
 
 	@Override
 	public void finAttenteReseau() {
-		if (this.loaderNetDialog == null) return;
-
-		this.loaderNetDialog.setVisible(false);
-		this.loaderNetDialog.dispose();
+		this.fenetre.removeDialog();
 		this.fenetre.activerBoutons(true);
-
-		this.loaderNetDialog = null;
 	}
 
 	@Override
 	public void nouveauTour(Joueur j, boolean vous) {
 		this.attenteMenu = false;
+
+		this.fenetre.getImageDeUn().setVisible(false);
+		this.fenetre.getImageDeDeux().setVisible(false);
 
 		this.fenetre.getTourLabel().setText("Tour: joueur " + j.getNum());
 		this.fenetre.nouveauJoueurCourant(j);

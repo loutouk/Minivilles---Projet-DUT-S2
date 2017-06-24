@@ -35,7 +35,6 @@ public class Serveur extends Thread {
 			}
 
 		} catch (IOException ioe) {
-			System.out.println("Server accept error: " + ioe);
 			this.interrupt();
 		}
 
@@ -57,6 +56,16 @@ public class Serveur extends Thread {
 		return this.ss != null && !this.ss.isClosed() && this.ss.isBound();
 	}
 
+
+	public void fermer() {
+		try {
+			for (int i = 0; i < this.nbClientsConnected; i++)
+				this.tabClient[i].fermer();
+
+			this.ss.close();
+		} catch (IOException ignored) {
+		}
+	}
 
 	public void handle(Metier metier, ServeurThread ID) {
 		for (int i = 0; i < this.nbClientsConnected; i++)
