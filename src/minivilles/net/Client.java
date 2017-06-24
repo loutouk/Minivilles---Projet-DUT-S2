@@ -6,6 +6,17 @@ import minivilles.metier.Metier;
 import java.io.IOException;
 import java.net.Socket;
 
+/**
+ * Client.java
+ * Chaque joueur possède son instance de Client pour communiquer avec le serveur
+ * @see Serveur.java
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
+ */
+
 public class Client {
 
 	private Socket socket;
