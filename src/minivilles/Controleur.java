@@ -489,6 +489,7 @@ public class Controleur {
 
 		if (a.length > 0 && a[0].equals("gui")) mode = a[0];
 		if (a.length > 1 && a[1].equals("net")) netMode = true;
+		if (a.length > 0 && a[0].equals("net")) netMode = true;
 
 		new Controleur(mode, false, netMode).lancer();
 	}
