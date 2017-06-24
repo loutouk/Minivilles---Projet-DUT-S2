@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * IHMGUI.java
  * Version GUI de l'IHM
- * @see IHM.java
+ * @see minivilles.ihm.IHM
  * @author Richard Blondel
  * @author Valentin Dulong
  * @author Maxime Malgorn

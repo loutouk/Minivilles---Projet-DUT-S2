@@ -9,7 +9,7 @@ import java.net.Socket;
 /**
  * Client.java
  * Chaque joueur possède son instance de Client pour communiquer avec le serveur
- * @see Serveur.java
+ * @see minivilles.net.Serveur
  * @author Richard Blondel
  * @author Valentin Dulong
  * @author Maxime Malgorn

@@ -48,6 +48,11 @@ public class Controleur {
 	public Controleur(String mode, boolean debugMode) {
 		this(mode, debugMode, false);
 	}
+	/**
+	 * @param mode CUI ou GUI
+	 * @param debugMode pour le mode d'évalutation
+	 * @param netMode pour le multijoueur
+	 */
 	public Controleur(String mode, boolean debugMode, boolean netMode) {
 		Controleur.metier = new Metier();
 
@@ -72,6 +77,11 @@ public class Controleur {
 		return Controleur.metier;
 	}
 
+	/**
+	 * Accesseur pour récupérer le joueur gagnant
+	 *
+	 * @return Le joueur gagnant
+	 */
 	public Joueur getGagnant() {
 		for (Joueur joueur : Controleur.metier.getJoueurs()) {
 			int nbMon = 0;
@@ -86,7 +96,9 @@ public class Controleur {
 		return null;
 	}
 
-
+	/**
+	 * Méthode appelée automatiquement dès le début du programme, gère les différents modes de jeu
+	 */
 	public void lancer() {
 		boolean quitter = false;
 		int choix = 1;
@@ -120,6 +132,10 @@ public class Controleur {
 	}
 
 
+	/**
+	 * Utilisée lors du mode multijoueur, cette méthode créé le serveur si le Client est l'hôte
+	 * Sinon, les autres Client se connecte sur son serveur
+	 */
 	private void initialiserReseau() {
 		boolean estServeur = ihm.choixEstServeur();
 		String hote = "localhost";
@@ -161,6 +177,9 @@ public class Controleur {
 		while (this.client == null);
 	}
 
+	/**
+	 * Sert à attendre que tous les joueurs soient connectés
+	 */
 	private void connexionReseau() {
 		// Si le mode réseau est actif et que le serveur est hébergé ici,
 		// on attends que tous les joueurs se connectent.
@@ -209,6 +228,9 @@ public class Controleur {
 	}
 
 
+	/**
+	 * Charge une partie depuis la classe Metier déjà sérialisée, ou bien génère un nouveau plateau
+	 */
 	private void initialiserPartie() {
 		// Si on est connecté à un serveur,
 		// ce dernier initialise la partie directement.
@@ -236,6 +258,9 @@ public class Controleur {
 		ihm.initialiserPlateau(metier.getPioche(), metier.getJoueurs().size());
 	}
 
+	/**
+	 * Gère le tour de plateau, joueur après joueur
+	 */
 	private void lancerPartie() {
 		do {
 			Joueur joueur = Controleur.metier.getJoueurCourant();
@@ -264,6 +289,11 @@ public class Controleur {
 		if (this.serveur != null) this.serveur.fermer();
 	}
 
+	/**
+	 * Gère les actions du joueur courant
+	 *
+	 * @param joueur le joueur courant
+	 */
 	private void jouerTour(Joueur joueur) {
 		// Effet du ParcDattractions : on peut rejouer un tour si le jet de dés est un double
 		boolean rejouer;
@@ -348,6 +378,12 @@ public class Controleur {
 			this.client.envoiMetier(Controleur.metier);
 	}
 
+	/**
+	 * Gère les actions du joueur courant
+	 *
+	 * @param joueur le joueur courant
+	 * @param choix saisie du joueur, acheter, construire ou passer
+	 */
 	private boolean achatBatiment(Joueur joueur, int choix) {
 		Carte carte;
 		boolean achatTermine = false;
@@ -406,6 +442,11 @@ public class Controleur {
 		return true;
 	}
 
+	/**
+	 * Lance un dé 6 au hasard
+	 *
+	 * @return le nombre du dé
+	 */
 	private int lancerDe() {
 		return 1 + (int) (Math.random() * 6);
 	}
@@ -430,10 +471,17 @@ public class Controleur {
 		this.monNumJoueur = numJoueur;
 	}
 
-
+	/**
+	 * Accesseur pour récupérer l'IHM
+	 *
+	 * @return L'IHM
+	 */
 	public static IHM getIhm() { return ihm; }
 
-
+	/**
+	 * Point d'entrée du programme, prend le mode d'affichage, et le réseau en paramètre
+	 * Usage : java Controleur [gui] [net]
+	 */
 	public static void main(String[] a) {
 		String mode = "console";
 		boolean netMode = false;

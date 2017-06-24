@@ -6,6 +6,7 @@ package minivilles.metier.cartes.monuments;
  * Cette classe définit la carte <i>Gare</i> ainsi que son effet.
  *
  * @see minivilles.metier.cartes.Carte
+ * @see minivilles.metier.cartes.monuments.Monument
  * @author Richard Blondel
  * @author Valentin Dulong
  * @author Maxime Malgorn

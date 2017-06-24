@@ -4,7 +4,7 @@ import minivilles.metier.Metier;
 import minivilles.metier.cartes.monuments.Monument;
 
 /**
- * @see Carte.java
+ * @see minivilles.metier.cartes.Carte
  * @author Richard Blondel
  * @author Valentin Dulong
  * @author Maxime Malgorn

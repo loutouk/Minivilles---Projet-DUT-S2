@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Metier.java
  * Classe métier du programme, c'est le moteur qui contient la boucle de jeu.
- * @see Controleur.java
+ * @see minivilles.Controleur
  * @author Richard Blondel
  * @author Valentin Dulong
  * @author Maxime Malgorn

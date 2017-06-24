@@ -3,7 +3,7 @@ package minivilles.metier.cartes;
 import minivilles.metier.Metier;
 
 /**
- * @see Carte.java
+ * @see minivilles.metier.cartes.Carte
  * @author Richard Blondel
  * @author Valentin Dulong
  * @author Maxime Malgorn

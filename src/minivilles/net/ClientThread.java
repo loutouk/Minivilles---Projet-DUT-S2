@@ -9,7 +9,7 @@ import java.net.Socket;
 
 /**
  * ClientThread.java
- * @see Client.java
+ * @see minivilles.net.Client
  * @author Richard Blondel
  * @author Valentin Dulong
  * @author Maxime Malgorn

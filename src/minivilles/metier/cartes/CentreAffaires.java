@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @see Carte.java
+ * @see minivilles.metier.cartes.Carte
  * @author Richard Blondel
  * @author Valentin Dulong
  * @author Maxime Malgorn
