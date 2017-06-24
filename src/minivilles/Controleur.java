@@ -14,6 +14,17 @@ import minivilles.utilitaire.Sauvegarde;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controleur.java
+ * Fait le lien entre la classe de gestion du jeu Metier et la classe d'affichage IHM, pattern MVC
+ * Prend en paramètre le mode de jeu : pas de paramètre pour la console, "gui" pour la GUI et "net" pour le multijoueur
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
+ */
+
 public class Controleur {
 
 	private static IHM ihm;
