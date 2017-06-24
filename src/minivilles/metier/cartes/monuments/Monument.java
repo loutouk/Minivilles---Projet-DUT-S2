@@ -4,6 +4,12 @@ import minivilles.metier.Metier;
 import minivilles.metier.cartes.Carte;
 
 /**
+ * Monument.java
+ * @author Richard Blondel
+ * @author Valentin Dulong
+ * @author Maxime Malgorn
+ * @author Louis Boursier
+ * @version 1.0
  * Classe <i>Monument</i> qui hérite de {@link minivilles.metier.cartes.Carte}.
  * <p>
  * Un monument possède toutes les caractéristiques d'une carte, il possède en
