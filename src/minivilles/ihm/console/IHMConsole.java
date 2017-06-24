@@ -12,7 +12,7 @@ import java.util.*;
 /**
  * IHMConsole.java
  * Version CUI de l'IHM
- * @see IHM.java
+ * @see minivilles.ihm.IHM
  * @author Richard Blondel
  * @author Valentin Dulong
  * @author Maxime Malgorn
